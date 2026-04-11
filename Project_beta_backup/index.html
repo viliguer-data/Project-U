@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project U · Beta 2.0 — Undecember Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=JetBrains+Mono&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:lang(ko), :lang(ja), :lang(zh) { font-family: 'Noto Sans KR', 'Noto Sans SC', 'JetBrains Mono', monospace; }
+</style>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#08080f;--bg2:#0e0e1a;--gold:#c9a84c;--gold2:#f0d080;--red:#c0392b;--red2:#e74c3c;--cyan:#00e5ff;--dim:#3a3a5c;--text:#a0a0c0;--light:#d0d0e8;--border:#1e1e3a}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(201,168,76,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(192,57,43,.06) 0%,transparent 50%),repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px);pointer-events:none;z-index:1000}
+.wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 6rem;position:relative;z-index:1}
+.hero{text-align:center;padding:4rem 0 3rem;border-bottom:1px solid var(--border)}
+.hero-badge{display:inline-block;font-size:10px;letter-spacing:.3em;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:.3rem 1rem;border-radius:2px;margin-bottom:2rem;text-transform:uppercase;background:rgba(201,168,76,.04)}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,3.8rem);font-weight:900;color:var(--gold2);line-height:1.1;text-shadow:0 0 40px rgba(201,168,76,.3),0 2px 0 rgba(0,0,0,.8);margin-bottom:.5rem;letter-spacing:.05em}
+.hero h1 span{color:var(--red2)}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(.85rem,2vw,1.1rem);color:var(--text);letter-spacing:.08em;margin-bottom:2.5rem}
+.lang-toggle{display:flex;justify-content:center;gap:0;margin-bottom:1.5rem}
+.lang-btn{padding:.3rem .9rem;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.1em;cursor:pointer;background:transparent;border:1px solid var(--dim);color:var(--dim);transition:all .1s;border-left:none}
+.lang-btn:first-child{border-radius:2px 0 0 2px;border-left:1px solid var(--dim)}
+.lang-btn:last-child{border-radius:0 2px 2px 0}
+.lang-btn.active{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.frases{display:flex;flex-direction:column;gap:1rem;max-width:680px;margin:0 auto}
+.frase{border-left:3px solid var(--gold);padding:.8rem 1.2rem;background:rgba(201,168,76,.03);font-size:12px;color:var(--light);line-height:1.7;font-style:italic}
+.frase span{color:var(--gold);font-style:normal;font-weight:600}
+.frase.red{border-left-color:var(--red2)}
+.frase.red span{color:var(--red2)}
+.section{margin-top:3rem}
+.sec-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.tracker-box{border:1px solid var(--border);background:var(--bg2);padding:1.5rem;border-radius:2px}
+.tracker-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.tracker-group{display:flex;flex-direction:column;gap:.4rem;flex:1;min-width:160px}
+.tracker-group label{font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}
+.tracker-select{background:var(--bg);border:1px solid var(--dim);color:var(--light);font-family:'Share Tech Mono',monospace;font-size:12px;padding:.5rem .8rem;border-radius:2px;cursor:pointer;transition:border-color .15s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;padding-right:2rem}
+.tracker-select:focus{outline:none;border-color:var(--gold)}
+.btn-analizar{width:100%;padding:.75rem;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Cinzel',serif;font-size:13px;letter-spacing:.15em;cursor:pointer;transition:all .15s;border-radius:2px;text-transform:uppercase}
+.btn-analizar:hover{background:rgba(201,168,76,.08);color:var(--gold2)}
+.resultado{margin-top:1.2rem;border:1px solid var(--border);padding:1.2rem;display:none;animation:fadeIn .2s forwards}
+.resultado.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.res-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.15em;color:var(--gold2);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.res-item{display:flex;gap:.6rem;margin-bottom:.5rem;font-size:11px;line-height:1.7}
+.res-icon{color:var(--gold);flex-shrink:0}
+.res-icon.red{color:var(--red2)}
+.res-icon.cyan{color:var(--cyan)}
+.rng-nota{margin-top:1rem;padding:.8rem;border-left:2px solid var(--red2);background:rgba(192,57,43,.05);font-size:11px;color:var(--text);line-height:1.7;font-style:italic}
+.rng-nota strong{color:var(--red2);font-style:normal}
+.philo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.philo-card{border:1px solid var(--border);padding:1.2rem;background:var(--bg2);transition:border-color .15s}
+.philo-card:hover{border-color:var(--dim)}
+.philo-card .icon{font-size:20px;margin-bottom:.6rem}
+.philo-card h3{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem}
+.philo-card p em{color:var(--light);font-style:normal}
+.footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center;font-size:10px;color:var(--dim);letter-spacing:.1em}
+.footer span{color:var(--gold)}
+
+/* Floating Neon Images */
+.neon-warrior-left {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  z-index: 10;
+  filter: drop-shadow(0 0 15px currentColor);
+  mix-blend-mode: screen;
+}
+
+.neon-warrior-right {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  z-index: 10;
+  filter: drop-shadow(0 0 15px currentColor);
+  mix-blend-mode: screen;
+}
+
+.top-brand{position:fixed;top:12px;left:12px;z-index:20000;background:rgba(8,8,15,.65);border:1px solid var(--border);backdrop-filter:blur(6px);padding:6px 10px;border-radius:2px}
+.top-brand-link{text-decoration:none;font-family:'Share Tech Mono',monospace;color:var(--gold);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+
+.about{margin-top:3rem;padding:1.4rem 1.2rem;border-left:3px solid var(--gold);border-top:1px solid var(--border);background:rgba(201,168,76,.03)}
+.about-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:.9rem}
+.about-text{font-size:11px;color:var(--text);line-height:1.8;max-width:720px;font-style:italic}
+
+@media(max-width:560px){.wrap{padding:1.5rem 1rem 5rem}.hero{padding:2.5rem 0 2rem}.tracker-row{flex-direction:column}.top-brand{top:8px;left:8px;padding:5px 8px}.about{margin-top:2.2rem;padding:1.2rem .9rem}}
+
+/* ── UNIQUE ITEMS ───────────────────────────────────────────── */
+.unique-card {
+  border: 1px solid rgba(201,168,76,.45);
+  background: linear-gradient(135deg, rgba(201,168,76,.04) 0%, rgba(8,8,15,0) 60%);
+  border-radius: 2px;
+  padding: 1rem 1.1rem;
+  margin-top: .8rem;
+  position: relative;
+  overflow: hidden;
+}
+.unique-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.6), transparent);
+}
+.unique-card-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .6rem;
+}
+.unique-badge {
+  font-size: 9px;
+  letter-spacing: .18em;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 2px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.unique-name {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold2);
+  letter-spacing: .05em;
+}
+.item-lore {
+  border-top: 1px solid rgba(201,168,76,.15);
+  margin-top: .7rem;
+  padding-top: .7rem;
+}
+.item-lore-flavor {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  font-style: italic;
+  color: rgba(201,168,76,.6);
+  line-height: 1.8;
+  margin-bottom: .65rem;
+  letter-spacing: .02em;
+}
+.item-lore-passive {
+  font-size: 11px;
+  color: var(--cyan);
+  line-height: 1.7;
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+}
+.item-lore-passive::before {
+  content: '◈';
+  flex-shrink: 0;
+  color: var(--cyan);
+  font-size: 10px;
+  margin-top: 2px;
+}
+.item-req {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-top: .55rem;
+}
+.item-req-pill {
+  font-size: 10px;
+  padding: 2px 9px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.item-req-pill.str { color: #e74c3c; border-color: rgba(231,76,60,.35); background: rgba(231,76,60,.07); }
+.item-req-pill.dex { color: #00ff41; border-color: rgba(0,255,65,.3);  background: rgba(0,255,65,.05); }
+.item-req-pill.int { color: #00e5ff; border-color: rgba(0,229,255,.3);  background: rgba(0,229,255,.05); }
+/* ── END UNIQUE ITEMS ────────────────────────────────────────── */
+
+/* ── COMPENDIUM TABS ─────────────────────────────────────────── */
+.comp-tabs{display:flex;gap:0;margin-bottom:1.2rem;border-bottom:1px solid var(--border)}
+.comp-tab{padding:.45rem 1.1rem;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim);transition:all .12s;margin-bottom:-1px}
+.comp-tab:hover{color:var(--text)}
+.comp-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.comp-tab.tab-armor.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+.comp-tab.tab-acc.active{color:var(--red2);border-bottom-color:var(--red2)}
+.comp-pane{display:none}
+.comp-pane.active{display:block}
+
+/* ── GEAR GRID ────────────────────────────────────────────────── */
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin-bottom:1rem}
+.gear-slot{border:1px solid var(--border);background:var(--bg2);padding:.8rem .9rem;border-radius:2px}
+.gear-slot-label{font-size:9px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;margin-bottom:.4rem}
+.gear-slot select{width:100%}
+
+/* dual ring slot */
+.gear-slot.dual{grid-column:span 2}
+@media(max-width:500px){.gear-slot.dual{grid-column:span 1}}
+
+/* ── WARDROBE TOGGLE ─────────────────────────────────────────── */
+.wardrobe-toggle{display:flex;align-items:center;gap:.5rem;margin-top:.6rem;cursor:pointer;user-select:none;font-size:10px;color:var(--dim);transition:color .1s}
+.wardrobe-toggle:hover{color:var(--text)}
+.wardrobe-toggle input[type=checkbox]{appearance:none;width:14px;height:14px;border:1px solid var(--dim);border-radius:2px;cursor:pointer;flex-shrink:0;transition:background .1s,border-color .1s;position:relative}
+.wardrobe-toggle input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold)}
+.wardrobe-toggle input[type=checkbox]:checked::after{content:'✓';position:absolute;top:-1px;left:1px;font-size:10px;color:var(--bg);font-weight:700}
+.wardrobe-toggle.stored{color:var(--gold)}
+
+/* ── WARDROBE SUMMARY ────────────────────────────────────────── */
+.wardrobe-summary{margin-top:1rem;padding:.7rem .9rem;border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.03);display:none}
+.wardrobe-summary.has-items{display:block}
+.ws-title{font-size:9px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem}
+.ws-buff{display:flex;align-items:baseline;gap:.5rem;font-size:10px;margin-bottom:.25rem;color:var(--text)}
+.ws-buff-val{color:var(--cyan)}
+.ws-buff-cond{color:var(--dim);font-style:italic}
+
+/* ── CONDITIONAL EFFECTS ─────────────────────────────────────── */
+.cond-active{font-size:10px;color:var(--cyan);margin-top:.35rem;padding:.3rem .5rem;border-left:2px solid var(--cyan);background:rgba(0,229,255,.04)}
+.cond-inactive{font-size:10px;color:var(--dim);margin-top:.35rem;padding:.3rem .5rem;border-left:2px solid var(--muted, #333);font-style:italic}
+/* ── END COMPENDIUM TABS ─────────────────────────────────────── */
+
+/* ── THEME TRANSITION ─────────────────────────────────────────── */
+body{transition:background-color 0.3s ease,color 0.3s ease}
+
+/* ── LIGHT MODE ───────────────────────────────────────────────── */
+body.light-mode{--bg:#f5f5f0;--bg2:#ffffff;--gold:#b8860b;--gold2:#daa520;--red:#c0392b;--red2:#e74c3c;--cyan:#008080;--dim:#8888aa;--text:#333333;--light:#2c2c2c;--border:#ddddcc;--faq-bg:#ffffff;--faq-border:#e0e0d0;--faq-hover:#f0f0e8}
+body.light-mode .hero-badge,body.light-mode .frase,body.light-mode .tracker-box,body.light-mode .philo-card{background:rgba(245,245,240,.85);border-color:#ddd}
+body.light-mode .faq-question{background:#f0f0e8;color:#333}
+body.light-mode .faq-answer{background:#fafaf5}
+body.light-mode .btn-analizar:hover{background:rgba(184,134,11,.08)}
+body.light-mode .tooltip-bombilla{background:rgba(255,255,255,.9);color:#b8860b;border:1px solid #ddd}
+
+/* ── THEME TOGGLE BUTTON ──────────────────────────────────────── */
+.theme-toggle{position:fixed;top:12px;right:12px;z-index:20001;background:rgba(8,8,15,.75);border:1px solid var(--border);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);transition:all 0.2s;font-size:22px}
+.theme-toggle:hover{transform:scale(1.05);border-color:var(--gold)}
+.tooltip-bombilla{position:fixed;top:60px;right:12px;background:rgba(0,0,0,.8);color:var(--gold);padding:6px 12px;border-radius:4px;font-size:11px;white-space:nowrap;z-index:20002;pointer-events:none;opacity:0;transition:opacity 0.2s}
+.theme-toggle:hover+.tooltip-bombilla{opacity:1}
+
+/* ── SHIELD SLOT ──────────────────────────────────────────────── */
+.shield-disabled{opacity:.35;pointer-events:none}
+.shield-msg{font-size:10px;color:var(--red2);margin-top:.3rem;display:none}
+
+/* ── FAQ ACORDEÓN ─────────────────────────────────────────────── */
+.faq-container{margin-top:2rem;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-question{width:100%;text-align:left;padding:.75rem 1rem;background:var(--bg2);color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.05em;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .1s}
+.faq-question:hover{background:var(--border)}
+.faq-question::after{content:'▸';color:var(--dim);transition:transform .2s}
+.faq-question.open::after{transform:rotate(90deg)}
+.faq-answer{display:none;padding:.75rem 1rem;font-size:11px;color:var(--text);line-height:1.8;background:var(--bg);border-top:1px solid var(--border)}
+.faq-answer em{color:var(--cyan);font-style:normal}
+.faq-answer strong{color:var(--gold)}
+
+/* ── BUILD SAVER ──────────────────────────────────────────────── */
+.build-toolbar{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin:2rem 0 1rem;padding:1rem;border:1px solid var(--border);background:var(--bg2);border-radius:4px}
+</style>
+</head>
+<body>
+  <!-- Floating Neon Warrior Images -->
+  <img src="warrior_left.webp" alt="Golden Champion" class="neon-warrior-left">
+  <img src="warrior_right.webp" alt="Mystic Warrior" class="neon-warrior-right">
+
+  <!-- Bombilla Theme Toggle -->
+  <div class="theme-toggle" id="themeToggle" title="Toggle theme">💡</div>
+  <div class="tooltip-bombilla" id="tooltipBombilla">Feeling the web is too dark? Turn the lights ON</div>
+  
+  <header class="top-brand">
+    <a href="#" class="top-brand-link">Undecember Tool</a>
+  </header>
+<div class="wrap">
+
+  <div class="hero">
+<div class="lang-toggle">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="fr">FR</button>
+      <button type="button" class="lang-btn" data-lang="ko">KO</button>
+      <button type="button" class="lang-btn" data-lang="zh">ZH</button>
+      <button type="button" class="lang-btn" data-lang="ru">RU</button>
+      <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn active" data-lang="es">ES</button>
+    </div>
+    <div class="hero-badge">Project U · Beta 2.0</div>
+    <h1>Undecember<br><span>Baby Steps</span></h1>
+    <div class="hero-sub">Guide to Progress</div>
+    
+        
+    <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--dim);letter-spacing:.08em;margin-bottom:2rem;font-style:italic">
+      "Enjoy the ride. It won't bite."
+    </div>
+    <div class="frases">
+      <div class="frase"><span>"</span><span data-i18n="frase1">I don't own the Truth — but <span>Knowledge + Organization = Power.</span></span><span>"</span></div>
+      <div class="frase red"><span>"</span><span data-i18n="frase2">Don't fear the RNG. It's not your friend, nor your enemy... <span>it only throws suggestions.</span></span><span>"</span></div>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+      <button type="button" id="prev-track" class="lang-btn" style="min-width:40px;" title="Previous Track">◀</button>
+      <button type="button" id="music-btn" class="lang-btn" style="min-width:150px;">▶ PLAY_AMBIENT.sh</button>
+      <button type="button" id="next-track" class="lang-btn" style="min-width:40px;" title="Next Track">▶</button>
+      <div style="display:flex;align-items:center;gap:.4rem;border:1px solid var(--dim);border-radius:2px;padding:.15rem .4rem;font-family:'Share Tech Mono',monospace;font-size:11px;">
+        <button type="button" id="vol-down" style="background:transparent;border:none;color:var(--cyan);cursor:pointer;font-size:14px;padding:0 .3rem;line-height:1;" title="Volume down">−</button>
+        <span id="vol-display" style="color:var(--cyan);min-width:36px;text-align:center;letter-spacing:.05em;">30%</span>
+        <button type="button" id="vol-up" style="background:transparent;border:none;color:var(--cyan);cursor:pointer;font-size:14px;padding:0 .3rem;line-height:1;" title="Volume up">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="tracker.title">// tracker · ¿dónde estás ahora?</div>
+    <div class="tracker-box">
+      <div class="tracker-row">
+        <div class="tracker-group">
+          <label data-i18n="lbl.act">Act actual</label>
+          <select class="tracker-select" id="sel-acto">
+            <option value="" data-i18n-opt="sel">— Seleccioná —</option>
+            <optgroup id="og1" data-i18n-optgroup="og1" label="Episodio 1 — Tutorial (Act 1–5)">
+              <option value="1" data-i18n-opt="act.1">Act 1</option><option value="2" data-i18n-opt="act.2">Act 2</option><option value="3" data-i18n-opt="act.3">Act 3</option><option value="4" data-i18n-opt="act.4">Act 4</option><option value="5" data-i18n-opt="act.5">Act 5</option>
+            </optgroup>
+            <optgroup id="og2" data-i18n-optgroup="og2" label="Episodio 2 — El juego empieza (Act 6–10)">
+              <option value="6" data-i18n-opt="act.6">Act 6</option><option value="7" data-i18n-opt="act.7">Act 7</option><option value="8" data-i18n-opt="act.8">Act 8</option><option value="9" data-i18n-opt="act.9">Act 9</option><option value="10" data-i18n-opt="act.10">Act 10</option>
+            </optgroup>
+            <optgroup id="og3" data-i18n-optgroup="og3" label="Episodio 3 — Endgame (Act 11–13)">
+              <option value="11" data-i18n-opt="act.11">Act 11</option><option value="12" data-i18n-opt="act.12">Act 12</option><option value="13" data-i18n-opt="act.13">Act 13</option>
+            </optgroup>
+            <optgroup id="og4" data-i18n-optgroup="og4" label="Epílogo — Todo desbloqueado">
+              <option value="epilogo" data-i18n-opt="epilogo">Epílogo</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="tracker-group">
+          <label data-i18n="lbl.build">Tipo de build</label>
+          <select class="tracker-select" id="sel-build">
+            <option value="" data-i18n-opt="sel">— Seleccioná —</option>
+            <option value="fisico" data-i18n-opt="b.fisico">Físico (Guerrero)</option>
+            <option value="veneno" data-i18n-opt="b.veneno">Veneno (Poison)</option>
+            <option value="elemental" data-i18n-opt="b.elemental">Daño Elemental</option>
+            <option value="crit" data-i18n-opt="b.crit">Crítico</option>
+            <option value="invocador" data-i18n-opt="b.inv">Invocador</option>
+            <option value="nolosé" data-i18n-opt="b.noidea">No sé todavía</option>
+          </select>
+        </div>
+        <div class="tracker-group">
+          <label data-i18n="lbl.rng">Tu situación con el RNG</label>
+          <select class="tracker-select" id="sel-rng">
+            <option value="" data-i18n-opt="sel">— Seleccioná —</option>
+            <option value="bien" data-i18n-opt="r.bien">Me está yendo bien</option>
+            <option value="mal" data-i18n-opt="r.mal">Me cae lo que no necesito</option>
+            <option value="confundido" data-i18n-opt="r.conf">No sé qué hacer con lo que tengo</option>
+          </select>
+        </div>
+        <div class="tracker-group">
+          <label data-i18n="lbl.sit">Problema actual</label>
+          <select class="tracker-select" id="sel-situacion">
+            <option value="" data-i18n-opt="sit.none">— Sin problema —</option>
+            <option value="low_dmg" data-i18n-opt="sit.dmg">Bajo daño</option>
+            <option value="glass" data-i18n-opt="sit.glass">Muero rápido</option>
+            <option value="stuck" data-i18n-opt="sit.stuck">Progreso lento</option>
+            <option value="lucky" data-i18n-opt="sit.lucky">Muchos drops buenos</option>
+          </select>
+        </div>
+      </div>
+      <button type="button" id="btn-analizar" class="btn-analizar" data-i18n="btn.analyze">⟶ Analizar situación</button>
+      <div class="resultado" id="resultado"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="philo.title">// filosofía · el manual de adaptabilidad</div>
+    <div class="philo-grid">
+      <div class="philo-card"><div class="icon">⚔️</div><h3 data-i18n="p1.h">Conocimiento es poder</h3><p data-i18n="p1.p">Entender cómo funciona el sistema de runas, las resistencias y el scaling de daño te da <em>ventaja real</em>. No necesitás un build copiado si entendés los fundamentos.</p></div>
+      <div class="philo-card"><div class="icon">🎲</div><h3 data-i18n="p2.h">El RNG es neutral</h3><p data-i18n="p2.p">No te persigue ni te favorece. Te da opciones y <em>vos decidís qué hacer con ellas</em>. El jugador adaptable siempre tiene más caminos que el que fuerza.</p></div>
+      <div class="philo-card"><div class="icon">🗃️</div><h3 data-i18n="p3.h">El Baúl es tu aliado</h3><p data-i18n="p3.p">Lo que hoy no te sirve, <em>es el poder del mañana</em>. Guardá todo. Otro personaje, otro momento, otra build — todo tiene su momento.</p></div>
+      <div class="philo-card"><div class="icon">🔄</div><h3 data-i18n="p4.h">Adaptate, no fuerces</h3><p data-i18n="p4.p">Si el loot te empuja hacia otra dirección, <em>escuchalo</em>. Pivotar no es rendirse — es inteligencia táctica. El RNG muchas veces muestra un camino mejor.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="kl.title">// knowledge.learned — lo que nadie te cuenta</div>
+    <div class="philo-grid">
+      <div class="philo-card"><div class="icon">🌐</div><h3 data-i18n="k1.h">El juego no está vacío</h3><p data-i18n="k1.p"><em>"Don't be afraid if you don't see many players around. The game may feel empty at first — but its true nature lives in the endgame. That's where everyone is."</em></p></div>
+      <div class="philo-card"><div class="icon">🔁</div><h3 data-i18n="k2.h">Tu primer personaje es tu maestro</h3><p data-i18n="k2.p">No es tu main — es tu escuela. Cada error, cada pivot de build, cada ítem guardado en el baúl es una lección. <em>La satisfacción de llegar al endgame es real.</em></p></div>
+      <div class="philo-card"><div class="icon">🗺️</div><h3 data-i18n="k3.h">Las transiciones son el juego</h3><p data-i18n="k3.p">Whirlwind → Toxic Flame → Icy Arrow. Cada build fue una respuesta a lo que el juego ofrecía. <em>Adaptarse no es rendirse — es jugar bien.</em></p></div>
+      <div class="philo-card"><div class="icon">💡</div><h3 data-i18n="k4.h">El drop malo no existe</h3><p data-i18n="k4.p">Lo que hoy no usás, <em>es el poder de otro personaje mañana.</em> El baúl no es desorden — es planificación a largo plazo.</p></div>
+      <div class="philo-card"><div class="icon">🏆</div><h3 data-i18n="k5.h">El completionista es recompensado</h3><p data-i18n="k5.p">Explorar cada rincón, completar cada mapa al 100% y cumplir misiones secundarias <em>no es tiempo perdido</em> — el juego lo premia con logros, recursos y contenido exclusivo del Epílogo.</p></div>
+      <div class="philo-card"><div class="icon">📦</div><h3 data-i18n="k6.h">Hasta las cajas importan</h3><p data-i18n="k6.p">Romper barriles, cajas y objetos del escenario parece insignificante — pero <em>cuenta para logros reales.</em> En Undecember cada acción tiene peso. Nunca ignorés el entorno.</p></div>
+      <div class="philo-card"><div class="icon">🧩</div><h3 data-i18n="k7.h">No necesitás un alt enseguida</h3><p data-i18n="k7.p">El juego <em>se adapta solo al progreso</em>. Las Jewells aparecen en el Act 6, las cartas del Caos recién al final del Act 13. No hay necesidad de crear una mula desde el inicio — aprendé primero qué guardar, qué vender y qué romper.</p></div>
+      <div class="philo-card"><div class="icon">💰</div><h3 data-i18n="k8.h">¿Es P2W? La respuesta honesta</h3><p data-i18n="k8.p">En mi experiencia: <em>no</em>. Pero la organización sí importa. Saber gestionar el espacio del banco, decidir qué pasarle a otros personajes y qué descartar <em>vale más que cualquier item comprado</em>.</p></div>
+      <div class="philo-card"><div class="icon">📉</div><h3 data-i18n="k9.h">Las resistencias se diluyen al avanzar</h3><p data-i18n="k9.p">El 75% que tenías en el Act 3 <em>puede no alcanzar en el Act 7</em>. A medida que avanzás de episodio, los enemigos escalan y las resistencias se "caen" relativamente. Revisalas cada vez que cambiás de episodio — no son "set and forget".</p></div>
+      <div class="philo-card"><div class="icon">🔑</div><h3 data-i18n="k10.h">Algunos items son Game Changers</h3><p data-i18n="k10.p">No todos los items son una mejora incremental. Algunos cambian el rumbo completo — <em>un antes y un después</em>. No siempre los reconocés al equiparlos, pero lo notás cuando el juego empieza a fluir diferente. Guardá todo hasta estar seguro.</p></div>
+      <div class="philo-card"><div class="icon">⚔️</div><h3 data-i18n="k11.h">Los bosses como test de build</h3><p data-i18n="k11.p">Hay bosses que actúan como un checkpoint natural — sin spoilear cuáles. Si no podés con uno, el juego no te está castigando: <em>te está mostrando algo sobre tu build</em>. No es necesariamente que estés mal, sino que hay algo por ajustar antes de seguir.</p></div>
+      <div class="philo-card"><div class="icon">🔄</div><h3 data-i18n="k12.h">Cambio forzado vs. Ganancias</h3><p data-i18n="k12.p">A veces el juego te obliga a perder algo — puntos del Zodiaco, stats, runas o equipo — para desbloquear un progreso mayor. <em>No es un castigo, es el sistema adaptándose.</em> Aceptar ese cambio forzado es lo que separa al jugador que avanza del que se queda trabado.</p></div>
+    </div>
+  </div>
+ <section class="card" style="margin-top: 40px; border-left: 2px solid var(--gold); padding: 25px;">
+  <h2 class="cinzel" style="font-size: 1.1rem; margin-bottom: 25px; color: var(--gold); letter-spacing: 2px;">
+    <span class="lang-es">// MI CAMINO: EVOLUCIÓN POST-64</span>
+    <span class="lang-en">// MY PATH: POST-64 EVOLUTION</span>
+    <span class="lang-ru">// МОЙ ПУТЬ: ЭВОЛЮЦИЯ ПОСЛЕ-64</span>
+    <span class="lang-pt">// MEU CAMINHO: EVOLUÇÃO PÓS-64</span>
+  </h2>
+
+  <div class="timeline">
+    <div class="timeline-item" style="margin-bottom: 30px; padding-left: 20px; border-left: 1px solid var(--dim);">
+      <div style="color: var(--cyan); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Cinzel';">PHASE 01: WHIRLWIND</div>
+      <p style="line-height: 1.6; font-size: 0.9rem; opacity: 0.8;">
+        <span class="lang-es">Buscaba críticos amarillos entre los blancos. Muy satisfactorio, pero las resistencias me frenaron en el Act 6. <span style="color:var(--cyan)">Primera lección: el juego te avisa cuando un build llegó a su techo.</span></span>
+        <span class="lang-en">Chasing yellow crits among whites. Visually satisfying, but resistances stopped me in Act 6. <span style="color:var(--cyan)">First lesson: the game tells you when a build has hit its ceiling.</span></span>
+        <span class="lang-ru">Охотился на жёлтые криты среди белых. Визуально удовлетворительно, но сопротивления остановили меня в Акте 6. <span style="color:var(--cyan)">Первый урок: игра подсказывает, когда билд достиг своего потолка.</span></span>
+        <span class="lang-pt">Perseguia críticos amarelos entre os brancos. Visualmente satisfatório, mas resistências me pararam no Ato 6. <span style="color:var(--cyan)">Primeira lição: o jogo te avisa quando um build atinge seu limite.</span></span>
+      </p>
+    </div>
+
+    <div class="timeline-item" style="margin-bottom: 30px; padding-left: 20px; border-left: 1px solid var(--red);">
+      <div style="color: var(--red2); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Cinzel';">PHASE 02: TOXIC FLAME</div>
+      <p style="line-height: 1.6; font-size: 0.9rem; opacity: 0.8;">
+        <span class="lang-es">Transición al daño fijo (<span style="color:var(--red2)">Max-Min DMG</span>). Estabilidad pura para superar el pico de dificultad. Cada cambio de build significó guardar items distintos — el baúl empezó a crecer con propósito.</span>
+        <span class="lang-en">Transition to fixed damage (<span style="color:var(--red2)">Max-Min DMG</span>). Pure stability to overcome the difficulty spike. Each build change meant saving different items — the chest started growing with purpose.</span>
+        <span class="lang-ru">Переход на фиксированный урон (<span style="color:var(--red2)">Max-Min DMG</span>). Чистая стабильность для преодоления spike сложности. Каждый поворот билда означал сохранение других предметов — сундук начал расти с целью.</span>
+        <span class="lang-pt">Transição para dano fixo (<span style="color:var(--red2)">Max-Min DMG</span>). Pura estabilidade para superar o pico de dificuldade. Cada mudança de build significou guardar itens diferentes — o baú começou a crescer com propósito.</span>
+      </p>
+    </div>
+
+    <div class="timeline-item" style="margin-bottom: 30px; padding-left: 20px; border-left: 1px solid var(--gold);">
+      <div style="color: var(--gold); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Cinzel';">PHASE 03: ICY ARROW</div>
+      <p style="line-height: 1.6; font-size: 0.9rem; opacity: 0.8;">
+        <span class="lang-es">La meta: <span style="color:var(--gold2); font-weight:bold; font-size:1.1rem; text-shadow: 0 0 8px rgba(201,168,76,0.5);">AMARILLOS ENORMES</span>. Velocidad y críticos masivos. Recompensa a la organización.</span>
+        <span class="lang-en">The goal: <span style="color:var(--gold2); font-weight:bold; font-size:1.1rem; text-shadow: 0 0 8px rgba(201,168,76,0.5);">MASSIVE YELLOWS</span>. Speed and massive crits. Reward for organization.</span>
+        <span class="lang-ru">Цель: <span style="color:var(--gold2); font-weight:bold; font-size:1.1rem; text-shadow: 0 0 8px rgba(201,168,76,0.5);">ОГРОМНЫЕ ЖЁЛТЫЕ</span>. Скорость и массивные криты. Награда за организацию.</span>
+        <span class="lang-pt">O objetivo: <span style="color:var(--gold2); font-weight:bold; font-size:1.1rem; text-shadow: 0 0 8px rgba(201,168,76,0.5);">AMARELOS MASSIVOS</span>. Velocidade e críticos imensos. Recompensa pela organização.</span>
+      </p>
+    </div>
+
+    <div class="timeline-item" style="padding-left: 20px; border-left: 1px solid var(--cyan); background: rgba(0,229,255,.03); padding: 15px 20px; border-radius: 2px;">
+      <div style="color: var(--cyan); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Cinzel';">// ZODIAC RESET · FREE WINDOW</div>
+      <p style="line-height: 1.7; font-size: 0.85rem; opacity: 0.9;">
+        <span class="lang-es">El juego permite resetear el Zodiaco <span style="color:var(--cyan)">Gratis hasta antes de matar el jefe final del Act 10</span>. Esto no es solo una ventaja — es una invitación a probar builds diferentes sin miedo. Cada prueba genera drops distintos, cada drop va al baúl, y el baúl crece. <span style="color:var(--gold)">Experimentar antes del Act 10 no es tiempo perdido — es inversión en el inventario.</span></span>
+        <span class="lang-en">The game allows free Zodiac resets <span style="color:var(--cyan)">free until Act 10 final boss</span>. This isn't just an advantage — it's an invitation to try different builds without fear. Each attempt generates different drops, each drop goes to the chest, and the chest grows. <span style="color:var(--gold)">Experimenting before Act 10 is not wasted time — it's an investment in your inventory.</span></span>
+        <span class="lang-ru">Игра позволяет сбросить Зодиак <span style="color:var(--cyan)">Бесплатно до убийства финального босса Акта 10</span>. Это не просто преимущество — это приглашение пробовать разные билды без страха. Каждая попытка генерирует разные дропы, каждый дроп идёт в сундук, и сундук растёт. <span style="color:var(--gold)">Экспериментировать перед Актом 10 — это не потраченное время — это инвестиция в инвентарь.</span></span>
+        <span class="lang-pt">O jogo permite resetar o Zodíaco <span style="color:var(--cyan)">Gratuitamente até o chefe final do Ato 10</span>. Isso não é apenas uma vantagem — é um convite para experimentar diferentes builds sem medo. Cada tentativa gera drops diferentes, cada drop vai para o baú, e o baú cresce. <span style="color:var(--gold)">Experimentar antes do Ato 10 não é tempo perdido — é um investimento no seu inventário.</span></span>
+      </p>
+    </div>
+  </div>
+</section>
+
+  <!-- EARLY GAME TIPS -->
+ <div style="grid-column:1/-1;padding:1rem 1.2rem;border-left:3px solid var(--dim);font-size:11px;font-style:italic;color:var(--dim)" data-i18n="endgame.secret">
+  El endgame tiene sus propios secretos — esos los descubrís vos.
+ </div>
+  <div class="section">
+    <div class="sec-title" data-i18n="early.title">// early.game.tips — cada acción suma</div>
+    <div style="font-size:11px;color:var(--dim);margin-bottom:1.2rem;font-style:italic" data-i18n="early.intro">
+      "No es un juego difícil, pero hay mucho por hacer. Cada acción pequeña construye un personaje enorme."
+    </div>
+    <div class="philo-grid">
+
+      <div class="philo-card">
+        <div class="icon">📖</div>
+        <h3 data-i18n="early.comp.h">El Compendio trabaja para vos</h3>
+        <p data-i18n="early.comp.p">Una vez desbloqueado (Act 1 o 2), prestá atención a las runas que elegís. <em>Evitá repetirlas al principio</em> — concentrate en conseguir runas nuevas para sumar puntos y obtener mejoras permanentes. ¡Cada punto suma! Lo mismo aplica para los items Únicos: guardalos para el buff pasivo.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">⚗️</div>
+        <h3 data-i18n="early.alch.h">La mesa de alquimia nunca descansa</h3>
+        <p data-i18n="early.alch.p">Empezá a craftear temprano. No dejes la mesa de alquimia quieta — subir el nivel de Maestría es la <em>única forma</em> de desbloquear Pociones Únicas y crafteo avanzado más adelante. La eficiencia es la clave.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">💛</div>
+        <h3 data-i18n="early.mys.h">Gastá el oro en Misteriosos</h3>
+        <p data-i18n="early.mys.p">Entre el Mid y Late Game, mientras el crafteo avanzado todavía no es del todo viable, gastar el oro ahorrado en <em>Objetos Misteriosos</em> es una gran opción. Es la mejor forma de buscar bases de alto nivel o equipo decente.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">🏆</div>
+        <h3 data-i18n="early.ach.h">Todo cuenta como logro</h3>
+        <p data-i18n="early.ach.p">Agregar amigos, unirse a una guild, completar tareas diarias — <em>cada acción suma puntos de progreso invisible</em>. Los buffs diarios y recompensas de guild son victorias pasivas que muchos ignoran.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">🌀</div>
+        <h3 data-i18n="early.season.h">Temporada > Estándar (mi opinión)</h3>
+        <p data-i18n="early.season.p">Si venís de juegos como PoE, ya sabés cómo funciona: el personaje de Temporada termina en Estándar al final del ciclo. Pero mientras dura, tiene <em>mayor drop de oro, más esencias de alquimia y mejores chances de Únicos</em>. Mi recomendación personal: arrancá en Temporada.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">💀</div>
+        <h3 data-i18n="early.hard.h">Hardcore vs Normal — no es lo mismo</h3>
+        <p data-i18n="early.hard.p">En Hardcore, si tu personaje muere <em>demasiadas veces sin ser cuidadoso</em>, las consecuencias son permanentes. Normal te da margen para aprender sin ese peso. Para un jugador nuevo: <em>empezá en Normal</em>, aprendé el juego, y cuando te sientas seguro considerá el desafío Hardcore.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <section id="about" class="about">
+    <div class="about-title" data-i18n="about.title">About</div>
+    <p class="about-text" data-i18n="about.text">
+      This web-app has part of my thoughts, moving into a global vision. I'm not telling how to play; instead of it, I'm telling my story or my way through the game.
+    </p>
+  </section>
+
+
+  <!-- COMPENDIUM MATRIX -->
+  <div class="section" style="margin-top:3rem">
+    <div class="sec-title">// compendium.matrix · build & wardrobe</div>
+    <div class="tracker-box">
+
+      <!-- TABS -->
+      <div class="comp-tabs">
+        <button class="comp-tab active"    onclick="compTab('armas',this)">⚔ Armas</button>
+        <button class="comp-tab tab-armor" onclick="compTab('armaduras',this)">🛡 Armaduras</button>
+        <button class="comp-tab tab-acc"   onclick="compTab('accesorios',this)">💍 Accesorios</button>
+      </div>
+
+      <!-- TAB: ARMAS -->
+      <div class="comp-pane active" id="pane-armas">
+        <div class="tracker-row">
+          <div class="tracker-group">
+            <label style="font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase">Mano Principal · Tipo</label>
+            <select class="tracker-select" id="wm-type1" onchange="wmPopulateNames(1)">
+              <option value="">— Tipo de arma —</option>
+            </select>
+          </div>
+          <div class="tracker-group">
+            <label style="font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase">Mano Principal · Nombre</label>
+            <select class="tracker-select" id="wm-name1">
+              <option value="">— Seleccioná tipo primero —</option>
+            </select>
+          </div>
+          <div class="tracker-group">
+            <label style="font-size:10px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase">Mano Secundaria · Tipo</label>
+            <select class="tracker-select" id="wm-type2" onchange="wmPopulateNames(2)" style="border-color:rgba(0,229,255,.25)">
+              <option value="">— Tipo de arma —</option>
+              <option value="__none__">Sin mano secundaria</option>
+            </select>
+          </div>
+          <div class="tracker-group">
+            <label style="font-size:10px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase">Mano Secundaria · Nombre</label>
+            <select class="tracker-select" id="wm-name2" style="border-color:rgba(0,229,255,.25)">
+              <option value="">— Seleccioná tipo primero —</option>
+            </select>
+          </div>
+          <div class="tracker-group" id="shield-group">
+            <label style="font-size:10px;letter-spacing:.15em;color:var(--red2);text-transform:uppercase">🛡️ Escudo</label>
+            <select class="tracker-select" id="wm-shield" onchange="wmValidate()">
+              <option value="">— Ninguno —</option>
+              <option value="Escudo Ligero">Escudo Ligero</option>
+              <option value="Escudo Pesado">Escudo Pesado</option>
+              <option value="Escudo de Torres">Escudo de Torres</option>
+            </select>
+            <div class="shield-msg" id="shield-msg">⚠ No compatible con armas de dos manos</div>
+          </div>
+        </div>
+        <button type="button" class="btn-analizar" onclick="wmValidate()" style="margin-top:.5rem">
+          ⟶ Validar Combinacion
+        </button>
+        <div id="wm-lore" style="display:none;margin-top:1rem"></div>
+      </div>
+
+      <!-- TAB: ARMADURAS -->
+      <div class="comp-pane" id="pane-armaduras">
+        <div class="gear-grid" id="grid-armaduras"></div>
+        
+        <!-- Stats Tracker for Conditionals -->
+        <div class="tracker-row" id="stats-tracker" style="margin-top:1rem; padding:1rem; background:var(--bg2); border:1px solid var(--border); border-radius:2px;">
+          <div class="tracker-group">
+            <label style="font-size:9px; letter-spacing:.15em; color:var(--red2);">STR</label>
+            <input type="range" id="stat-str" min="0" max="500" value="100" style="width:100%;">
+            <span id="val-str" style="font-size:11px; color:var(--red2);">100</span>
+          </div>
+          <div class="tracker-group">
+            <label style="font-size:9px; letter-spacing:.15em; color:var(--cyan);">DEX</label>
+            <input type="range" id="stat-dex" min="0" max="500" value="100" style="width:100%;">
+            <span id="val-dex" style="font-size:11px; color:var(--cyan);">100</span>
+          </div>
+          <div class="tracker-group">
+            <label style="font-size:9px; letter-spacing:.15em; color:var(--gold);">INT</label>
+            <input type="range" id="stat-int" min="0" max="500" value="100" style="width:100%;">
+            <span id="val-int" style="font-size:11px; color:var(--gold);">100</span>
+          </div>
+          <div class="tracker-group">
+            <label style="font-size:9px; letter-spacing:.15em; color:var(--dim);">HP Full</label>
+            <input type="checkbox" id="stat-hpfull">
+            <span id="val-hpfull" style="font-size:11px; color:var(--dim);">No</span>
+          </div>
+        </div>
+        
+        <div class="wardrobe-summary" id="ws-armor">
+          <div class="ws-title">// bufos de armario activos</div>
+          <div id="ws-armor-body"></div>
+        </div>
+      </div>
+
+      <!-- TAB: ACCESORIOS -->
+      <div class="comp-pane" id="pane-accesorios">
+        <div class="gear-grid" id="grid-accesorios"></div>
+        
+        <!-- Stats Tracker for Conditionals (shared) - already in armaduras, hide duplicate -->
+        <div id="stats-tracker-acc" style="display:none;"></div>
+        
+        <div class="wardrobe-summary" id="ws-acc">
+          <div class="ws-title">// bufos de armario activos</div>
+          <div id="ws-acc-body"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WM RESULT PANEL -->
+  <div id="wm-result" style="display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);width:min(680px,92vw);background:rgba(8,8,15,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.4rem;z-index:9000;font-size:11px;box-shadow:0 0 40px rgba(0,0,0,.7);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem;border-bottom:1px solid var(--border);padding-bottom:.6rem">
+      <span style="font-family:Cinzel,serif;font-size:11px;letter-spacing:.18em;color:var(--gold);">// WEAPON MATRIX · RESULTADO</span>
+      <button onclick="document.getElementById('wm-result').style.display='none'" style="background:transparent;border:none;color:var(--dim);cursor:pointer;font-size:18px;line-height:1;padding:0 .3rem">✕</button>
+    </div>
+    <div id="wm-result-body"></div>
+  </div>
+
+  <!-- BUILD TOOLBAR -->
+  <div class="build-toolbar">
+    <button type="button" class="lang-btn" id="save-build-btn" style="background:var(--gold);color:var(--bg);border-color:var(--gold);"><span data-i18n="toolbar.save">💾 Guardar build</span></button>
+    <select id="builds-dropdown" class="tracker-select" style="min-width:160px;"><option value="" data-i18n-opt="toolbar.load.ph">— Cargar build —</option></select>
+    <button type="button" class="lang-btn" id="load-build-btn"><span data-i18n="toolbar.load">📂 Cargar</span></button>
+    <select id="delete-build-select" class="tracker-select" style="min-width:160px;"><option value="" data-i18n-opt="toolbar.del.ph">— Eliminar build —</option></select>
+    <button type="button" class="lang-btn" id="delete-build-btn" style="border-color:var(--red2);color:var(--red2);"><span data-i18n="toolbar.del">🗑️ Eliminar</span></button>
+    <button type="button" class="lang-btn" id="export-build-btn" style="border-color:var(--cyan);color:var(--cyan);"><span data-i18n="toolbar.export">📋 Exportar</span></button>
+    <button type="button" class="lang-btn" id="reset-all-btn" style="border-color:var(--red);color:var(--red);"><span data-i18n="toolbar.reset">⟳ Resetear</span></button>
+  </div>
+
+  <!-- FAQ SECTION -->
+  <div class="section">
+    <div class="sec-title" data-i18n="faq.title">// faq · preguntas frecuentes</div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q1">¿Por qué mis bufos cambian según mis stats base?</button>
+        <div class="faq-answer" data-i18n="faq.a1">Project U no es una base de datos estática. Usa <strong>Condicionales de Atributo Comparado</strong>. Si tu Energía supera a tu Fuerza, tu Barrera escala un 10% extra. Las stats no existen en el vacío — el portal refleja la realidad del juego.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q2">¿Por qué no veo ítems comunes o raros?</button>
+        <div class="faq-answer" data-i18n="faq.a2">Project U está diseñado para el <strong>Theorycrafting de alto nivel</strong>. Los ítems <em>Únicos</em> son los que definen una build. Los ítems genéricos se agregarán en futuras actualizaciones del Compendio.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q3">¿El bufo del Baúl se suma al del ítem equipado?</button>
+        <div class="faq-answer" data-i18n="faq.a3">Sí. El sistema detecta si el ítem está <strong>Guardado en el Baúl (✦)</strong> y activa el beneficio pasivo de colección, independientemente de lo que tengas equipado en el slot activo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q4">¿Puedo guardar más de un ejemplar del mismo ítem Único?</button>
+        <div class="faq-answer" data-i18n="faq.a4">No. Project U sigue la regla de <strong>Ejemplar Único</strong>. El Compendio registra la obtención del objeto una sola vez. Una vez que un ítem está en Gris, su beneficio de colección queda permanente en tu Wardrobe.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q5">¿Por qué el Escudo no está en la pestaña de Armaduras?</button>
+        <div class="faq-answer" data-i18n="faq.a5">En Project U seguimos la lógica de combate real: el <strong>Escudo es una pieza de mano secundaria</strong>. Esto permite validar correctamente si tu build es compatible con armas de dos manos o si preferís la defensa adicional del escudo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q6">¿Cómo me ayuda Project U a decidir entre dos ítems únicos?</button>
+        <div class="faq-answer" data-i18n="faq.a6">Gracias al sistema de <strong>Condicionales de Atributo Comparado</strong>, no solo verás números. El portal te advertirá si un cambio de equipo rompe una sinergia de stats. La decisión final es tuya, pero los datos estarán de tu lado.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Project U</span> · Beta Build 2.0 · Undecember Companion<br>
+    <span>Created by Glitch Prophet</span><br><br>
+
+    <span style="color:var(--gold);">⚠️ DISCLAIMER ⚠️</span><br>
+    <span style="font-size:9px;line-height:1.6;">
+      This is an unofficial fan website. Project U is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by LINE GAMES Corporation.<br>
+      All game content, trademarks, logos, and materials related to Undecember are property of LINE GAMES Corporation.<br>
+      This site is for informational and entertainment purposes only. No copyright infringement intended.
+    </span><br><br>
+
+    <span style="color:var(--dim);font-size:9px;">
+      "Play what you get, master what you play"
+    </span>
+  </div>
+
+</div>
+<script>
+const T_raw = {
+  es:{
+    'hero.sub':'Para Principiantes — Sin Ofender',
+    'frase1':'No soy dueño de la Verdad — pero <span>Conocimiento + Organización = Poder.</span>',
+    'frase2':'No le temas al RNG. No es tu amigo, ni tu enemigo... <span>solo te tira sugerencias.</span>',
+    'tracker.title':'// tracker · ¿dónde estás ahora?',
+    'lbl.act':'Act actual','lbl.build':'Tipo de build','lbl.rng':'Tu situación con el RNG',
+    'btn.analyze':'⟶ Analizar situación',
+    'philo.title':'// filosofía · el manual de adaptabilidad',
+    'kl.title':'// knowledge.learned — lo que nadie te cuenta',
+    'p1.h':'Conocimiento es poder','p1.p':'Entender cómo funciona el sistema de runas, las resistencias y el scaling de daño te da <em>ventaja real</em>. No necesitás un build copiado si entendés los fundamentos.',
+    'p2.h':'El RNG es neutral','p2.p':'No te persigue ni te favorece. Te da opciones y <em>vos decidís qué hacer con ellas</em>. El jugador adaptable siempre tiene más caminos que el que fuerza.',
+    'p3.h':'El Baúl es tu aliado','p3.p':'Lo que hoy no te sirve, <em>es el poder del mañana</em>. Guardá todo. Otro personaje, otro momento, otra build — todo tiene su momento.',
+    'p4.h':'Adaptate, no fuerces','p4.p':'Si el loot te empuja hacia otra dirección, <em>escuchalo</em>. Pivotar no es rendirse — es inteligencia táctica. El RNG muchas veces muestra un camino mejor.',
+    'k1.h':'El juego no está vacío','k1.p':'<em>"No tengas miedo si no ves muchos jugadores. El juego puede sentirse vacío al principio — pero su verdadera naturaleza vive en el endgame. Ahí es donde está todo el mundo."</em>',
+    'k2.h':'Tu primer personaje es tu maestro','k2.p':'No es tu main — es tu escuela. Cada error, cada pivot de build, cada ítem guardado en el baúl es una lección. <em>La satisfacción de llegar al endgame es real.</em>',
+    'k3.h':'Las transiciones son el juego','k3.p':'Whirlwind → Toxic Flame → Icy Arrow. Cada build fue una respuesta a lo que el juego ofrecía. <em>Adaptarse no es rendirse — es jugar bien.</em>',
+    'k4.h':'El drop malo no existe','k4.p':'Lo que hoy no usás, <em>es el poder de otro personaje mañana.</em> El baúl no es desorden — es planificación a largo plazo.',
+    'k5.h':'El completionista es recompensado','k5.p':'Explorar cada rincón, completar cada mapa al 100% y cumplir misiones secundarias <em>no es tiempo perdido</em> — el juego lo premia con logros, recursos y contenido exclusivo del Epílogo.',
+    'k6.h':'Hasta las cajas importan','k6.p':'Romper barriles, cajas y objetos del escenario parece insignificante — pero <em>cuenta para logros reales.</em> En Undecember cada acción tiene peso. Nunca ignorés el entorno.',
+    'k7.h':'No necesitás un alt enseguida','k7.p':'El juego <em>se adapta solo al progreso</em>. Las Jewells aparecen en el Act 6, las cartas del Caos recién al final del Act 13. No hay necesidad de crear una mula desde el inicio — aprendé primero qué guardar, qué vender y qué romper.',
+    'k8.h':'¿Es P2W? La respuesta honesta','k8.p':'En mi experiencia: <em>no</em>. Pero la organización sí importa. Saber gestionar el espacio del banco, decidir qué pasarle a otros personajes y qué descartar <em>vale más que cualquier item comprado</em>.',
+    'k9.h':'Las resistencias se diluyen al avanzar','k9.p':'El 75% que tenías en el Act 3 <em>puede no alcanzar en el Act 7</em>. A medida que avanzás de episodio, los enemigos escalan y las resistencias se "caen" relativamente. Revisalas cada vez que cambiás de episodio — no son "set and forget".',
+    'k10.h':'Algunos items son Game Changers','k10.p':'No todos los items son una mejora incremental. Algunos cambian el rumbo completo — <em>un antes y un después</em>. No siempre los reconocés al equiparlos, pero lo notás cuando el juego empieza a fluir diferente. Guardá todo hasta estar seguro.',
+    'k11.h':'Los bosses como test de build','k11.p':'Hay bosses que actúan como un checkpoint natural — sin spoilear cuáles. Si no podés con uno, el juego no te está castigando: <em>te está mostrando algo sobre tu build</em>. No es necesariamente que estés mal, sino que hay algo por ajustar antes de seguir.',
+    'k12.h':'Cambio forzado vs. Ganancias','k12.p':'A veces el juego te obliga a perder algo — puntos del Zodiaco, stats, runas o equipo — para desbloquear un progreso mayor. <em>No es un castigo, es el sistema adaptándose.</em> Aceptar ese cambio forzado es lo que separa al jugador que avanza del que se queda trabado.',
+    'footer.fan':'Hecho por un fan',
+    'og1':'Episodio 1 — Tutorial (Act 1–5)','og2':'Episodio 2 — El juego empieza (Act 6–10)',
+    'og3':'Episodio 3 — Endgame (Act 11–13)','og4':'Epílogo — Todo desbloqueado',
+    'sel':'— Seleccioná —','epilogo':'Epílogo',
+    'b.fisico':'Físico (Guerrero)','b.veneno':'Veneno (Poison)','b.crit':'Crítico','b.inv':'Invocador','b.noidea':'No sé todavía',
+    'r.bien':'Me está yendo bien','r.mal':'Me cae lo que no necesito','r.conf':'No sé qué hacer con lo que tengo',
+    'lbl.sit':'Problema actual','sit.none':'— Sin problema —','sit.dmg':'Bajo daño','sit.glass':'Muero rápido','sit.stuck':'Progreso lento','sit.lucky':'Muchos drops buenos',
+    'b.elemental':'Daño Elemental',
+    'endgame.secret':'El endgame tiene sus propios secretos — esos los descubrís vos.',
+    'about.title':'Acerca de',
+    'about.text':'Esta web-app contiene parte de mis pensamientos, avanzando hacia una visión global. No estoy diciendo cómo jugar; en cambio, cuento mi historia o mi camino a través del juego.',
+    'early.title':'📖 Early Game: cada acción cuenta',
+    'early.intro':'"No es un juego difícil, pero hay mucho por hacer. Cada acción pequeña construye un personaje enorme."',
+    'early.comp.h':'El Compendio trabaja para vos',
+    'early.comp.p':'Una vez desbloqueado (Act 1 o 2), prestá atención a las runas que elegís. <em>Evitá repetirlas al principio</em> — concentrate en conseguir runas nuevas para sumar puntos y obtener mejoras permanentes. ¡Cada punto suma! Lo mismo aplica para los items Únicos: guardalos para el buff pasivo.',
+    'early.alch.h':'La mesa de alquimia nunca descansa',
+    'early.alch.p':'Empezá a craftear temprano. No dejes la mesa de alquimia quieta — subir el nivel de Maestría es la <em>única forma</em> de desbloquear Pociones Únicas y crafteo avanzado más adelante. La eficiencia es la clave.',
+    'early.mys.h':'Gastá el oro en Misteriosos',
+    'early.mys.p':'Entre el Mid y Late Game, mientras el crafteo avanzado todavía no es del todo viable, gastar el oro ahorrado en <em>Objetos Misteriosos</em> es una gran opción. Es la mejor forma de buscar bases de alto nivel o equipo decente.',
+    'early.ach.h':'Todo cuenta como logro',
+    'early.ach.p':'Agregar amigos, unirse a una guild, completar tareas diarias — <em>cada acción suma puntos de progreso invisible</em>. Los buffs diarios y recompensas de guild son victorias pasivas que muchos ignoran.',
+    'early.season.h':'Temporada > Estándar (mi opinión)',
+    'early.season.p':'Si venís de juegos como PoE, ya sabés cómo funciona: el personaje de Temporada termina en Estándar al final del ciclo. Pero mientras dura, tiene <em>mayor drop de oro, más esencias de alquimia y mejores chances de Únicos</em>. Mi recomendación personal: arrancá en Temporada.',
+    'early.hard.h':'Hardcore vs Normal — no es lo mismo',
+    'early.hard.p':'En Hardcore, si tu personaje muere <em>demasiadas veces sin ser cuidadoso</em>, las consecuencias son permanentes. Normal te da margen para aprender sin ese peso. Para un jugador nuevo: <em>empezá en Normal</em>, aprendé el juego, y cuando te sientas seguro considerá el desafío Hardcore.',
+    'act.1':'Act 1','act.2':'Act 2','act.3':'Act 3','act.4':'Act 4','act.5':'Act 5',
+    'act.6':'Act 6','act.7':'Act 7','act.8':'Act 8','act.9':'Act 9','act.10':'Act 10',
+    'act.11':'Act 11','act.12':'Act 12','act.13':'Act 13',
+    'toolbar.save':'💾 Guardar build','toolbar.load':'📂 Cargar','toolbar.del':'🗑️ Eliminar',
+    'toolbar.export':'📋 Exportar','toolbar.reset':'⟳ Resetear',
+    'toolbar.load.ph':'— Cargar build —','toolbar.del.ph':'— Eliminar build —',
+    'faq.title':'// faq · preguntas frecuentes',
+    'faq.q1':'¿Por qué mis bufos cambian según mis stats base?',
+    'faq.a1':'Project U no es una base de datos estática. Usa <strong>Condicionales de Atributo Comparado</strong>. Si tu Energía supera a tu Fuerza, tu Barrera escala un 10% extra. Las stats no existen en el vacío — el portal refleja la realidad del juego.',
+    'faq.q2':'¿Por qué no veo ítems comunes o raros?',
+    'faq.a2':'Project U está diseñado para el <strong>Theorycrafting de alto nivel</strong>. Los ítems <em>Únicos</em> son los que definen una build. Los ítems genéricos se agregarán en futuras actualizaciones.',
+    'faq.q3':'¿El bufo del Baúl se suma al del ítem equipado?',
+    'faq.a3':'Sí. El sistema detecta si el ítem está <strong>Guardado en el Baúl (✦)</strong> y activa el beneficio pasivo de colección, independientemente de lo equipado en el slot activo.',
+    'faq.q4':'¿Puedo guardar más de un ejemplar del mismo ítem Único?',
+    'faq.a4':'No. Project U sigue la regla de <strong>Ejemplar Único</strong>. Una vez que un ítem está en Gris, su beneficio queda permanente en tu Wardrobe.',
+    'faq.q5':'¿Por qué el Escudo no está en la pestaña de Armaduras?',
+    'faq.a5':'El <strong>Escudo es una pieza de mano secundaria</strong>. Esto permite validar si tu build es compatible con armas de dos manos.',
+    'faq.q6':'¿Cómo me ayuda Project U a decidir entre dos ítems únicos?',
+    'faq.a6':'El sistema de <strong>Condicionales de Atributo Comparado</strong> te advertirá si un cambio de equipo rompe una sinergia de stats. La decisión final es tuya.',
+  },
+  en:{
+    'hero.sub':'For Dummies — Without the Insult',
+    'frase1':'I don\'t own the Truth — but <span>Knowledge + Organization = Power.</span>',
+    'frase2':'Don\'t fear the RNG. It\'s not your friend, nor your enemy... <span>it only throws suggestions.</span>',
+    'tracker.title':'// tracker · where are you now?',
+    'lbl.act':'Current Act','lbl.build':'Build type','lbl.rng':'Your RNG situation',
+    'btn.analyze':'⟶ Analyze my situation',
+    'philo.title':'// philosophy · the adaptability manual',
+    'kl.title':'// knowledge.learned — what nobody tells you',
+    'p1.h':'Knowledge is power','p1.p':'Understanding how the rune system, resistances and damage scaling work gives you a <em>real edge</em>. You don\'t need a copied build if you understand the fundamentals.',
+    'p2.h':'RNG is neutral','p2.p':'It doesn\'t chase you or favor you. It gives you options and <em>you decide what to do with them</em>. The adaptable player always has more paths than the one who forces.',
+    'p3.h':'The Chest is your ally','p3.p':'What doesn\'t serve you today <em>is tomorrow\'s power</em>. Keep everything. Another character, another moment, another build — everything has its time.',
+    'p4.h':'Adapt, don\'t force','p4.p':'If the loot pushes you in another direction, <em>listen to it</em>. Pivoting is not giving up — it\'s tactical intelligence. The RNG often shows you a better path.',
+    'k1.h':'The game is not empty','k1.p':'<em>"Don\'t be afraid if you don\'t see many players around. The game may feel empty at first — but its true nature lives in the endgame. That\'s where everyone is."</em>',
+    'k2.h':'Your first character is your teacher','k2.p':'It\'s not your main — it\'s your school. Every mistake, every build pivot, every item saved in the chest is a lesson. <em>The satisfaction of reaching endgame is real.</em>',
+    'k3.h':'Transitions are the game','k3.p':'Whirlwind → Toxic Flame → Icy Arrow. Each build was a response to what the game offered. <em>Adapting is not giving up — it\'s playing well.</em>',
+    'k4.h':'There\'s no such thing as a bad drop','k4.p':'What you don\'t use today <em>is another character\'s power tomorrow.</em> The chest isn\'t clutter — it\'s long-term planning.',
+    'k5.h':'Completionists are rewarded','k5.p':'Exploring every corner, completing every map at 100% and doing side quests <em>is not wasted time</em> — the game rewards it with achievements, resources and exclusive Epilogue content.',
+    'k6.h':'Even boxes matter','k6.p':'Breaking barrels, boxes and objects in the environment seems insignificant — but <em>it counts for real achievements.</em> In Undecember every action has weight. Never ignore your surroundings.',
+    'k7.h':'You don\'t need an alt right away','k7.p':'The game <em>adapts itself to your progress</em>. Jewells appear in Act 6, Chaos cards only at the end of Act 13. There\'s no need to create a mule from the start — first learn what to keep, what to sell and what to break.',
+    'k8.h':'Is it P2W? The honest answer','k8.p':'In my experience: <em>no</em>. But organization does matter. Knowing how to manage your bank space, deciding what to pass to other characters and what to discard <em>is worth more than any purchased item</em>.',
+    'k9.h':'Resistances drop as you progress','k9.p':'The 75% you had in Act 3 <em>may not hold in Act 7</em>. As you advance through episodes, enemies scale and resistances relatively fall off. Check them every time you change episode — they are not set and forget.',
+    'k10.h':'Some items are Game Changers','k10.p':'Not every item is an incremental upgrade. Some change the whole direction — <em>a before and after</em>. You don\'t always recognize them when you equip them, but you notice when the game starts flowing differently. Keep everything until you\'re sure.',
+    'k11.h':'Bosses as a build test','k11.p':'Some bosses act as a natural checkpoint — without spoiling which ones. If you can\'t get past one, the game isn\'t punishing you: <em>it\'s showing you something about your build</em>. It doesn\'t necessarily mean you\'re wrong — just that something needs adjusting before moving on.',
+    'k12.h':'Forced Change vs. Gains','k12.p':'Sometimes the game forces you to lose something — Zodiac points, stats, runes or gear — to unlock greater progress. <em>It\'s not a punishment, it\'s the system adapting.</em> Accepting that forced change is what separates the player who advances from the one who stays stuck.',
+    'footer.fan':'Made by a fan',
+    'og1':'Episode 1 — Tutorial (Acts 1–5)','og2':'Episode 2 — The game begins (Acts 6–10)',
+    'og3':'Episode 3 — Endgame (Acts 11–13)','og4':'Epilogue — Everything unlocked',
+    'sel':'— Select —','epilogo':'Epilogue',
+    'b.fisico':'Physical (Warrior)','b.veneno':'Poison','b.crit':'Critical','b.inv':'Summoner','b.noidea':'Not sure yet',
+    'r.bien':'Going well','r.mal':'Getting what I don\'t need','r.conf':'Not sure what to do with what I have',
+    'lbl.sit':'Current issue','sit.none':'— No issue —','sit.dmg':'Low damage','sit.glass':'Dying too fast','sit.stuck':'Slow progress','sit.lucky':'Getting great drops',
+    'b.elemental':'Elemental Damage',
+    'endgame.secret':'The endgame has its own secrets — those are yours to discover.',
+    'about.title':'About',
+    'about.text':'This web-app has part of my thoughts, moving into a global vision. I\'m not telling how to play; instead of it, I\'m telling my story or my way through the game.',
+    'early.title':'📖 Early Game: every action counts',
+    'early.intro':'"This is not a hard game, but there is a lot of stuff to do. Every small action builds a massive character."',
+    'early.comp.h':'The Compendium works for you',
+    'early.comp.p':'Once unlocked (Act 1 or 2), keep a close eye on the runes you pick. <em>Avoid duplicates early on</em> — focus on collecting new ones to gain points and permanent stat boosts. Every point counts! The same goes for Unique items: save them for the passive buff.',
+    'early.alch.h':'The alchemy table never rests',
+    'early.alch.p':'Start crafting early. Don\'t let your alchemy table sit idle — leveling up your Mastery is the <em>only way</em> to unlock Unique Potions and advanced crafting later on. Efficiency is key.',
+    'early.mys.h':'Spend gold on Mysterious Items',
+    'early.mys.p':'Between Mid and Late Game, since advanced crafting might not be fully viable yet, spending your saved Gold on <em>Mysterious Items</em> is a smart move. It\'s the best way to fish for high-tier bases or decent gear.',
+    'early.ach.h':'Everything counts as achievement',
+    'early.ach.p':'Adding friends, joining a guild, completing daily tasks — <em>every action adds invisible progress points</em>. Daily buffs and guild rewards are passive wins that most players ignore.',
+    'early.season.h':'Season > Standard (personal take)',
+    'early.season.p':'If you come from games like PoE, you already know how it works: the Season character moves to Standard at the end of the cycle. But while it lasts, it has <em>higher gold drops, more alchemy essences and better Unique chances</em>. My personal take: start in Season.',
+    'early.hard.h':'Hardcore vs Normal — not the same thing',
+    'early.hard.p':'In Hardcore, if your character dies <em>too many times without being cautious</em>, the consequences are permanent. Normal gives you room to learn without that pressure. For a new player: <em>start in Normal</em>, learn the game, and once you feel confident consider the Hardcore challenge.',
+    'act.1':'Act 1','act.2':'Act 2','act.3':'Act 3','act.4':'Act 4','act.5':'Act 5',
+    'act.6':'Act 6','act.7':'Act 7','act.8':'Act 8','act.9':'Act 9','act.10':'Act 10',
+    'act.11':'Act 11','act.12':'Act 12','act.13':'Act 13',
+    'toolbar.save':'💾 Save build','toolbar.load':'📂 Load','toolbar.del':'🗑️ Delete',
+    'toolbar.export':'📋 Export','toolbar.reset':'⟳ Reset all',
+    'toolbar.load.ph':'— Load build —','toolbar.del.ph':'— Delete build —',
+    'faq.title':'// faq · frequently asked questions',
+    'faq.q1':'Why do my buffs change based on my base stats?',
+    'faq.a1':'Project U is not a static database. It uses <strong>Compared Attribute Conditionals</strong>. If your Energy exceeds your Strength, your Barrier scales an extra 10%. Stats don\'t exist in a vacuum.',
+    'faq.q2':'Why don\'t I see common or rare items?',
+    'faq.a2':'Project U is designed for high-level <strong>Theorycrafting</strong>. <em>Unique</em> items define a build. Generic items will be added in future Compendium updates.',
+    'faq.q3':'Does the Chest buff stack with the equipped item buff?',
+    'faq.a3':'Yes. The system detects if the item is <strong>Stored in the Chest (✦)</strong> and activates the passive collection benefit, regardless of what\'s equipped in the active slot.',
+    'faq.q4':'Can I store more than one copy of the same Unique item?',
+    'faq.a4':'No. Project U follows the <strong>Unique Copy</strong> rule. Once an item is Grey, its collection benefit is permanently active in your Wardrobe.',
+    'faq.q5':'Why isn\'t the Shield in the Armor tab?',
+    'faq.a5':'The <strong>Shield is an off-hand piece</strong>. This allows correct validation of whether your build is compatible with two-handed weapons.',
+    'faq.q6':'How does Project U help me decide between two unique items?',
+    'faq.a6':'The <strong>Compared Attribute Conditionals</strong> system will warn you if an equipment change breaks a stat synergy. The final decision is yours.',
+  },
+  ru:{
+    'hero.sub':'Для Начинающих — Без Обид',
+    'frase1':'Я не владею Истиной — но <span>Знание + Организация = Сила.</span>',
+    'frase2':'Не бойся RNG. Он не друг и не враг... <span>он просто подбрасывает подсказки.</span>',
+    'tracker.title':'// трекер · где ты сейчас?',
+    'lbl.act':'Текущий акт','lbl.build':'Тип билда','lbl.rng':'Твоя ситуация с RNG',
+    'btn.analyze':'⟶ Анализировать ситуацию',
+    'philo.title':'// философия · руководство по адаптации',
+    'kl.title':'// knowledge.learned — то, чего никто не говорит',
+    'p1.h':'Знание — сила','p1.p':'Понимание системы рун, сопротивлений и масштабирования урона даёт тебе <em>реальное преимущество</em>.',
+    'p2.h':'RNG нейтрален','p2.p':'Он не преследует и не favoritизирует. Даёт варианты — <em>ты решаешь, что с ними делать</em>.',
+    'p3.h':'Сундук — твой союзник','p3.p':'То, что сегодня не нужно, <em>завтра станет силой</em>. Храни всё.',
+    'p4.h':'Адаптируйся, не форсируй','p4.p':'Если лут толкает в другую сторону, <em>прислушайся</em>. Смена курса — это не поражение.',
+    'k1.h':'Игра не пустая','k1.p':'<em>"Не бойся, если не видишь других игроков. Игра кажется пустой поначалу — но её настоящая природа живёт в эндгейме."</em>',
+    'k2.h':'Первый персонаж — твой учитель','k2.p':'Это не твой мейн — это твоя школа. <em>Удовлетворение от достижения эндгейма реально.</em>',
+    'k3.h':'Переходы — это и есть игра','k3.p':'Вихрь → Токсичное Пламя → Ледяная Стрела. Каждый билд был ответом на то, что предлагала игра.',
+    'k4.h':'Плохого дропа не бывает','k4.p':'То, что не нужно сегодня, <em>завтра станет силой другого персонажа.</em>',
+    'k5.h':'Коллекционеры вознаграждаются','k5.p':'Исследование каждого уголка и выполнение заданий <em>не потраченное время</em> — игра это вознаграждает.',
+    'k6.h':'Даже ящики важны','k6.p':'Ломать бочки и объекты на сцене кажется незначительным — но <em>это засчитывается в достижения.</em>',
+    'k7.h':'Альт не нужен сразу','k7.p':'Игра <em>сама адаптируется к прогрессу</em>. Сначала научись что хранить, что продавать и что ломать.',
+    'k8.h':'P2W? Честный ответ','k8.p':'По моему опыту: <em>нет</em>. Но организация важна. Управление банком <em>стоит больше любого купленного предмета</em>.',
+    'k9.h':'Сопротивления падают при прогрессе','k9.p':'75% в Акте 3 <em>может не хватить в Акте 7</em>. Проверяй их при каждой смене эпизода.',
+    'k10.h':'Некоторые предметы меняют всё','k10.p':'Не каждый предмет — просто апгрейд. Некоторые меняют весь курс — <em>до и после</em>.',
+    'k11.h':'Боссы как тест билда','k11.p':'Некоторые боссы — естественные чекпоинты. Если не можешь пройти — <em>игра показывает что-то о твоём билде</em>.',
+    'k12.h':'Принудительное изменение vs. Выгода','k12.p':'Иногда игра заставляет потерять что-то — очки Зодиака, статы, руны — чтобы открыть больший прогресс. <em>Это не наказание — это адаптация системы.</em>',
+    'footer.fan':'Сделано фанатом',
+    'og1':'Эпизод 1 — Обучение (Акты 1–5)','og2':'Эпизод 2 — Игра начинается (Акты 6–10)',
+    'og3':'Эпизод 3 — Эндгейм (Акты 11–13)','og4':'Эпилог — Всё разблокировано',
+    'sel':'— Выбрать —','epilogo':'Эпилог',
+    'b.fisico':'Физический (Воин)','b.veneno':'Яд','b.crit':'Критический','b.inv':'Призыватель','b.noidea':'Пока не знаю',
+    'r.bien':'Всё идёт хорошо','r.mal':'Падает то, что не нужно','r.conf':'Не знаю, что делать с тем, что есть',
+    'lbl.sit':'Текущая проблема','sit.none':'— Без проблем —','sit.dmg':'Низкий урон','sit.glass':'Умираю слишком быстро','sit.stuck':'Медленный прогресс','sit.lucky':'Отличный лут',
+    'b.elemental':'Элементальный урон',
+    'endgame.secret':'У эндгейма есть свои секреты — их вам предстоит открыть самим.',
+    'about.title':'О проекте',
+    'about.text':'В этом веб-приложении — часть моих мыслей и путь к глобальному видению. Я не учу вас играть; я рассказываю свою историю или свой путь в этой игре.',
+    'early.title':'📖 Ранняя игра: каждый шаг важен',
+    'early.intro':'Это не сложная игра, но в ней очень много механик. Каждое маленькое действие создаёт мощного персонажа.',
+    'early.comp.h':'Компендиум работает на вас',
+    'early.comp.p':'Как только откроете его (Акт 1 или 2), следите за тем, какие руны выбираете. Избегайте повторов в начале — сосредоточьтесь на получении новых рун, чтобы набирать очки и получать постоянные бонусы. Каждое очко на счету! То же самое касается уникальных предметов: сохраняйте их для пассивных баффов.',
+    'early.alch.h':'Алхимический стол никогда не простаивает',
+    'early.alch.p':'Начинайте крафт как можно раньше. Не оставляйте стол без дела — повышение уровня Мастерства (Mastery) — это единственный способ разблокировать уникальные зелья и продвинутый крафт в будущем. Эффективность — залог успеха.',
+    'early.mys.h':'Тратьте золото на Таинственные предметы',
+    'early.mys.p':'В промежутке между мид-геймом и лейт-геймом, когда продвинутый крафт еще не совсем доступен, тратить накопленное золото на Таинственные предметы — отличный вариант. Это лучший способ получить высокоуровневые базы или достойное снаряжение.',
+    'early.ach.h':'Все считается достижением',
+    'early.ach.p':'Добавление друзей, вступление в гильдию, выполнение ежедневных заданий — каждое действие добавляет очки невидимого прогресса. Ежедневные баффы и награды гильдии — это пассивные бонусы, которые многие игнорируют.',
+    'early.season.h':'Сезон > Стандарт (личное мнение)',
+    'early.season.p':'Если вы пришли из таких игр, как PoE, вы уже знаете, как это работает: сезонный персонаж переходит в стандартный режим в конце цикла. Но пока идет сезон, в нем выше шанс выпадения золота, больше алхимических эссенций и лучше шансы на уникальные предметы. Моя рекомендация: начинайте в Сезоне.',
+    'early.hard.h':'Хардкор vs Обычный режим — это не одно и то же',
+    'early.hard.p':'В Хардкоре, если ваш персонаж умирает слишком часто из-за неосторожности, последствия будут постоянными. Обычный режим дает возможность учиться без этого давления. Для новичка: начните в обычном режиме, изучите игру, и когда почувствуете уверенность, переходите к испытаниям Хардкора.',
+    'act.1':'Акт 1','act.2':'Акт 2','act.3':'Акт 3','act.4':'Акт 4','act.5':'Акт 5',
+    'act.6':'Акт 6','act.7':'Акт 7','act.8':'Акт 8','act.9':'Акт 9','act.10':'Акт 10',
+    'act.11':'Акт 11','act.12':'Акт 12','act.13':'Акт 13',
+    'toolbar.save':'💾 Сохранить билд','toolbar.load':'📂 Загрузить','toolbar.del':'🗑️ Удалить',
+    'toolbar.export':'📋 Экспорт','toolbar.reset':'⟳ Сбросить',
+    'toolbar.load.ph':'— Загрузить билд —','toolbar.del.ph':'— Удалить билд —',
+    'faq.title':'// faq · часто задаваемые вопросы',
+    'faq.q1':'Почему мои баффы меняются в зависимости от базовых статов?',
+    'faq.a1':'Project U — не статическая база данных. Используются <strong>Условные Сравнения Атрибутов</strong>. Если Энергия превышает Силу, Барьер масштабируется на 10% больше.',
+    'faq.q2':'Почему я не вижу обычные или редкие предметы?',
+    'faq.a2':'Project U разработан для <strong>теоркрафтинга высокого уровня</strong>. <em>Уникальные</em> предметы определяют билд. Обычные предметы будут добавлены в будущих обновлениях.',
+    'faq.q3':'Суммируется ли бафф Сундука с баффом экипированного предмета?',
+    'faq.a3':'Да. Система определяет, хранится ли предмет <strong>в Сундуке (✦)</strong>, и активирует пассивный бонус коллекции.',
+    'faq.q4':'Можно ли хранить более одного экземпляра уникального предмета?',
+    'faq.a4':'Нет. Project U следует правилу <strong>Уникального Экземпляра</strong>. Как только предмет становится серым, его бонус остаётся навсегда.',
+    'faq.q5':'Почему Щит не находится во вкладке Брони?',
+    'faq.a5':'<strong>Щит — это предмет второй руки</strong>. Это позволяет корректно проверить совместимость с двуручным оружием.',
+    'faq.q6':'Как Project U помогает выбрать между двумя уникальными предметами?',
+    'faq.a6':'Система <strong>Условных Сравнений Атрибутов</strong> предупредит, если смена снаряжения нарушает синергию статов.',
+  },
+  pt:{
+    'hero.sub':'Para Iniciantes — Sem Ofensa',
+    'frase1':'Não sou dono da Verdade — mas <span>Conhecimento + Organização = Poder.</span>',
+    'frase2':'Não tema o RNG. Ele não é seu amigo, nem seu inimigo... <span>ele só joga sugestões.</span>',
+    'tracker.title':'// tracker · onde você está agora?',
+    'lbl.act':'Ato atual','lbl.build':'Tipo de build','lbl.rng':'Sua situação com o RNG',
+    'btn.analyze':'⟶ Analisar situação',
+    'philo.title':'// filosofia · o manual de adaptabilidade',
+    'kl.title':'// knowledge.learned — o que ninguém te conta',
+    'p1.h':'Conhecimento é poder','p1.p':'Entender o sistema de runas, resistências e escalonamento de dano te dá <em>vantagem real</em>.',
+    'p2.h':'O RNG é neutro','p2.p':'Ele não te persegue nem te favorece. Dá opções e <em>você decide o que fazer com elas</em>.',
+    'p3.h':'O Baú é seu aliado','p3.p':'O que não serve hoje <em>é o poder de amanhã</em>. Guarde tudo.',
+    'p4.h':'Adapte-se, não force','p4.p':'Se o loot te empurra para outra direção, <em>escute</em>. Pivotar não é desistir.',
+    'k1.h':'O jogo não está vazio','k1.p':'<em>"Não tenha medo se não ver muitos jogadores. O jogo pode parecer vazio no início — mas sua verdadeira natureza vive no endgame."</em>',
+    'k2.h':'Seu primeiro personagem é seu professor','k2.p':'Não é seu main — é sua escola. <em>A satisfação de chegar ao endgame é real.</em>',
+    'k3.h':'As transições são o jogo','k3.p':'Whirlwind → Toxic Flame → Icy Arrow. Cada build foi uma resposta ao que o jogo oferecia.',
+    'k4.h':'Drop ruim não existe','k4.p':'O que não usa hoje <em>é o poder de outro personagem amanhã.</em>',
+    'k5.h':'O completista é recompensado','k5.p':'Explorar cada canto e completar missões secundárias <em>não é tempo perdido</em> — o jogo recompensa.',
+    'k6.h':'Até as caixas importam','k6.p':'Quebrar barris e objetos do cenário parece insignificante — mas <em>conta para conquistas reais.</em>',
+    'k7.h':'Não precisa de alt logo','k7.p':'O jogo <em>se adapta ao progresso</em>. Aprenda primeiro o que guardar, vender e quebrar.',
+    'k8.h':'É P2W? A resposta honesta','k8.p':'Na minha experiência: <em>não</em>. Mas organização importa. Gerenciar o banco <em>vale mais que qualquer item comprado</em>.',
+    'k9.h':'Resistências caem ao progredir','k9.p':'Os 75% que tinha no Ato 3 <em>podem não segurar no Ato 7</em>. Verifique a cada episódio.',
+    'k10.h':'Alguns itens são Game Changers','k10.p':'Nem todo item é uma melhora incremental. Alguns mudam tudo — <em>um antes e depois</em>.',
+    'k11.h':'Bosses como teste de build','k11.p':'Alguns bosses são checkpoints naturais. Se não consegue passar — <em>o jogo está mostrando algo sobre sua build</em>.',
+    'k12.h':'Mudança forçada vs. Ganhos','k12.p':'Às vezes o jogo te força a perder algo — pontos do Zodíaco, stats, runas — para desbloquear progresso maior. <em>Não é punição — é o sistema se adaptando.</em>',
+    'footer.fan':'Feito por um fã',
+    'og1':'Episódio 1 — Tutorial (Atos 1–5)','og2':'Episódio 2 — O jogo começa (Atos 6–10)',
+    'og3':'Episódio 3 — Endgame (Atos 11–13)','og4':'Epílogo — Tudo desbloqueado',
+    'sel':'— Selecionar —','epilogo':'Epílogo',
+    'b.fisico':'Físico (Guerreiro)','b.veneno':'Veneno','b.crit':'Crítico','b.inv':'Invocador','b.noidea':'Ainda não sei',
+    'r.bien':'Está indo bem','r.mal':'Cai o que não preciso','r.conf':'Não sei o que fazer com o que tenho',
+    'lbl.sit':'Problema atual','sit.none':'— Sem problema —','sit.dmg':'Baixo dano','sit.glass':'Morrendo rápido','sit.stuck':'Progresso lento','sit.lucky':'Muito loot bom',
+    'b.elemental':'Dano Elemental',
+    'endgame.secret':'O endgame tem seus próprios segredos — cabe a você descobri-los.',
+    'about.title':'Sobre',
+    'about.text':'Esta web-app reúne parte dos meus pensamentos, caminhando para uma visão mais global. Eu não estou dizendo como jogar; em vez disso, eu conto a minha história — o meu caminho pelo jogo.',
+    'early.title':'📖 Early Game: cada ação conta',
+    'early.intro':'"Não é um jogo difícil, mas há muito o que fazer. Cada pequena ação constrói um personagem gigante."',
+    'early.comp.h':'O Compêndio trabalha para você',
+    'early.comp.p':'Depois de desbloqueado (Act 1 ou 2), preste atenção nas runas que escolher. Evite repetí-las no início — foque em conseguir runas novas para somar pontos e obter melhorias permanentes. Cada ponto conta! O mesmo vale para itens Únicos: guarde-os para o buff passivo.',
+    'early.alch.h':'A mesa de alquimia nunca descansa',
+    'early.alch.p':'Comece o crafting cedo. Não deixe a mesa de alquimia parada — subir o nível de Maestria é a única forma de desbloquear Poções Únicas e crafting avançado mais tarde. Eficiência é a chave.',
+    'early.mys.h':'Gaste ouro em Itens Misteriosos',
+    'early.mys.p':'Entre o Mid e o Late Game, enquanto o crafting avançado ainda não é totalmente viável, gastar o ouro economizado em Itens Misteriosos é uma ótima opção. É a melhor forma de buscar bases de alto nível ou equipamentos decentes.',
+    'early.ach.h':'Tudo conta como conquista',
+    'early.ach.p':'Adicionar amigos, entrar em uma guild, completar tarefas diárias — cada ação soma pontos de progresso invisível. Os buffs diários e recompensas de guild são vitórias passivas que muitos ignoram.',
+    'early.season.h':'Temporada > Padrão (minha opinião)',
+    'early.season.p':'Se você vem de jogos como PoE, já sabe como funciona: o personagem de Temporada vai para o Padrão no final do ciclo. Mas enquanto a Temporada está ativa, tem maior drop de ouro, mais essências de alquimia e melhores chances de Únicos. Minha recomendação: comece na Temporada.',
+    'early.hard.h':'Hardcore vs Normal — não é a mesma coisa',
+    'early.hard.p':'No Hardcore, se o seu personagem morrer muitas vezes sem cuidado, as consequências serão permanentes. O Normal te dá margem para aprender sem esse peso. Para um jogador novo: comece no Normal, aprenda o jogo e, quando se sentir seguro, considere o desafio Hardcore.',
+    'act.1':'Act 1','act.2':'Act 2','act.3':'Act 3','act.4':'Act 4','act.5':'Act 5',
+    'act.6':'Act 6','act.7':'Act 7','act.8':'Act 8','act.9':'Act 9','act.10':'Act 10',
+    'act.11':'Act 11','act.12':'Act 12','act.13':'Act 13',
+    'toolbar.save':'💾 Salvar build','toolbar.load':'📂 Carregar','toolbar.del':'🗑️ Excluir',
+    'toolbar.export':'📋 Exportar','toolbar.reset':'⟳ Resetar',
+    'toolbar.load.ph':'— Carregar build —','toolbar.del.ph':'— Excluir build —',
+    'faq.title':'// faq · perguntas frequentes',
+    'faq.q1':'Por que meus buffs mudam de acordo com meus stats base?',
+    'faq.a1':'Project U não é um banco de dados estático. Usa <strong>Condicionais de Atributo Comparado</strong>. Se sua Energia supera sua Força, sua Barreira escala 10% a mais.',
+    'faq.q2':'Por que não vejo itens comuns ou raros?',
+    'faq.a2':'Project U é projetado para <strong>Theorycrafting de alto nível</strong>. Itens <em>Únicos</em> definem uma build. Itens genéricos serão adicionados em atualizações futuras.',
+    'faq.q3':'O buff do Baú se soma ao do item equipado?',
+    'faq.a3':'Sim. O sistema detecta se o item está <strong>Guardado no Baú (✦)</strong> e ativa o benefício passivo de coleção.',
+    'faq.q4':'Posso guardar mais de um exemplar do mesmo item Único?',
+    'faq.a4':'Não. Project U segue a regra do <strong>Exemplar Único</strong>. Uma vez que um item está Cinza, seu benefício fica permanente no Wardrobe.',
+    'faq.q5':'Por que o Escudo não está na aba de Armaduras?',
+    'faq.a5':'O <strong>Escudo é uma peça de mão secundária</strong>. Isso permite validar se sua build é compatível com armas de duas mãos.',
+    'faq.q6':'Como o Project U me ajuda a decidir entre dois itens únicos?',
+    'faq.a6':'O sistema de <strong>Condicionais de Atributo Comparado</strong> vai alertar se uma mudança de equipamento quebra uma sinergia de stats.',
+  }
+};
+
+// Reordená jerarquía global (EN, RU, PT, ES) sin romper el contenido existente.
+const T = {
+  en: T_raw.en,
+  ru: T_raw.ru,
+  pt: T_raw.pt,
+  es: T_raw.es,
+  fr: {
+    'hero.sub':'Pour les Débutants — Sans Insulte',
+    'frase1':'Je ne possède pas la Vérité — mais <span>Connaissance + Organisation = Pouvoir.</span>',
+    'frase2':'N\'aie pas peur du RNG. Ce n\'est ni ton ami, ni ton ennemi... <span>il ne fait que suggérer.</span>',
+    'tracker.title':'// tracker · où en es-tu ?',
+    'lbl.act':'Acte actuel','lbl.build':'Type de build','lbl.rng':'Ta situation avec le RNG',
+    'btn.analyze':'⟶ Analyser ma situation',
+    'philo.title':'// philosophie · le manuel d\'adaptabilité',
+    'kl.title':'// knowledge.learned — ce que personne ne te dit',
+    'p1.h':'La connaissance, c\'est le pouvoir','p1.p':'Comprendre le système de runes, les résistances et la mise à l\'échelle des dégâts te donne un <em>vrai avantage</em>.',
+    'p2.h':'Le RNG est neutre','p2.p':'Il ne te poursuit pas et ne te favorise pas. Il te donne des options et <em>c\'est toi qui décides quoi en faire</em>.',
+    'p3.h':'Le Coffre est ton allié','p3.p':'Ce qui ne te sert pas aujourd\'hui <em>sera la puissance de demain</em>. Garde tout.',
+    'p4.h':'Adapte-toi, ne force pas','p4.p':'Si le loot te pousse dans une autre direction, <em>écoute-le</em>. Pivoter n\'est pas abandonner.',
+    'k1.h':'Le jeu n\'est pas vide','k1.p':'<em>"N\'aie pas peur si tu ne vois pas beaucoup de joueurs. Le jeu peut sembler vide au début — mais sa vraie nature vit dans l\'endgame."</em>',
+    'k2.h':'Ton premier personnage est ton prof','k2.p':'Ce n\'est pas ton main — c\'est ton école. <em>La satisfaction d\'atteindre l\'endgame est réelle.</em>',
+    'k3.h':'Les transitions, c\'est le jeu','k3.p':'Whirlwind → Toxic Flame → Icy Arrow. Chaque build était une réponse à ce que le jeu offrait.',
+    'k4.h':'Il n\'y a pas de mauvais drop','k4.p':'Ce que tu n\'utilises pas aujourd\'hui <em>sera la puissance d\'un autre personnage demain.</em>',
+    'k5.h':'Les complétionnistes sont récompensés','k5.p':'Explorer chaque recoin et faire les quêtes secondaires <em>n\'est pas du temps perdu</em> — le jeu le récompense.',
+    'k6.h':'Même les caisses comptent','k6.p':'Casser des tonneaux et des objets du décor semble insignifiant — mais <em>ça compte pour de vrais succès.</em>',
+    'k7.h':'Pas besoin d\'un alt tout de suite','k7.p':'Le jeu <em>s\'adapte seul à la progression</em>. Apprends d\'abord quoi garder, vendre et casser.',
+    'k8.h':'C\'est P2W ? La réponse honnête','k8.p':'De mon expérience : <em>non</em>. Mais l\'organisation compte. Gérer ta banque <em>vaut plus que n\'importe quel objet acheté</em>.',
+    'k9.h':'Les résistances baissent en progressant','k9.p':'Les 75% que tu avais à l\'Acte 3 <em>peuvent ne pas tenir à l\'Acte 7</em>. Vérifie-les à chaque épisode.',
+    'k10.h':'Certains items sont des Game Changers','k10.p':'Tous les items ne sont pas des améliorations progressives. Certains changent tout — <em>un avant et un après</em>.',
+    'k11.h':'Les boss comme test de build','k11.p':'Certains boss sont des checkpoints naturels. Si tu n\'y arrives pas — <em>le jeu te montre quelque chose sur ta build</em>.',
+    'k12.h':'Changement Forcé vs. Gains','k12.p':'Parfois le jeu te force à perdre quelque chose — points du Zodiaque, stats, runes — pour débloquer une progression plus grande. <em>Ce n\'est pas une punition — c\'est le système qui s\'adapte.</em>',
+    'footer.fan':'Fait par un fan',
+    'og1':'Épisode 1 — Tutoriel (Actes 1–5)','og2':'Épisode 2 — Le jeu commence (Actes 6–10)',
+    'og3':'Épisode 3 — Endgame (Actes 11–13)','og4':'Épilogue — Tout débloqué',
+    'sel':'— Sélectionner —','epilogo':'Épilogue',
+    'b.fisico':'Physique (Guerrier)','b.veneno':'Poison','b.crit':'Critique','b.inv':'Invocateur','b.noidea':'Pas encore sûr',
+    'r.bien':'Ça se passe bien','r.mal':'Je reçois ce dont je n\'ai pas besoin','r.conf':'Je ne sais pas quoi faire de ce que j\'ai',
+    'lbl.sit':'Problème actuel','sit.none':'— Aucun problème —','sit.dmg':'Dégâts faibles','sit.glass':'Je meurs trop vite','sit.stuck':'Progression lente','sit.lucky':'Beaucoup de bons drops',
+    'b.elemental':'Dégâts Élémentaires',
+    'endgame.secret':'L\'endgame a ses propres secrets — c\'est à toi de les découvrir.',
+    'about.title':'À propos',
+    'about.text':'Cette web-app contient une partie de mes réflexions, vers une vision globale. Je ne te dis pas comment jouer ; je te raconte mon histoire, mon chemin dans le jeu.',
+    'early.title':'📖 Early Game: chaque action compte',
+    'early.intro':'"Ce n\'est pas un jeu difficile, mais il y a beaucoup à faire. Chaque petite action construit un personnage énorme."',
+    'early.comp.h':'Le Compendium travaille pour toi','early.comp.p':'Une fois débloqué (Acte 1 ou 2), fais attention aux runes que tu choisis. <em>Évite les doublons au début</em> — concentre-toi sur de nouvelles runes pour gagner des points et des bonus permanents.',
+    'early.alch.h':'La table d\'alchimie ne se repose jamais','early.alch.p':'Commence le craft tôt. Ne laisse pas ta table inactive — monter la Maîtrise est la <em>seule façon</em> de débloquer des Potions Uniques et du craft avancé.',
+    'early.mys.h':'Dépense l\'or en Objets Mystérieux','early.mys.p':'Entre le Mid et le Late Game, dépenser ton or en <em>Objets Mystérieux</em> est un bon choix pour trouver des bases de haut niveau.',
+    'early.ach.h':'Tout compte comme succès','early.ach.p':'Ajouter des amis, rejoindre une guilde, faire des tâches quotidiennes — <em>chaque action ajoute des points de progression invisibles</em>.',
+    'early.season.h':'Saison > Standard (mon avis)','early.season.p':'Si tu viens de jeux comme PoE, tu sais déjà comment ça marche. Pendant la saison : <em>plus d\'or, plus d\'essences, meilleures chances d\'Uniques</em>. Mon conseil : commence en Saison.',
+    'early.hard.h':'Hardcore vs Normal — ce n\'est pas pareil','early.hard.p':'En Hardcore, mourir trop souvent a des conséquences permanentes. Le Normal te laisse apprendre sans cette pression. <em>Commence en Normal</em> si tu débutes.',
+    'act.1':'Acte 1','act.2':'Acte 2','act.3':'Acte 3','act.4':'Acte 4','act.5':'Acte 5',
+    'act.6':'Acte 6','act.7':'Acte 7','act.8':'Acte 8','act.9':'Acte 9','act.10':'Acte 10',
+    'act.11':'Acte 11','act.12':'Acte 12','act.13':'Acte 13',
+    'no.conditionals':'Aucun conditionnel',
+    'toolbar.save':'💾 Sauvegarder','toolbar.load':'📂 Charger','toolbar.del':'🗑️ Supprimer',
+    'toolbar.export':'📋 Exporter','toolbar.reset':'⟳ Réinitialiser',
+    'toolbar.load.ph':'— Charger un build —','toolbar.del.ph':'— Supprimer un build —',
+    'faq.title':'// faq · questions fréquentes',
+    'faq.q1':'Pourquoi mes buffs changent-ils selon mes stats de base ?',
+    'faq.a1':'Project U n\'est pas une base de données statique. Il utilise des <strong>Conditions d\'Attributs Comparés</strong>. Si ton Énergie dépasse ta Force, ta Barrière scale de 10% en plus.',
+    'faq.q2':'Pourquoi je ne vois pas d\'objets communs ou rares ?',
+    'faq.a2':'Project U est conçu pour le <strong>Theorycrafting de haut niveau</strong>. Les objets <em>Uniques</em> définissent un build. Les objets génériques seront ajoutés dans de futures mises à jour.',
+    'faq.q3':'Le buff du Coffre s\'additionne-t-il à celui de l\'objet équipé ?',
+    'faq.a3':'Oui. Le système détecte si l\'objet est <strong>Stocké dans le Coffre (✦)</strong> et active le bonus passif de collection.',
+    'faq.q4':'Puis-je stocker plus d\'un exemplaire du même objet Unique ?',
+    'faq.a4':'Non. Project U suit la règle de <strong>l\'Exemplaire Unique</strong>. Une fois qu\'un objet est Gris, son bonus reste permanent dans ton Wardrobe.',
+    'faq.q5':'Pourquoi le Bouclier n\'est pas dans l\'onglet Armures ?',
+    'faq.a5':'Le <strong>Bouclier est une pièce de main secondaire</strong>. Cela permet de valider si ton build est compatible avec les armes à deux mains.',
+    'faq.q6':'Comment Project U m\'aide-t-il à choisir entre deux objets uniques ?',
+    'faq.a6':'Le système de <strong>Conditions d\'Attributs Comparés</strong> t\'avertira si un changement d\'équipement brise une synergie de stats.',
+  },
+  ko: {
+    'hero.sub':'초보자를 위한 — 모욕 없이',
+    'frase1':'나는 진실을 소유하지 않는다 — 하지만 <span>지식 + 조직 = 힘.</span>',
+    'frase2':'RNG를 두려워하지 마라. 친구도 적도 아니다... <span>그저 제안을 던질 뿐이다.</span>',
+    'tracker.title':'// 트래커 · 지금 어디 있나요?',
+    'lbl.act':'현재 액트','lbl.build':'빌드 유형','lbl.rng':'RNG 상황',
+    'btn.analyze':'⟶ 상황 분석',
+    'philo.title':'// 철학 · 적응 매뉴얼',
+    'kl.title':'// knowledge.learned — 아무도 말해주지 않는 것',
+    'p1.h':'지식은 힘이다','p1.p':'룬 시스템, 저항력, 피해 스케일링을 이해하면 <em>실질적인 이점</em>을 얻을 수 있다.',
+    'p2.h':'RNG는 중립이다','p2.p':'RNG는 너를 쫓거나 편애하지 않는다. 선택지를 주고 <em>네가 결정한다</em>.',
+    'p3.h':'창고는 네 동맹이다','p3.p':'오늘 필요 없는 것이 <em>내일의 힘</em>이 된다. 모든 것을 보관하라.',
+    'p4.h':'적응하라, 강요하지 마라','p4.p':'전리품이 다른 방향으로 밀면 <em>들어라</em>. 방향 전환은 포기가 아니다.',
+    'k1.h':'게임은 비어있지 않다','k1.p':'<em>"주변에 플레이어가 없어도 두려워하지 마라. 게임은 처음에 비어 보일 수 있지만, 진짜 본질은 엔드게임에 있다."</em>',
+    'k2.h':'첫 번째 캐릭터는 선생님이다','k2.p':'메인이 아니라 학교다. <em>엔드게임에 도달하는 만족감은 진짜다.</em>',
+    'k3.h':'전환이 게임이다','k3.p':'Whirlwind → Toxic Flame → Icy Arrow. 각 빌드는 게임이 제공한 것에 대한 응답이었다.',
+    'k4.h':'나쁜 드롭은 없다','k4.p':'오늘 사용하지 않는 것이 <em>내일 다른 캐릭터의 힘</em>이 된다.',
+    'k5.h':'완성주의자는 보상받는다','k5.p':'모든 구석을 탐험하고 사이드 퀘스트를 완료하는 것은 <em>낭비된 시간이 아니다</em>.',
+    'k6.h':'상자도 중요하다','k6.p':'통과 물체를 부수는 것은 사소해 보이지만 <em>실제 업적에 반영된다.</em>',
+    'k7.h':'대체 캐릭터가 바로 필요하지 않다','k7.p':'게임은 <em>스스로 진행에 적응한다</em>. 먼저 무엇을 보관하고, 팔고, 부수는지 배워라.',
+    'k8.h':'P2W인가? 솔직한 답변','k8.p':'내 경험상: <em>아니다</em>. 하지만 조직이 중요하다. 은행 공간 관리가 <em>구매한 어떤 아이템보다 가치 있다</em>.',
+    'k9.h':'저항력은 진행하면서 감소한다','k9.p':'액트 3에서 가진 75%가 <em>액트 7에서는 충분하지 않을 수 있다</em>. 에피소드마다 확인하라.',
+    'k10.h':'일부 아이템은 게임 체인저다','k10.p':'모든 아이템이 점진적인 업그레이드는 아니다. 일부는 전체 방향을 바꾼다 — <em>전과 후</em>.',
+    'k11.h':'보스는 빌드 테스트다','k11.p':'일부 보스는 자연스러운 체크포인트 역할을 한다. 통과하지 못하면 — <em>게임이 빌드에 대해 무언가를 보여주는 것이다</em>.',
+    'k12.h':'강제 변화 vs. 이득','k12.p':'때로 게임은 더 큰 진행을 위해 무언가를 잃도록 강요한다. <em>벌이 아니라 시스템이 적응하는 것이다.</em>',
+    'footer.fan':'팬이 만든 것',
+    'og1':'에피소드 1 — 튜토리얼 (액트 1–5)','og2':'에피소드 2 — 게임 시작 (액트 6–10)',
+    'og3':'에피소드 3 — 엔드게임 (액트 11–13)','og4':'에필로그 — 모두 해금됨',
+    'sel':'— 선택 —','epilogo':'에필로그',
+    'b.fisico':'물리 (전사)','b.veneno':'독','b.crit':'치명타','b.inv':'소환사','b.noidea':'아직 모름',
+    'r.bien':'잘 되고 있다','r.mal':'필요 없는 것이 드롭된다','r.conf':'가진 것으로 무엇을 해야 할지 모른다',
+    'lbl.sit':'현재 문제','sit.none':'— 문제 없음 —','sit.dmg':'낮은 피해','sit.glass':'너무 빨리 죽음','sit.stuck':'느린 진행','sit.lucky':'좋은 드롭 많음',
+    'b.elemental':'속성 피해',
+    'endgame.secret':'엔드게임에는 자신만의 비밀이 있다 — 직접 발견해야 한다.',
+    'about.title':'소개',
+    'about.text':'이 웹앱에는 내 생각의 일부가 담겨 있으며, 글로벌 비전을 향해 나아간다. 플레이 방법을 알려주는 게 아니라, 내 이야기와 게임 여정을 들려주는 것이다.',
+    'early.title':'📖 초반 게임: 모든 행동이 중요하다',
+    'early.intro':'"어려운 게임은 아니지만 할 일이 많다. 작은 행동 하나하나가 강력한 캐릭터를 만든다."',
+    'early.comp.h':'컴펜디엄은 당신을 위해 작동한다','early.comp.p':'해금 후 (액트 1 또는 2), 선택하는 룬에 주의를 기울여라. <em>초반에 중복을 피하라</em> — 새로운 룬 수집에 집중해 포인트와 영구 보너스를 얻어라.',
+    'early.alch.h':'연금술 테이블은 쉬지 않는다','early.alch.p':'일찍 제작을 시작하라. 테이블을 방치하지 마라 — 숙련도를 높이는 것이 <em>유일한 방법</em>이다.',
+    'early.mys.h':'골드는 신비로운 아이템에 사용하라','early.mys.p':'미드~레이트 게임에서 <em>신비로운 아이템</em>에 골드를 사용하는 것이 좋은 선택이다.',
+    'early.ach.h':'모든 것이 업적으로 카운트된다','early.ach.p':'친구 추가, 길드 가입, 일일 임무 완료 — <em>모든 행동이 보이지 않는 진행 포인트를 더한다</em>.',
+    'early.season.h':'시즌 > 일반 (개인 의견)','early.season.p':'PoE 같은 게임을 해봤다면 이미 알 것이다. 시즌 캐릭터는 사이클 종료 시 일반으로 이동한다. 하지만 시즌 중에는 <em>더 많은 골드, 연금술 에센스, 유니크 기회</em>가 있다.',
+    'early.hard.h':'하드코어 vs 일반 — 같지 않다','early.hard.p':'하드코어에서 캐릭터가 너무 자주 죽으면 결과가 영구적이다. 초보자라면 <em>일반 모드에서 시작하라</em>.',
+    'act.1':'액트 1','act.2':'액트 2','act.3':'액트 3','act.4':'액트 4','act.5':'액트 5',
+    'act.6':'액트 6','act.7':'액트 7','act.8':'액트 8','act.9':'액트 9','act.10':'액트 10',
+    'act.11':'액트 11','act.12':'액트 12','act.13':'액트 13',
+    'no.conditionals':'조건 없음',
+    'toolbar.save':'💾 빌드 저장','toolbar.load':'📂 불러오기','toolbar.del':'🗑️ 삭제',
+    'toolbar.export':'📋 내보내기','toolbar.reset':'⟳ 초기화',
+    'toolbar.load.ph':'— 빌드 불러오기 —','toolbar.del.ph':'— 빌드 삭제 —',
+    'faq.title':'// faq · 자주 묻는 질문',
+    'faq.q1':'왜 내 버프가 기본 스탯에 따라 변하나요?',
+    'faq.a1':'Project U는 정적 데이터베이스가 아닙니다. <strong>비교 속성 조건부</strong>를 사용합니다. 에너지가 힘을 초과하면 방어막이 10% 더 스케일됩니다.',
+    'faq.q2':'왜 일반 또는 희귀 아이템이 보이지 않나요?',
+    'faq.a2':'Project U는 고수준 <strong>이론제작</strong>을 위해 설계되었습니다. <em>유니크</em> 아이템이 빌드를 정의합니다.',
+    'faq.q3':'창고 버프가 장착된 아이템 버프에 추가되나요?',
+    'faq.a3':'네. 아이템이 <strong>창고에 저장(✦)</strong>되었는지 감지하고 수동 수집 혜택을 활성화합니다.',
+    'faq.q4':'같은 유니크 아이템을 두 개 이상 저장할 수 있나요?',
+    'faq.a4':'아니요. <strong>유니크 복사본</strong> 규칙을 따릅니다. 아이템이 회색이 되면 혜택이 영구적으로 유지됩니다.',
+    'faq.q5':'왜 방패가 방어구 탭에 없나요?',
+    'faq.a5':'<strong>방패는 보조 손 아이템</strong>입니다. 양손 무기와의 호환성을 올바르게 검증할 수 있습니다.',
+    'faq.q6':'Project U가 두 유니크 아이템 중 하나를 선택하는 데 어떻게 도움이 되나요?',
+    'faq.a6':'<strong>비교 속성 조건부</strong> 시스템이 장비 변경이 스탯 시너지를 깨뜨리는 경우 경고합니다.',
+  },
+  zh: {
+    'hero.sub':'为初学者 — 无冒犯',
+    'frase1':'我不拥有真理 — 但 <span>知识 + 组织 = 力量。</span>',
+    'frase2':'不要害怕 RNG。它不是朋友，也不是敌人... <span>它只是提出建议。</span>',
+    'tracker.title':'// 追踪器 · 你现在在哪里？',
+    'lbl.act':'当前章节','lbl.build':'构建类型','lbl.rng':'你的 RNG 情况',
+    'btn.analyze':'⟶ 分析情况',
+    'philo.title':'// 哲学 · 适应手册',
+    'kl.title':'// knowledge.learned — 没人告诉你的事',
+    'p1.h':'知识就是力量','p1.p':'理解符文系统、抗性和伤害加成，给你带来<em>真正的优势</em>。',
+    'p2.h':'RNG 是中立的','p2.p':'它不追你，也不偏袒你。它给你选择，<em>你来决定怎么做</em>。',
+    'p3.h':'宝箱是你的盟友','p3.p':'今天用不上的东西，<em>明天就是力量</em>。什么都保留。',
+    'p4.h':'适应，不要强迫','p4.p':'如果战利品把你推向另一个方向，<em>听它的</em>。转变方向不是放弃。',
+    'k1.h':'游戏不是空的','k1.p':'<em>"不要害怕周围没有玩家。游戏一开始可能感觉空旷——但它真正的本质在终局。"</em>',
+    'k2.h':'你的第一个角色是你的老师','k2.p':'这不是你的主要角色——这是你的学校。<em>到达终局的满足感是真实的。</em>',
+    'k3.h':'转型就是游戏','k3.p':'Whirlwind → Toxic Flame → Icy Arrow。每个构建都是对游戏所提供内容的回应。',
+    'k4.h':'没有坏的掉落','k4.p':'今天不用的东西，<em>明天就是另一个角色的力量。</em>',
+    'k5.h':'完成主义者会得到奖励','k5.p':'探索每个角落和完成支线任务<em>不是浪费时间</em>——游戏会奖励它。',
+    'k6.h':'甚至箱子也很重要','k6.p':'打破桶和场景物品看起来微不足道——但<em>它会计入真实成就。</em>',
+    'k7.h':'不需要马上有小号','k7.p':'游戏<em>自行适应进度</em>。先学会保留什么、卖什么、打碎什么。',
+    'k8.h':'是 P2W 吗？诚实的回答','k8.p':'根据我的经验：<em>不是</em>。但组织很重要。管理银行空间<em>比任何购买的物品都有价值</em>。',
+    'k9.h':'抗性随进度下降','k9.p':'第3章的75%<em>在第7章可能不够</em>。每次更换章节时检查它们。',
+    'k10.h':'某些物品是游戏改变者','k10.p':'并非每个物品都是渐进升级。有些会改变整个方向——<em>前后之别</em>。',
+    'k11.h':'Boss 作为构建测试','k11.p':'某些Boss充当自然检查点。如果你无法通过——<em>游戏正在向你展示关于构建的某些东西</em>。',
+    'k12.h':'强制变化 vs 收益','k12.p':'有时游戏会强迫你失去某些东西——黄道点数、属性、符文——来解锁更大的进度。<em>这不是惩罚——是系统在适应。</em>',
+    'footer.fan':'由粉丝制作',
+    'og1':'第一章节 — 教程 (章节 1–5)','og2':'第二章节 — 游戏开始 (章节 6–10)',
+    'og3':'第三章节 — 终局 (章节 11–13)','og4':'尾声 — 全部解锁',
+    'sel':'— 选择 —','epilogo':'尾声',
+    'b.fisico':'物理 (战士)','b.veneno':'毒素','b.crit':'暴击','b.inv':'召唤师','b.noidea':'还不确定',
+    'r.bien':'进展顺利','r.mal':'掉落的不是我需要的','r.conf':'不知道怎么处理现有的东西',
+    'lbl.sit':'当前问题','sit.none':'— 没有问题 —','sit.dmg':'伤害低','sit.glass':'死得太快','sit.stuck':'进度缓慢','sit.lucky':'好的掉落很多',
+    'b.elemental':'元素伤害',
+    'endgame.secret':'终局有其自己的秘密——那些是你自己去发现的。',
+    'about.title':'关于',
+    'about.text':'这个网络应用包含了我的一些想法，向着全球视野前进。我不是在告诉你怎么玩；而是在讲述我的故事，我在游戏中的方式。',
+    'early.title':'📖 早期游戏：每个行动都很重要',
+    'early.intro':'"这不是一个困难的游戏，但有很多事情要做。每一个小行动都能打造出强大的角色。"',
+    'early.comp.h':'图鉴为你工作','early.comp.p':'解锁后（第1或2章），注意你选择的符文。<em>早期避免重复</em>——专注于收集新符文以获得积分和永久加成。',
+    'early.alch.h':'炼金术台从不休息','early.alch.p':'尽早开始制作。不要让炼金术台闲置——提升熟练度是<em>解锁独特药水和高级制作的唯一方法</em>。',
+    'early.mys.h':'用金币购买神秘物品','early.mys.p':'在中期和后期游戏之间，将积累的金币用于<em>神秘物品</em>是明智之举。',
+    'early.ach.h':'一切都算作成就','early.ach.p':'添加朋友、加入公会、完成每日任务——<em>每个行动都增加隐形进度点数</em>。',
+    'early.season.h':'赛季 > 标准（个人看法）','early.season.p':'如果你来自 PoE 等游戏，你已经知道它是如何工作的。赛季期间有<em>更高的金币掉落、更多炼金精华和更好的独特机会</em>。',
+    'early.hard.h':'硬核 vs 普通 — 不一样','early.hard.p':'在硬核模式中，角色死亡太多次会有永久后果。<em>初学者从普通模式开始</em>，学习游戏后再考虑硬核挑战。',
+    'act.1':'第1章','act.2':'第2章','act.3':'第3章','act.4':'第4章','act.5':'第5章',
+    'act.6':'第6章','act.7':'第7章','act.8':'第8章','act.9':'第9章','act.10':'第10章',
+    'act.11':'第11章','act.12':'第12章','act.13':'第13章',
+    'no.conditionals':'无条件',
+    'toolbar.save':'💾 保存构建','toolbar.load':'📂 加载','toolbar.del':'🗑️ 删除',
+    'toolbar.export':'📋 导出','toolbar.reset':'⟳ 重置',
+    'toolbar.load.ph':'— 加载构建 —','toolbar.del.ph':'— 删除构建 —',
+    'faq.title':'// faq · 常见问题',
+    'faq.q1':'为什么我的增益效果会根据基础属性变化？',
+    'faq.a1':'Project U 不是静态数据库。使用<strong>比较属性条件</strong>。如果能量超过力量，屏障额外扩展10%。',
+    'faq.q2':'为什么看不到普通或稀有物品？',
+    'faq.a2':'Project U 专为<strong>高水平理论构建</strong>设计。<em>独特</em>物品定义构建。通用物品将在未来添加。',
+    'faq.q3':'宝箱增益是否与装备物品的增益叠加？',
+    'faq.a3':'是的。系统检测物品是否<strong>存储在宝箱中(✦)</strong>并激活被动收藏增益。',
+    'faq.q4':'能存储超过一份相同独特物品吗？',
+    'faq.a4':'不能。遵循<strong>唯一副本</strong>规则。一旦物品变为灰色，其收藏增益将永久保留。',
+    'faq.q5':'为什么盾牌不在护甲标签中？',
+    'faq.a5':'<strong>盾牌是副手装备</strong>。允许正确验证是否与双手武器兼容。',
+    'faq.q6':'Project U 如何帮助在两件独特物品之间做出选择？',
+    'faq.a6':'<strong>比较属性条件</strong>系统将警告装备更换是否破坏了属性协同效应。',
+  },
+};
+
+const consejos = {
+  en:{
+    "1":{t:"Act 1 — First steps",p:[{i:"✦",x:"Focus on leveling up, not optimizing gear. Act 1 equipment gets replaced fast."},{i:"✦",x:"Equip the first runes you find even if they're not perfect — something is better than nothing."},{i:"✦",x:"Learn the rune link system. It's the most important mechanic in the game."},{i:"⚠",r:1,x:"Don't spend resources crafting items yet. Store everything in the chest."}],rng:"In Act 1 RNG doesn't matter much. Everything you get is useful for learning the system."},
+    "2":{t:"Act 2 — Taking shape",p:[{i:"✦",x:"Start defining your build direction. Physical, elemental or poison — pick one and commit."},{i:"✦",x:"Prioritize raising basic resistances: Fire and Lightning to at least 50%."},{i:"✦",x:"If your build isn't clear, look at which runes dropped best and follow that line."},{i:"⚠",r:1,x:"Don't mix damage types. Focus on one so the scaling works."}],rng:"If the loot doesn't align with your intended build, consider pivoting. Act 2 is a good time."},
+    "3":{t:"Act 3 — Consolidating",p:[{i:"✦",x:"Check your resistances. Fire, Lightning and Poison should be approaching 75%."},{i:"✦",x:"Start working on Critical Chance if your build requires it. Minimum base: 40%."},{i:"✦",x:"Rune links: make sure you have at least 3 runes connected to your main skill."},{i:"⚠",r:1,x:"If Chaos Resist is at 0, leave it for now. It gets worked on later."}],rng:"What drops in Act 3 starts to have real weight. Store in the chest everything you don't use today."},
+    "4":{t:"Act 4 — Halfway",p:[{i:"✦",x:"Look for items with flat HP or HP%. Less than 3500 HP in Act 4+ is unnecessary risk."},{i:"✦",x:"If you have life leech (Hunger, Bloodthirst), high HP amplifies that sustain brutally."},{i:"✦",x:"Work on a second utility skill — mobility or buff — to have a clean loop."},{i:"⚠",r:1,x:"Don't advance without at least 3500 HP. Act 5+ enemies hit harder."}],rng:"If gear doesn't improve your HP, look in the chest for items with flat life even if other stats are lower."},
+    "5":{t:"Act 5 — End of the tutorial",p:[{i:"✦",x:"Last act of Episode 1. Completing everything 100% here lays the foundation for Ep.2."},{i:"✦",x:"Check your Chaos Resist. Chaotic damage starts appearing in Episode 2."},{i:"✦",x:"HP target before moving to Ep.2: 4000+."},{i:"⚠",r:1,x:"Don't skip side quests. Complete Ep.1 achievements grant bonuses in Ep.2."}],rng:"Any item with Chaos Resist is welcome, even if it's not BiS in other slots."},
+    "6":{t:"Act 6 — The real game begins",p:[{i:"✦",x:"Welcome to Episode 2. The game now assumes you've mastered the fundamentals."},{i:"✦",x:"With Whirlwind + Iron Will + Hunger you have the perfect base. Focus is now on defense."},{i:"✦",x:"Cold Resist at 57% is the most urgent gap. Look for Cold Resist items in chest or drops."},{i:"⚠",r:1,x:"HP 2636 is low for this point. Prioritize HP over DPS on your next gear upgrade."}],rng:"If items drop with resistances even if damage is lower, keep them. Survival first."},
+    "7":{t:"Act 7 — Scaling up",p:[{i:"✦",x:"Rune Master should be close. That unlock activates your full AoE build potential."},{i:"✦",x:"With Spell Activation on Attack Hit + Thorn Explosion, Hunger will have double the sources."},{i:"✦",x:"Farm secondary maps to accumulate rune XP before Act 8."},{i:"⚠",r:1,x:"Chaos Resist urgent. Acts 8-9 use it a lot and 32% is dangerous."}],rng:"If loot doesn't improve your resistances, prioritize farming XP for Rune Master."},
+    "8":{t:"Act 8 — Tough terrain",p:[{i:"✦",x:"Chaos Resist minimum 60%. This is the act where it appears most."},{i:"✦",x:"Check all defensive gaps. Cold Resist and Chaos are the most urgent."},{i:"✦",x:"If you have Rune Master active, the Whirlwind → Thorn Explosion loop should clear cleanly."},{i:"⚠",r:1,x:"Don't underestimate packs with chaotic damage. They can melt you if resistance is low."}],rng:"Any item with Chaos Resist is welcome here, even if not perfect in other slots."},
+    "9":{t:"Act 9 — Hard pre-endgame",p:[{i:"✦",x:"The build should be consolidated. Use the free Zodiac reset before Episode 2 ends."},{i:"✦",x:"HP target: 5000+. With leech active that makes you practically untouchable."},{i:"✦",x:"Think about endgame Chaos Dungeons. Your AoE build is ideal for that content."},{i:"⚠",r:1,x:"Last chance for free Zodiac reset. Align it with your final build before Act 10."}],rng:"Act 9 loot is pre-endgame. Store everything in the chest to compare with Act 10 drops."},
+    "10":{t:"Act 10 — End of Episode 2",p:[{i:"✦",x:"All resistances at cap (75%). The Celestial Orb (+35 Chaos Resist, +18 Element Resist) is exactly the piece you're looking for."},{i:"✦",x:"Icy Arrow with Illusion Arrow on Hit (Miraseti's Wave) is ideal — constant projectiles without manual effort."},{i:"✦",x:"Sustain comes from the Sandglass: 1% Max HP regen/sec and +200% regen below 40% HP."},{i:"⚠",r:1,x:"Don't replace the Quiver with generic stats. Miraseti's Wave activates the whole build synergy."},{i:"◈",c:1,x:"Completing Act 10 unlocks Episode 3. The real endgame begins."}],rng:"In endgame RNG becomes deliberate farming. It's no longer luck — it's strategic content rotation."},
+    "11":{t:"Act 11 — Episode 3 begins",p:[{i:"✦",x:"You've reached Episode 3. Difficulty scales noticeably — review your full build."},{i:"✦",x:"Completionist: every 100% map in Ep.3 grants rewards that don't exist in previous episodes."},{i:"◈",c:1,x:"Breaking boxes, barrels and scene objects counts for achievements. Never ignore the environment."},{i:"⚠",r:1,x:"Don't advance with incomplete resistances. Elemental and chaotic damage in Ep.3 is higher."}],rng:"Episode 3 loot is the best in the game. Save everything even if you don't use it now."},
+    "12":{t:"Act 12 — Going deeper",p:[{i:"✦",x:"100% map here starts unlocking exclusive Epilogue content. Don't skip anything."},{i:"✦",x:"Exploration achievements: every corner visited, every object broken, every event completed counts."},{i:"✦",x:"If you have Adventure of Traum in progress, Act 12 maps are among the most contributing."},{i:"◈",c:1,x:"Activate secondary map events even if they seem optional. Many grant unique achievements."},{i:"⚠",r:1,x:"Don't run out of potions on Act 12 bosses. Damage patterns change from Ep.2."}],rng:"At this point RNG no longer surprises you — you know what you need and farm with direction."},
+    "13":{t:"Act 13 — End of the main path",p:[{i:"✦",x:"Last act before the Epilogue. Complete every side quest — many are prerequisites for final content."},{i:"✦",x:"Everything at 100%: Act 13 achievements are among the most valuable for Adventure of Traum Lv11."},{i:"◈",c:1,x:"Every broken box, every completed event, every 100% map in these acts unlocks Epilogue content."},{i:"⚠",r:1,x:"Don't finish Act 13 without completing all side quests. Some disappear when you advance."}],rng:"Act 13 RNG drops exclusive Epilogue materials. Farming here before advancing makes sense."},
+    "epilogo":{t:"Epilogue — Everything unlocked",p:[{i:"◈",c:1,x:"You made it. All game content is available: full Chaos Dungeons, Lacrima, special events."},{i:"✦",x:"Judgement Executioner and Adventure of Traum Lv11 are the objectives now. Every achievement from 13 acts counts here."},{i:"✦",x:"Chaos Dungeon: Icy Arrow + Illusion Arrow is perfect for clearing waves fast. This is what the build was built for."},{i:"✦",x:"Completionist: the Epilogue rewards every achievement from previous acts — boxes, exploration, side quests."},{i:"◈",c:1,x:"The satisfaction of getting here is real. You're part of the endgame group — the one new players can't see."}],rng:"In the Epilogue RNG is your farming tool, not your enemy. You already know how to use it."},
+  },
+  es:{
+    "1":{t:"Act 1 — Primeros pasos",p:[{i:"✦",x:"Enfocate en subir nivel, no en optimizar equipo. El gear de Act 1 se reemplaza rápido."},{i:"✦",x:"Equipá las primeras runas que te caigan aunque no sean perfectas — algo es mejor que nada."},{i:"✦",x:"Aprendé el sistema de links entre runas. Es la mecánica más importante del juego."},{i:"⚠",r:1,x:"No gastes recursos crafteando items todavía. Guardá todo en el baúl."}],rng:"En Act 1 el RNG no importa tanto. Todo lo que te caiga tiene utilidad para aprender el sistema."},
+    "2":{t:"Act 2 — Tomando forma",p:[{i:"✦",x:"Empezá a definir tu dirección de build. Físico, elemental o veneno — elegí uno y comprometete."},{i:"✦",x:"Priorizá subir las resistencias básicas: Fire y Lightning al menos al 50%."},{i:"✦",x:"Si no tenés claro el build, mirá qué runas te cayeron mejor y seguí esa línea."},{i:"⚠",r:1,x:"No mezcles tipos de daño. Enfocate en uno solo para que el scaling funcione."}],rng:"Si el loot no se alinea con el build que querías, considerá pivotar. El Act 2 es buen momento."},
+    "3":{t:"Act 3 — Consolidando",p:[{i:"✦",x:"Revisá tus resistencias. Fire, Lightning y Poison deberían acercarse al 75%."},{i:"✦",x:"Empezá a trabajar el Critical Chance si tu build lo requiere. Base mínima: 40%."},{i:"✦",x:"Links de runas: asegurate de tener al menos 3 runas conectadas en tu skill principal."},{i:"⚠",r:1,x:"Si el Chaos Resist está en 0, dejalo así por ahora. Se trabaja más adelante."}],rng:"Lo que te caiga en Act 3 empieza a tener peso real. Guardá en el baúl todo lo que no uses hoy."},
+    "4":{t:"Act 4 — Mitad de camino",p:[{i:"✦",x:"Buscá items con HP flat o HP%. Menos de 3500 HP en Act 4+ es riesgo innecesario."},{i:"✦",x:"Si tenés vida leech (Hunger, Bloodthirst), el HP alto potencia ese sustain brutalmente."},{i:"✦",x:"Trabajá el segundo skill de utilidad — movilidad o buff — para tener un loop limpio."},{i:"⚠",r:1,x:"No sigas avanzando sin al menos 3500 HP. Los enemigos de Act 5+ duelen más."}],rng:"Si el gear no mejora tu HP, buscá en el baúl items con vida plana aunque otros stats sean menores."},
+    "5":{t:"Act 5 — Fin del tutorial",p:[{i:"✦",x:"Último Act del Episodio 1. Completar todo al 100% acá sienta las bases para el Ep.2."},{i:"✦",x:"Revisá el Chaos Resist. En Episodio 2 empieza a aparecer daño caótico."},{i:"✦",x:"HP objetivo antes de pasar al Ep.2: 4000+."},{i:"⚠",r:1,x:"No te saltes misiones secundarias. Los logros de Ep.1 completos otorgan bonificaciones en Ep.2."}],rng:"Cualquier item con Chaos Resist es bienvenido, aunque no sea BiS en otros slots."},
+    "6":{t:"Act 6 — El juego empieza de verdad",p:[{i:"✦",x:"Bienvenido al Episodio 2. Acá el juego asume que ya dominás los fundamentos."},{i:"✦",x:"Con Whirlwind + Iron Will + Hunger tenés la base perfecta. El foco ahora es defensa."},{i:"✦",x:"Cold Resist al 57% es el agujero más urgente. Buscá items con Cold Resist en baúl o drops."},{i:"⚠",r:1,x:"HP 2636 es bajo para este punto. Prioritizá vida sobre DPS en el próximo upgrade."}],rng:"Si te caen items con resistencias aunque el daño sea menor, guardalos. Supervivencia primero."},
+    "7":{t:"Act 7 — Escalando",p:[{i:"✦",x:"Rune Master debería estar cerca. Ese unlock activa todo el potencial de tu build AoE."},{i:"✦",x:"Con Spell Activation on Attack Hit + Thorn Explosion el Hunger tendrá el doble de fuentes."},{i:"✦",x:"Farmeá maps secundarios para acumular XP de runa antes del Act 8."},{i:"⚠",r:1,x:"Chaos Resist urgente. Los Acts 8-9 lo usan mucho y el 32% es peligroso."}],rng:"Si el loot no mejora tus resistencias, priorizá farming de XP para Rune Master."},
+    "8":{t:"Act 8 — Terreno duro",p:[{i:"✦",x:"Chaos Resist mínimo 60%. Es el act donde más aparece ese tipo de daño."},{i:"✦",x:"Revisá todos los gaps defensivos. Cold Resist y Chaos son los más urgentes."},{i:"✦",x:"Si ya tenés Rune Master activo, el loop Whirlwind → Thorn Explosion debería limpiar sin problemas."},{i:"⚠",r:1,x:"No subestimes los packs con daño caótico. Pueden derretirte si la resistencia está baja."}],rng:"Cualquier item con Chaos Resist es bienvenido, aunque no sea perfecto en otros slots."},
+    "9":{t:"Act 9 — Pre-endgame duro",p:[{i:"✦",x:"El build debería estar consolidado. Usá el reset gratuito del Zodiaco antes del Episodio 2."},{i:"✦",x:"HP objetivo: 5000+. Con leech activo eso te hace prácticamente intocable."},{i:"✦",x:"Pensá en las Chaos Dungeon del endgame. Tu build AoE es ideal para ese contenido."},{i:"⚠",r:1,x:"Última oportunidad de resetear Zodiaco gratis. Alinealo con el build final antes del Act 10."}],rng:"El loot de Act 9 es pre-endgame. Guardá todo en el baúl para comparar con drops del Act 10."},
+    "10":{t:"Act 10 — Fin del Episodio 2",p:[{i:"✦",x:"Todas las resistencias al cap (75%). El Celestial Orb (+35 Chaos Resist, +18 Element Resist) es exactamente el tipo de pieza que buscás acá."},{i:"✦",x:"Icy Arrow con Illusion Arrow on Hit (Miraseti's Wave) es ideal — proyectiles constantes sin esfuerzo manual."},{i:"✦",x:"El sustain lo da el Sandglass: 1% Max HP regen/seg y +200% regen por debajo del 40% HP."},{i:"⚠",r:1,x:"No cambies el Quiver por stats genéricos. Miraseti's Wave es lo que activa toda la sinergia."},{i:"◈",c:1,x:"Al completar el Act 10 se desbloquea el Episodio 3. El verdadero endgame empieza."}],rng:"En endgame el RNG se vuelve farming deliberado. Ya no es suerte — es rotación estratégica."},
+    "11":{t:"Act 11 — Episodio 3 comienza",p:[{i:"✦",x:"Llegaste al Episodio 3. La dificultad escala notablemente — revisá el build completo."},{i:"✦",x:"Completionista: cada mapa al 100% en Ep.3 otorga recompensas que en episodios anteriores no existen."},{i:"◈",c:1,x:"Romper cajas, barriles y objetos del escenario cuenta para logros. Nunca ignorés el entorno."},{i:"⚠",r:1,x:"No avances con resistencias incompletas. El daño elemental y caótico del Ep.3 es mayor."}],rng:"El loot del Episodio 3 es el mejor del juego. Guardá todo aunque no lo uses ahora."},
+    "12":{t:"Act 12 — Profundizando",p:[{i:"✦",x:"El 100% de mapa acá empieza a desbloquear contenido exclusivo del Epílogo. No te saltees nada."},{i:"✦",x:"Logros de exploración: cada rincón visitado, cada objeto roto, cada evento completado suma."},{i:"✦",x:"Si tenés Adventure of Traum en progreso, los mapas del Act 12 son de los que más contribuyen."},{i:"◈",c:1,x:"Activá los eventos de mapa secundarios aunque parezcan opcionales. Muchos otorgan logros únicos."},{i:"⚠",r:1,x:"No te quedes sin pociones en los jefes del Act 12. El patrón de daño cambia respecto al Ep.2."}],rng:"A esta altura el RNG ya no te sorprende — sabés qué necesitás y farmeás con dirección."},
+    "13":{t:"Act 13 — El final del camino principal",p:[{i:"✦",x:"Último Act antes del Epílogo. Completá cada misión secundaria — muchas son prerequisito para el contenido final."},{i:"✦",x:"Todo al 100%: los logros del Act 13 son de los más valiosos para Adventure of Traum Lv11."},{i:"◈",c:1,x:"Cada caja rota, cada evento completado, cada mapa al 100% en estos acts desbloquea contenido del Epílogo."},{i:"⚠",r:1,x:"No termines el Act 13 sin completar todas las misiones secundarias. Algunas desaparecen al avanzar."}],rng:"El RNG del Act 13 dropea materiales exclusivos del Epílogo. Farmear acá antes de avanzar tiene sentido."},
+    "epilogo":{t:"Epílogo — Todo desbloqueado",p:[{i:"◈",c:1,x:"Llegaste. Todo el contenido del juego está disponible: Chaos Dungeon completas, Lacrima, eventos especiales."},{i:"✦",x:"Judgement Executioner y Adventure of Traum Lv11 son los objetivos ahora. Cada logro acumulado en los 13 acts cuenta acá."},{i:"✦",x:"Chaos Dungeon: Icy Arrow + Illusion Arrow es ideal para limpiar waves rápido. Este es el contenido que el build espera."},{i:"✦",x:"Completionista: el Epílogo premia cada logro de los acts anteriores — cajas, exploración, misiones secundarias."},{i:"◈",c:1,x:"La satisfacción de llegar es real. Sos parte del grupo que está en el endgame — ese que los nuevos no ven."}],rng:"En el Epílogo el RNG es tu herramienta de farming, no tu enemigo. Ya sabés cómo usarlo."},
+  }
+};
+
+// Asegurar que RU/PT siempre tengan consejos disponibles (fallback a EN).
+consejos.ru = {
+  "1":{t:"Акт 1 — Первые шаги",p:[{i:"✦",x:"Сосредоточьтесь на прокачке уровня, а не на оптимизации экипировки. Экипировка Акта 1 заменяется быстро."},{i:"✦",x:"Надевайте первые руны, которые найдёте, даже если они не идеальны — что-то лучше, чем ничего."},{i:"✦",x:"Изучите систему связей рун. Это самая важная механика в игре."},{i:"⚠",r:1,x:"Не тратьте ресурсы на крафт предметов. Храните всё в сундуке."}],rng:"В Акте 1 RNG не имеет большого значения. Всё, что вы получаете, полезно для изучения системы."},
+  "2":{t:"Акт 2 — Принятие формы",p:[{i:"✦",x:"Начните определять направление билда. Физический, элементальный или яд — выберите одно и придерживайтесь."},{i:"✦",x:"Приоритизируйте повышение базовых сопротивлений: Огонь и Молния до 50%."},{i:"✦",x:"Если билд не ясен, посмотрите, какие руны падали лучше и следуйте той линии."},{i:"⚠",r:1,x:"Не смешивайте типы урона. Фокусируйтесь на одном, чтобы скейлинг работал."}],rng:"Если лут не соответствует выбранному билду, рассмотрите поворот. Акт 2 — хорошее время."},
+  "3":{t:"Акт 3 — Консолидация",p:[{i:"✦",x:"Проверьте свои сопротивления. Огонь, Молния и Яд должны приближаться к 75%."},{i:"✦",x:"Начните работать над Критическим шансом, если ваш билд этого требует. Минимальная база: 40%."},{i:"✦",x:"Связи рун: убедитесь, что у вас есть хотя бы 3 руны, связанные с вашим основным навыком."},{i:"⚠",r:1,x:"Если Chaos Resist на 0, оставьте так на сейчас. Это прорабатывается позже."}],rng:"То, что падает в Акте 3, начинает иметь реальный вес. Храните в сундуке всё, что не используете сегодня."},
+  "4":{t:"Акт 4 — Полпути",p:[{i:"✦",x:"Ищите предметы с плоским HP или HP%. Менее 3500 HP в Акте 4+ — ненужный риск."},{i:"✦",x:"Если у вас есть лifesteal (Hunger, Bloodthirst), высокий HP усиливает этот sustain brutalно."},{i:"✦",x:"Работайте над вторым utility навыком — мобильность или бафф — чтобы иметь чистый луп."},{i:"⚠",r:1,x:"Не продвигайтесь дальше без хотя бы 3500 HP. Враги Акта 5+ бьют сильнее."}],rng:"Если экипировка не улучшает ваш HP, поищите в сундуке предметы с плоским life, даже если другие статы ниже."},
+  "5":{t:"Акт 5 — Конец туториала",p:[{i:"✦",x:"Последний акт Эпизода 1. Полное прохождение всего здесь закладывает основы для Эп.2."},{i:"✦",x:"Проверьте Chaos Resist. Хаотический урон начинает появляться в Эпизоде 2."},{i:"✦",x:"Цель HP перед переходом в Эп.2: 4000+."},{i:"⚠",r:1,x:"Не пропускайте side-квесты. Логи Эп.1 дают бонусы в Эп.2."}],rng:"Любой предмет с Chaos Resist приветствуется, даже если не BiS в других слотах."},
+  "6":{t:"Акт 6 — Игра начинается по-настоящему",p:[{i:"✦",x:"Добро пожаловать в Эпизод 2. Теперь игра предполагает, что вы освоили основы."},{i:"✦",x:"С Whirlwind + Iron Will + Hunger у вас идеальная база. Фокус теперь на защите."},{i:"✦",x:"Cold Resist на 57% — самый срочный пробел. Ищите предметы с Cold Resist в сундуке или дропах."},{i:"⚠",r:1,x:"HP 2636 низко для этого момента. Приоритизируйте HP над DPS в следующем апгрейде."}],rng:"Если предметы падают с сопротивлениями, даже если урон ниже, храните их. Выживание прежде всего."},
+  "7":{t:"Акт 7 — Масштабирование",p:[{i:"✦",x:"Rune Master должен быть близко. Этот анлок активирует полный потенциал вашего AoE билда."},{i:"✦",x:"С Spell Activation on Attack Hit + Thorn Explosion Hunger будет иметь двойные источники."},{i:"✦",x:"Фармите secondary карты, чтобы накопить XP рун перед Актом 8."},{i:"⚠",r:1,x:"Chaos Resist срочно. Акты 8-9 используют его много и 32% опасно."}],rng:"Если лут не улучшает ваши сопротивления, приоритизируйте фарм XP для Rune Master."},
+  "8":{t:"Акт 8 — Жёсткая местность",p:[{i:"✦",x:"Chaos Resist минимум 60%. Это акт, где он появляется больше всего."},{i:"✦",x:"Проверьте все defensive пробелы. Cold Resist и Chaos самые срочные."},{i:"✦",x:"Если Rune Master активен, луп Whirlwind → Thorn Explosion должен чистить гладко."},{i:"⚠",r:1,x:"Не недооценивайте паки с хаотическим уроном. Они могут растопить вас, если сопротивление низкое."}],rng:"Любой предмет с Chaos Resist приветствуется здесь, даже если не идеален в других слотах."},
+  "9":{t:"Акт 9 — Жёсткий pre-endgame",p:[{i:"✦",x:"Билд должен быть консолидирован. Используйте бесплатный ресет Zodiac перед окончанием Эпизода 2."},{i:"✦",x:"Цель HP: 5000+. С лifesteal активным это делает вас практически неуязвимым."},{i:"✦",x:"Думайте о endgame Chaos Dungeons. Ваш AoE билд идеален для этого контента."},{i:"⚠",r:1,x:"Последний шанс на бесплатный ресет Zodiac. Выровняйте его с финальным билдом перед Актом 10."}],rng:"Лут Акта 9 — pre-endgame. Храните всё в сундуке, чтобы сравнить с дропами Акта 10."},
+  "10":{t:"Акт 10 — Конец Эпизода 2",p:[{i:"✦",x:"Все сопротивления на кап (75%). Celestial Orb (+35 Chaos Resist, +18 Element Resist) — именно та вещь, которую вы ищете."},{i:"✦",x:"Icy Arrow с Illusion Arrow on Hit (Miraseti's Wave) идеален — постоянные снаряды без ручного усилия."},{i:"✦",x:"Sustain даёт Sandglass: 1% Max HP regen/sec и +200% regen ниже 40% HP."},{i:"⚠",r:1,x:"Не заменяйте Quiver на generic статы. Miraseti's Wave активирует всю синергию билда."},{i:"◈",c:1,x:"Завершение Акта 10 открывает Эпизод 3. Настоящий endgame начинается."}],rng:"В endgame RNG становится deliberate farming. Это больше не удача — стратегическая ротация контента."},
+  "11":{t:"Акт 11 — Эпизод 3 начинается",p:[{i:"✦",x:"Вы достигли Эпизода 3. Сложность масштабируется заметно — пересмотрите полный билд."},{i:"✦",x:"Completionist: каждые 100% карты в Эп.3 дают награды, которых нет в предыдущих эпизодах."},{i:"◈",c:1,x:"Разбивание ящиков, бочек и объектов сцены считается для достижений. Никогда не игнорируйте окружение."},{i:"⚠",r:1,x:"Не продвигайтесь с неполными сопротивлениями. Элементальный и хаотический урон в Эп.3 выше."}],rng:"Лут Эпизода 3 — лучший в игре. Храните всё, даже если не используете сейчас."},
+  "12":{t:"Акт 12 — Углубление",p:[{i:"✦",x:"100% карты здесь начинает открывать exclusive Эпилог контент. Не пропускайте ничего."},{i:"✦",x:"Достижения exploration: каждый посещенный уголок, каждый разбитый объект, каждый завершённый event считается."},{i:"✦",x:"Если у вас Adventure of Traum в прогрессе, карты Акта 12 — среди самых contributing."},{i:"◈",c:1,x:"Активируйте secondary map events даже если они кажутся optional. Многие дают unique достижения."},{i:"⚠",r:1,x:"Не заканчивайтесь без potions на боссах Акта 12. Паттерны урона меняются по сравнению с Эп.2."}],rng:"На этой высоте RNG вас больше не удивляет — вы знаете, что вам нужно и фармите с направлением."},
+  "13":{t:"Акт 13 — Конец основного пути",p:[{i:"✦",x:"Последний акт перед Эпилогом. Завершите каждый side-квест — многие являются prerequisites для финального контента."},{i:"✦",x:"Всё на 100%: достижения Акта 13 — среди самых ценных для Adventure of Traum Lv11."},{i:"◈",c:1,x:"Каждый разбитый ящик, каждый завершённый event, каждая 100% карта в этих актах открывает Эпилог контент."},{i:"⚠",r:1,x:"Не заканчивайте Акт 13 без завершения всех side-квестов. Некоторые исчезают при продвижении."}],rng:"RNG Акта 13 дропает exclusive Эпилог материалы. Фарм здесь перед продвижением имеет смысл."},
+  "epilogo":{t:"Эпилог — Всё открыто",p:[{i:"◈",c:1,x:"Вы сделали это. Весь контент игры доступен: полные Chaos Dungeons, Lacrima, special events."},{i:"✦",x:"Judgement Executioner и Adventure of Traum Lv11 — теперь цели. Каждое достижение из 13 актов считается здесь."},{i:"✦",x:"Chaos Dungeon: Icy Arrow + Illusion Arrow идеален для быстрой очистки волн. Это контент, для которого билд был построен."},{i:"✦",x:"Completionist: Эпилог награждает каждое достижение из предыдущих актов — ящики, exploration, side-квесты."},{i:"◈",c:1,x:"Удовлетворение от достижения реально. Вы часть endgame группы — той, которую новые игроки не видят."}],rng:"В Эпилоге RNG — ваш инструмент farming, не враг. Вы уже знаете, как его использовать."},
+};
+consejos.pt = {
+  "1":{t:"Ato 1 — Primeiros passos",p:[{i:"✦",x:"Concentre-se em subir de nível, não em otimizar equipamento. O equipamento do Ato 1 é substituído rápido."},{i:"✦",x:"Equipe as primeiras runas que encontrar, mesmo se não forem perfeitas — algo é melhor que nada."},{i:"✦",x:"Aprenda o sistema de links de runas. É a mecânica mais importante do jogo."},{i:"⚠",r:1,x:"Não gaste recursos craftando itens. Armazene tudo no baú."}],rng:"No Ato 1 o RNG não importa muito. Tudo que você ganha é útil para aprender o sistema."},
+  "2":{t:"Ato 2 — Tomando forma",p:[{i:"✦",x:"Comece a definir a direção do build. Físico, elemental ou veneno — escolha um e comprometa-se."},{i:"✦",x:"Priorize aumentar as resistências básicas: Fogo e Raio para pelo menos 50%."},{i:"✦",x:"Se o build não estiver claro, veja quais runas caíram melhor e siga aquela linha."},{i:"⚠",r:1,x:"Não misture tipos de dano. Foque em um só para o scaling funcionar."}],rng:"Se o loot não se alinha com o build pretendido, considere pivotar. O Ato 2 é um bom momento."},
+  "3":{t:"Ato 3 — Consolidando",p:[{i:"✦",x:"Verifique suas resistências. Fogo, Raio e Veneno devem se aproximar de 75%."},{i:"✦",x:"Comece a trabalhar no Chance Crítico se seu build exigir. Base mínima: 40%."},{i:"✦",x:"Links de runas: certifique-se de ter pelo menos 3 runas conectadas à sua habilidade principal."},{i:"⚠",r:1,x:"Se Chaos Resist estiver em 0, deixe assim por enquanto. É trabalhado depois."}],rng:"O que cai no Ato 3 começa a ter peso real. Armazene no baú tudo que não usar hoje."},
+  "4":{t:"Ato 4 — Meio caminho",p:[{i:"✦",x:"Procure itens com HP plano ou HP%. Menos de 3500 HP no Ato 4+ é risco desnecessário."},{i:"✦",x:"Se você tiver life leech (Hunger, Bloodthirst), HP alto amplifica esse sustain brutalmente."},{i:"✦",x:"Trabalhe na segunda habilidade utility — mobilidade ou buff — para ter um loop limpo."},{i:"⚠",r:1,x:"Não avance sem pelo menos 3500 HP. Inimigos do Ato 5+ batem mais forte."}],rng:"Se o equipamento não melhorar seu HP, procure no baú itens com vida plana mesmo se outros stats forem menores."},
+  "5":{t:"Ato 5 — Fim do tutorial",p:[{i:"✦",x:"Último ato do Episódio 1. Completar tudo em 100% aqui estabelece as bases para Ep.2."},{i:"✦",x:"Verifique Chaos Resist. Dano caótico começa a aparecer no Episódio 2."},{i:"✦",x:"Objetivo de HP antes de ir para Ep.2: 4000+."},{i:"⚠",r:1,x:"Não pule missões secundárias. Conquistas do Ep.1 concedem bônus no Ep.2."}],rng:"Qualquer item com Chaos Resist é bem-vindo, mesmo se não for BiS em outros slots."},
+  "6":{t:"Ato 6 — O jogo começa de verdade",p:[{i:"✦",x:"Bem-vindo ao Episódio 2. Agora o jogo assume que você dominou os fundamentos."},{i:"✦",x:"Com Whirlwind + Iron Will + Hunger você tem a base perfeita. O foco agora é defesa."},{i:"✦",x:"Cold Resist em 57% é a lacuna mais urgente. Procure itens com Cold Resist no baú ou drops."},{i:"⚠",r:1,x:"HP 2636 é baixo para este ponto. Priorize HP sobre DPS no próximo upgrade."}],rng:"Se itens caem com resistências mesmo se dano for menor, guarde-os. Sobrevivência em primeiro lugar."},
+  "7":{t:"Ato 7 — Escalando",p:[{i:"✦",x:"Rune Master deve estar próximo. Esse unlock ativa o potencial completo do seu build AoE."},{i:"✦",x:"Com Spell Activation on Attack Hit + Thorn Explosion, Hunger terá fontes duplas."},{i:"✦",x:"Farmei mapas secundários para acumular XP de runa antes do Ato 8."},{i:"⚠",r:1,x:"Chaos Resist urgente. Atos 8-9 usam muito e 32% é perigoso."}],rng:"Se loot não melhorar suas resistências, priorize farming de XP para Rune Master."},
+  "8":{t:"Ato 8 — Terreno duro",p:[{i:"✦",x:"Chaos Resist mínimo 60%. Este é o ato onde aparece mais."},{i:"✦",x:"Verifique todas as lacunas defensivas. Cold Resist e Chaos são os mais urgentes."},{i:"✦",x:"Se Rune Master estiver ativo, o loop Whirlwind → Thorn Explosion deve limpar suavemente."},{i:"⚠",r:1,x:"Não subestime pacotes com dano caótico. Eles podem derretê-lo se resistência for baixa."}],rng:"Qualquer item com Chaos Resist é bem-vindo aqui, mesmo se não perfeito em outros slots."},
+  "9":{t:"Ato 9 — Pré-endgame duro",p:[{i:"✦",x:"O build deve estar consolidado. Use o reset gratuito do Zodiaco antes do Episódio 2 acabar."},{i:"✦",x:"Objetivo de HP: 5000+. Com leech ativo isso o torna praticamente intocável."},{i:"✦",x:"Pense em Chaos Dungeons do endgame. Seu build AoE é ideal para esse conteúdo."},{i:"⚠",r:1,x:"Última chance para reset gratuito de Zodiaco. Alinhe-o com o build final antes do Ato 10."}],rng:"Loot do Ato 9 é pré-endgame. Armazene tudo no baú para comparar com drops do Ato 10."},
+  "10":{t:"Ato 10 — Fim do Episódio 2",p:[{i:"✦",x:"Todas as resistências no cap (75%). O Celestial Orb (+35 Chaos Resist, +18 Element Resist) é exatamente a peça que você procura."},{i:"✦",x:"Icy Arrow com Illusion Arrow on Hit (Miraseti's Wave) é ideal — projéteis constantes sem esforço manual."},{i:"✦",x:"O sustain vem do Sandglass: 1% Max HP regen/seg e +200% regen abaixo de 40% HP."},{i:"⚠",r:1,x:"Não substitua o Quiver por stats genéricos. Miraseti's Wave ativa toda a sinergia do build."},{i:"◈",c:1,x:"Completar o Ato 10 desbloqueia o Episódio 3. O verdadeiro endgame começa."}],rng:"No endgame RNG se torna farming deliberado. Não é mais sorte — rotação estratégica de conteúdo."},
+  "11":{t:"Ato 11 — Episódio 3 começa",p:[{i:"✦",x:"Você alcançou o Episódio 3. Dificuldade escala notavelmente — revise o build completo."},{i:"✦",x:"Completionist: cada mapa 100% no Ep.3 concede recompensas que não existem em episódios anteriores."},{i:"◈",c:1,x:"Quebrar caixas, barris e objetos da cena conta para conquistas. Nunca ignore o ambiente."},{i:"⚠",r:1,x:"Não avance com resistências incompletas. Dano elemental e caótico no Ep.3 é maior."}],rng:"Loot do Episódio 3 é o melhor do jogo. Armazene tudo mesmo se não usar agora."},
+  "12":{t:"Ato 12 — Aprofundando",p:[{i:"✦",x:"100% de mapa aqui começa a desbloquear conteúdo exclusivo do Epílogo. Não pule nada."},{i:"✦",x:"Conquistas de exploração: cada canto visitado, cada objeto quebrado, cada evento completado conta."},{i:"✦",x:"Se você tiver Adventure of Traum em progresso, mapas do Ato 12 são entre os mais contributing."},{i:"◈",c:1,x:"Ative eventos de mapa secundário mesmo se parecerem opcionais. Muitos concedem conquistas únicas."},{i:"⚠",r:1,x:"Não fique sem poções nos chefes do Ato 12. Padrões de dano mudam em relação ao Ep.2."}],rng:"Neste ponto RNG não te surpreende mais — você sabe o que precisa e farmei com direção."},
+  "13":{t:"Ato 13 — Fim do caminho principal",p:[{i:"✦",x:"Último ato antes do Epílogo. Complete cada missão secundária — muitas são pré-requisitos para conteúdo final."},{i:"✦",x:"Tudo em 100%: conquistas do Ato 13 são entre as mais valiosas para Adventure of Traum Lv11."},{i:"◈",c:1,x:"Cada caixa quebrada, cada evento completado, cada mapa 100% nestes atos desbloqueia conteúdo do Epílogo."},{i:"⚠",r:1,x:"Não termine o Ato 13 sem completar todas as missões secundárias. Algumas desaparecem ao avançar."}],rng:"RNG do Ato 13 dropa materiais exclusivos do Epílogo. Farmar aqui antes de avançar faz sentido."},
+  "epilogo":{t:"Epílogo — Tudo desbloqueado",p:[{i:"◈",c:1,x:"Você conseguiu. Todo o conteúdo do jogo está disponível: Chaos Dungeons completas, Lacrima, eventos especiais."},{i:"✦",x:"Judgement Executioner e Adventure of Traum Lv11 são os objetivos agora. Cada conquista dos 13 atos conta aqui."},{i:"✦",x:"Chaos Dungeon: Icy Arrow + Illusion Arrow é ideal para limpar ondas rápido. Este é o conteúdo para o qual o build foi construído."},{i:"✦",x:"Completionist: o Epílogo recompensa cada conquista dos atos anteriores — caixas, exploração, missões secundárias."},{i:"◈",c:1,x:"A satisfação de chegar é real. Você faz parte do grupo endgame — aquele que os novos não veem."}],rng:"No Epílogo RNG é sua ferramenta de farming, não inimigo. Você já sabe como usá-lo."},
+};
+
+const rngConsejos = {
+  en:{
+    bien:"RNG is on your side. Take advantage to stock the chest and prepare your next character or build.",
+    mal:"What you don't need today another character will need tomorrow. Everything in the chest — nothing gets discarded. Pivoting is not giving up.",
+    confundido:"Look at what type of damage dominates the items that dropped and follow that line. RNG often shows you the path — listen to it."
+  },
+  ru:{
+    bien:"RNG на вашей стороне. Используйте это, чтобы запастись сундуком и подготовить следующего персонажа или билд.",
+    mal:"То, что вам не нужно сегодня, завтра понадобится другому персонажу. Всё в сундук — ничего не выбрасывайте. Перестраиваться — это не сдаваться.",
+    confundido:"Смотрите, какой тип урона доминирует у предметов, которые вам выпали, и продолжайте эту линию. RNG часто показывает путь — прислушайтесь к нему."
+  },
+  pt:{
+    bien:"O RNG está a seu favor. Aproveite para estocar o baú e preparar seu próximo personagem ou build.",
+    mal:"O que você não precisa hoje outro personagem vai precisar amanhã. Tudo no baú — nada é descartado. Pivotar não é desistir.",
+    confundido:"Veja qual tipo de dano domina os itens que você recebeu e siga essa linha. O RNG muitas vezes mostra o caminho — ouça-o."
+  },
+  es:{
+    bien:"El RNG está de tu lado. Aprovechá para stockear el baúl y preparar el próximo personaje o build.",
+    mal:"Lo que no necesitás hoy lo va a necesitar otro personaje mañana. Todo al baúl — nada se descarta. Pivotar no es rendirse.",
+    confundido:"Mirá qué tipo de daño dominan los items que te cayeron y seguí esa línea. El RNG muchas veces te muestra el camino — escuchalo."
+  }
+};
+
+let lang = 'es';
+
+const situacionData = {
+  en:{
+    low_dmg:{i:'⚔️',x:'Prioritize leveling your flat damage Link Runes over gear upgrades. Rune scaling outpaces gear in early/mid game.',c:true},
+    glass:{i:'🛡️',x:'Check your elemental resists. Don\'t push further without 75% resist to the current Act\'s dominant element.',r:true},
+    stuck:{i:'🔄',x:'Do some backtracking. Farming the previous map 5 times gives you the XP to break the wall — plus extra chest drops.'},
+    lucky:{i:'💎',x:'Don\'t hoard everything by reflex. If the loot is good but not for your build, consider switching now while it\'s cheap.',c:true},
+  },
+  ru:{
+    low_dmg:{i:'⚔️',x:'Приоритезируйте прокачку рунических связок на плоском уроне (flat damage) вместо апгрейдов шмота. Масштабирование рун обгоняет экип в early/mid игре.',c:true},
+    glass:{i:'🛡️',x:'Проверьте ваши элементальные сопротивления. Не продвигайтесь дальше без 75% резиста к доминирующему элементу текущего Акта.',r:true},
+    stuck:{i:'🔄',x:'Сделайте backtrack. Фарм предыдущей карты 5 раз даёт нужную XP, чтобы пробить стену — плюс дополнительные дропы в сундук.'},
+    lucky:{i:'💎',x:'Не прячьте всё по привычке. Если лут хорош, но не подходит вашему билду, рассмотрите переключение прямо сейчас — пока это дешево.',c:true},
+  },
+  pt:{
+    low_dmg:{i:'⚔️',x:'Priorize aumentar o nível das runas de ligação de dano plano (flat damage) antes de trocar de equipamento. O scaling das runas supera o gear no early/mid game.',c:true},
+    glass:{i:'🛡️',x:'Verifique suas resistências elementais. Não avance sem ter 75% de resistência ao elemento dominante do Act atual.',r:true},
+    stuck:{i:'🔄',x:'Faça backtrack. Farmar a mapa anterior 5 vezes dá a XP necessária para quebrar a barreira — além de drops extras para o baú.'},
+    lucky:{i:'💎',x:'Não guarde tudo por reflexo. Se o loot for bom, mas não for do seu build, considere trocar agora enquanto está barato.',c:true},
+  },
+  es:{
+    low_dmg:{i:'⚔️',x:'Priorizá subir el nivel de tus runas de daño plano antes que el equipo. El scaling de runas supera al gear en early/mid game.',c:true},
+    glass:{i:'🛡️',x:'Revisá tus resistencias elementales. No avances sin tener 75% al elemento predominante del Act actual.',r:true},
+    stuck:{i:'🔄',x:'Hacé backtrack. Farmear el mapa anterior 5 veces te da la XP necesaria para romper el muro — y drops extras para el baúl.'},
+    lucky:{i:'💎',x:'No guardes todo por inercia. Si el drop es bueno pero no es de tu build, considerá pivotar ahora que es barato.',c:true},
+  }
+};
+
+function updateText() {
+  console.log('updateText:', lang);
+  
+  // Mostrar/ocultar spans de idioma en la sección MI CAMINO y partes similares
+  document.querySelectorAll('.lang-es, .lang-en, .lang-ru, .lang-pt, .lang-fr, .lang-ko, .lang-zh').forEach(el => {
+    el.style.display = 'none';
+  });
+  const langClass = `.lang-${lang}`;
+  document.querySelectorAll(langClass).forEach(el => {
+    el.style.display = 'inline';
+  });
+  
+  if (T[lang]) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (key && T[lang][key] !== undefined) {
+        el.innerHTML = T[lang][key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-opt]').forEach(el => {
+      const key = el.getAttribute('data-i18n-opt');
+      if (key && T[lang][key] !== undefined) {
+        el.textContent = T[lang][key];
+      }
+    });
+  }
+
+  const labels = document.querySelectorAll('label');
+  if (labels.length >= 4) {
+    labels[0].textContent = T[lang]['lbl.act'];
+    labels[1].textContent = T[lang]['lbl.build'];
+    labels[2].textContent = T[lang]['lbl.rng'];
+    labels[3].textContent = T[lang]['lbl.sit'];
+  }
+  const analyzeBtn = document.querySelector('.btn-analizar');
+  if (analyzeBtn) {
+    analyzeBtn.textContent = T[lang]['btn.analyze'];
+  }
+
+  // Helper to update select options
+  function updateSelect(selectId, options) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    select.options[0].text = T[lang]['sel'];
+    options.forEach((opt, i) => {
+      if (select.options[i+1]) select.options[i+1].text = T[lang][opt];
+    });
+  }
+
+  updateSelect('sel-acto', ['act.1', 'act.2', 'act.3', 'act.4', 'act.5', 'act.6', 'act.7', 'act.8', 'act.9', 'act.10', 'act.11', 'act.12', 'act.13', 'epilogo']);
+  updateSelect('sel-build', ['b.fisico', 'b.veneno', 'b.crit', 'b.inv', 'b.noidea']);
+  updateSelect('sel-rng', ['r.bien', 'r.mal', 'r.conf']);
+
+  document.querySelectorAll('[data-i18n-optgroup]').forEach(el => {
+    const key = el.getAttribute('data-i18n-optgroup');
+    if (key && T[lang][key] !== undefined) {
+      el.label = T[lang][key];
+    }
+  });
+
+  // Update situacion
+  const sitSelect = document.getElementById('sel-situacion');
+  if (sitSelect) {
+    sitSelect.options[0].text = T[lang]['sit.none'];
+    sitSelect.options[1].text = T[lang]['sit.dmg'];
+    sitSelect.options[2].text = T[lang]['sit.glass'];
+    sitSelect.options[3].text = T[lang]['sit.stuck'];
+    sitSelect.options[4].text = T[lang]['sit.lucky'];
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateText();
+document.querySelectorAll('.lang-toggle [data-lang]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selected = btn.dataset.lang;
+      lang = selected;
+      document.documentElement.lang = selected;
+      updateText();
+      updateConditionals();
+      // Close all FAQ items on lang change to avoid stale open state
+      document.querySelectorAll('.faq-question').forEach(b => {
+        b.classList.remove('open');
+        const ans = b.nextElementSibling;
+        if (ans) ans.style.display = 'none';
+      });
+      document.querySelectorAll('.lang-toggle [data-lang]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  const analyzeBtn = document.querySelector('.btn-analizar');
+  if (analyzeBtn) {
+    analyzeBtn.addEventListener('click', analizar);
+  }
+
+  // Music player with multiple tracks
+  const tracks = [
+    { name: 'Dungeon_Final_ProjectU.mp3', title: 'Dungeon Theme' },
+    { name: 'ambiente.mp3', title: 'Ambient Theme' }
+  ];
+  let currentTrackIndex = 0;
+  
+  const bgMusic = new Audio(tracks[currentTrackIndex].name);
+  bgMusic.loop = true;
+  bgMusic.volume = 0.3;
+  
+  // Fade-in effect — using named function so it can be removed
+  function onTrackLoaded() {
+    bgMusic.volume = 0;
+    const fadeIn = setInterval(() => {
+      if (bgMusic.volume < 0.28) {
+        bgMusic.volume = Math.min(0.3, bgMusic.volume + 0.01);
+      } else {
+        clearInterval(fadeIn);
+        bgMusic.volume = 0.3;
+      }
+    }, 50);
+  }
+  bgMusic.addEventListener('loadeddata', onTrackLoaded);
+
+  // Auto-start on first interaction
+  document.addEventListener('click', () => {
+    bgMusic.play().catch(() => {});
+  }, { once: true });
+
+  const musicBtn = document.getElementById('music-btn');
+  const volDisplay = document.getElementById('vol-display');
+  const volUp = document.getElementById('vol-up');
+  const volDown = document.getElementById('vol-down');
+
+  // Function to switch tracks
+  function switchTrack(direction) {
+    const wasPlaying = !bgMusic.paused;
+    bgMusic.pause();
+
+    if (direction === 'next') {
+      currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    } else {
+      currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+    }
+
+    bgMusic.src = tracks[currentTrackIndex].name;
+    bgMusic.load();
+
+    if (wasPlaying) {
+      bgMusic.addEventListener('canplay', function playOnReady() {
+        bgMusic.play().catch(() => {});
+        bgMusic.removeEventListener('canplay', playOnReady);
+      });
+    }
+
+    updateMusicButton();
+  }
+
+  // Update music button text
+  function updateMusicButton() {
+    const currentTrack = tracks[currentTrackIndex];
+    if (bgMusic.paused) {
+      musicBtn.textContent = `▶ ${currentTrack.title}`;
+      musicBtn.style.color = '';
+      musicBtn.style.borderColor = '';
+    } else {
+      musicBtn.textContent = `■ ${currentTrack.title}`;
+      musicBtn.style.color = 'var(--red2)';
+      musicBtn.style.borderColor = 'var(--red2)';
+    }
+  }
+
+  // Play / Stop
+  if (musicBtn) {
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (bgMusic.paused) {
+        bgMusic.play().catch(() => {});
+      } else {
+        bgMusic.pause();
+      }
+      updateMusicButton();
+    });
+  }
+
+  // Volume controls — clamped between 0 and 1, step 10%
+  function updateVol(delta) {
+    const newVol = Math.min(1, Math.max(0, Math.round((bgMusic.volume + delta) * 10) / 10));
+    bgMusic.volume = newVol;
+    if (volDisplay) volDisplay.textContent = Math.round(newVol * 100) + '%';
+    // Visual feedback at limits
+    if (volDown) volDown.style.opacity = newVol <= 0 ? '0.3' : '1';
+    if (volUp)   volUp.style.opacity   = newVol >= 1 ? '0.3' : '1';
+  }
+
+  if (volUp)   volUp.addEventListener('click',   (e) => { e.stopPropagation(); updateVol(0.1);  });
+  if (volDown) volDown.addEventListener('click',  (e) => { e.stopPropagation(); updateVol(-0.1); });
+  
+  // Track navigation buttons
+  const prevBtn = document.getElementById('prev-track');
+  const nextBtn = document.getElementById('next-track');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => { 
+      e.stopPropagation(); 
+      switchTrack('prev'); 
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => { 
+      e.stopPropagation(); 
+      switchTrack('next'); 
+    });
+  }
+  
+  // Initialize music button display
+  updateMusicButton();
+});
+
+function analizar(){
+  const acto=document.getElementById('sel-acto').value;
+  const build=document.getElementById('sel-build').value;
+  const rng=document.getElementById('sel-rng').value;
+  const res=document.getElementById('resultado');
+  const errMsg=lang==='es'
+    ?'⚠ Seleccioná el Act actual para continuar.'
+    : lang==='ru'
+      ?'⚠ Выберите текущий Акт чтобы продолжить.'
+      : lang==='pt'
+        ?'⚠ Selecione o Act atual para continuar.'
+        : '⚠ Select your current Act to continue.';
+  if(!acto){res.innerHTML=`<div style="color:var(--red2);font-size:11px;">${errMsg}</div>`;res.classList.add('show');return;}
+  // Fallback RU/PT: si falta traducción en consejos, usar EN.
+  let effectiveLang = lang;
+  if((lang==='ru' || lang==='pt') && (!consejos[lang] || !consejos[lang][acto])) effectiveLang = 'en';
+
+  const data=consejos[effectiveLang][acto];
+  let html=`<div class="res-title">// ${data.t}</div>`;
+  data.p.forEach(p=>{
+    const color=p.r?'red':p.c?'cyan':'';
+    html+=`<div class="res-item"><span class="res-icon ${color}">${p.i}</span><span>${p.x}</span></div>`;
+  });
+  const rngText = (rng && rngConsejos[lang] && rngConsejos[lang][rng]) ? rngConsejos[lang][rng]
+                  : (rng && rngConsejos.en && rngConsejos.en[rng]) ? rngConsejos.en[rng]
+                  : '';
+  if(rngText){
+    html+=`<div class="rng-nota"><strong>RNG · </strong>${rngText}</div>`;
+  }
+  if(build==='nolosé'||build==='noidea'){
+    const buildMsg=lang==='es'
+      ?'Mirá qué runas y gear te caen con más frecuencia. El RNG ya está sugiriendo una dirección — seguila.'
+      : lang==='ru'
+        ?'Посмотрите, какие руны и шмот падают чаще всего. RNG уже подсказывает направление — следуйте ему.'
+        : lang==='pt'
+          ?'Veja quais runas e gear caem com mais frequência. O RNG já está sugerindo uma direção — siga-a.'
+          :'Look at which runes and gear drop most often. The RNG is already suggesting a direction — follow it.';
+    html+=`<div class="rng-nota" style="border-left-color:var(--cyan);background:rgba(0,229,255,.04)"><strong style="color:var(--cyan)">BUILD · </strong>${buildMsg}</div>`;
+  }
+  const sitVal=document.getElementById('sel-situacion').value;
+
+  const s = (sitVal && situacionData[lang] && situacionData[lang][sitVal]) ? situacionData[lang][sitVal]
+          : (sitVal && situacionData.en && situacionData.en[sitVal]) ? situacionData.en[sitVal]
+          : null;
+
+  if(s){
+    const sColor=s.r?'red':s.c?'cyan':'';
+    const sitLabel=lang==='es'
+      ?'PROBLEMA'
+      : lang==='ru'
+        ?'ПРОБЛЕМА'
+        : lang==='pt'
+          ?'PROBLEMA'
+          :'ISSUE';
+    html+=`<div class="rng-nota" style="border-left-color:var(--${s.r?'red2':s.c?'cyan':'amber'});background:rgba(${s.r?'192,57,43':s.c?'0,229,255':'255,176,0'},.05)"><strong style="color:var(--${s.r?'red2':s.c?'cyan':'amber'})">${sitLabel} · </strong>${s.x}</div>`;
+  }
+  res.innerHTML = html;
+  res.classList.add('show');
+}
+
+
+// ══ WEAPON MATRIX UI ══════════════════════════════════════════
+(function() {
+  function wmInit() {
+    if (typeof WEAPON_DATABASE === 'undefined') {
+      console.warn('weapon_matrix.js not loaded yet — retrying in 300ms');
+      setTimeout(wmInit, 300);
+      return;
+    }
+    const types = Object.keys(WEAPON_DATABASE);
+    ['wm-type1','wm-type2'].forEach(id => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      // keep existing first option(s)
+      const keep = Array.from(sel.options).filter(o => o.value === '' || o.value === '__none__');
+      sel.innerHTML = '';
+      keep.forEach(o => sel.appendChild(o));
+      types.forEach(t => {
+        const o = document.createElement('option');
+        o.value = t; o.textContent = t;
+        sel.appendChild(o);
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', wmInit);
+})();
+
+function wmPopulateNames(hand) {
+  setTimeout(wmShowLore, 50);
+  if (typeof WEAPON_DATABASE === 'undefined') return;
+  const typeId = 'wm-type' + hand;
+  const nameId = 'wm-name' + hand;
+  const typeSel = document.getElementById(typeId);
+  const nameSel = document.getElementById(nameId);
+  if (!typeSel || !nameSel) return;
+
+  const type = typeSel.value;
+  nameSel.innerHTML = '';
+
+  if (!type || type === '__none__') {
+    nameSel.innerHTML = '<option value="">— Sin arma —</option>';
+    return;
+  }
+
+  const cat = WEAPON_DATABASE[type];
+  if (!cat) return;
+
+  const def = document.createElement('option');
+  def.value = ''; def.textContent = '— Nombre —';
+  nameSel.appendChild(def);
+
+  cat.baseTypes.forEach(w => {
+    const o = document.createElement('option');
+    o.value = w.name;
+    o.textContent = w.unique ? w.name + ' ★' : w.name;
+    nameSel.appendChild(o);
+  });
+}
+
+function wmValidate() {
+  if (typeof validateBuild === 'undefined') {
+    alert('weapon_matrix.js no está cargado. Asegurate de incluirlo antes de este script.');
+    return;
+  }
+
+  const t1 = document.getElementById('wm-type1').value;
+  const n1 = document.getElementById('wm-name1').value;
+  const t2 = document.getElementById('wm-type2').value;
+  const n2 = document.getElementById('wm-name2').value;
+
+  if (!t1 || !n1) {
+    wmShowResult({ valid: false, errors: ['Seleccioná el tipo y nombre del arma principal.'], warnings: [], runeAdvice: {} });
+    return;
+  }
+
+  const w1 = { type: t1, name: n1 };
+  const w2 = (t2 && t2 !== '__none__' && n2) ? { type: t2, name: n2 } : null;
+
+  const result = validateBuild(w1, w2);
+  wmShowResult(result);
+  wmShowLore();
+}
+
+function wmShowResult(r) {
+  const panel = document.getElementById('wm-result');
+  const body  = document.getElementById('wm-result-body');
+  if (!panel || !body) return;
+
+  const RUNE_COLOR = { Rojo: '#e74c3c', Verde: '#00ff41', Azul: '#00e5ff' };
+
+  let html = '';
+
+  // ── Status badge ──
+  if (r.valid) {
+    html += '<div style="margin-bottom:.8rem;color:#00ff41;font-family:Cinzel,serif;letter-spacing:.1em;">✓ BUILD VÁLIDA</div>';
+  } else {
+    html += '<div style="margin-bottom:.8rem;color:var(--red2);font-family:Cinzel,serif;letter-spacing:.1em;">✕ BUILD INVÁLIDA</div>';
+  }
+
+  // ── Errors ──
+  r.errors.forEach(e => {
+    html += '<div style="display:flex;gap:.5rem;margin-bottom:.4rem;padding:.5rem .7rem;border-left:2px solid var(--red2);background:rgba(192,57,43,.07)">'
+          + '<span style="color:var(--red2);flex-shrink:0">⚠</span>'
+          + '<span style="color:#c0c0d8;line-height:1.7">' + e + '</span></div>';
+  });
+
+  // ── Warnings ──
+  r.warnings.forEach(w => {
+    html += '<div style="display:flex;gap:.5rem;margin-bottom:.4rem;padding:.5rem .7rem;border-left:2px solid var(--gold);background:rgba(201,168,76,.05)">'
+          + '<span style="color:var(--gold);flex-shrink:0">⚡</span>'
+          + '<span style="color:#c0c0d8;line-height:1.7">' + w + '</span></div>';
+  });
+
+  // ── Rune advice ──
+  if (r.runeAdvice && Object.keys(r.runeAdvice).length) {
+    html += '<div style="margin-top:.8rem;border-top:1px solid #1e1e3a;padding-top:.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.6rem">';
+
+    const labels = { mainHand: 'Mano Principal', offHand: 'Mano Secundaria' };
+    Object.entries(r.runeAdvice).forEach(([slot, advice]) => {
+      const col = RUNE_COLOR[advice.color] || '#c9a84c';
+      html += '<div style="padding:.7rem .8rem;border:1px solid #1e1e3a;background:rgba(255,255,255,.02)">'
+            + '<div style="font-family:Cinzel,serif;font-size:10px;letter-spacing:.12em;color:#666;margin-bottom:.4rem">' + (labels[slot] || slot).toUpperCase() + '</div>'
+            + '<div style="font-size:12px;color:#d0d0e8;margin-bottom:.35rem">' + advice.weapon + '</div>'
+            + '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">'
+            + '<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' + col + ';box-shadow:0 0 6px ' + col + ';flex-shrink:0"></span>'
+            + '<span style="color:' + col + ';font-weight:600;font-size:11px">' + advice.color.toUpperCase() + ' · ' + advice.stat + '</span>'
+            + '</div>'
+            + '<div style="color:#666;font-style:italic;font-size:10px;line-height:1.6">' + advice.reason + '</div>'
+            + '</div>';
+    });
+
+    html += '</div>';
+  }
+
+  body.innerHTML = html;
+  panel.style.display = 'block';
+}
+
+// ── UNIQUE ITEM LORE ──────────────────────────────────────────
+function wmGetUniqueData(type, name) {
+  // flavorText and passive pulled from weapon_matrix.js WEAPON_DATABASE
+  // We extend here with lore — add entries as you unlock more Uniques
+  const LORE = {
+    'Colmillo Sombrío':    { flavor: '"El que lo empuña no ve luz — pero tampoco la necesita."',            passive: 'Los ataques críticos aplican Veneno por 2s. No acumulable.' },
+    'Ojo del Abismo':      { flavor: '"Mira lo que no existe y lo convoca."',                               passive: 'Cada cast tiene 15% de chance de no consumir maná.' },
+    'Espada del Caos':     { flavor: '"El filo no distingue entre aliado y enemigo. Solo distingue carne."', passive: '+25% daño si el HP está por debajo del 40%.' },
+    'Hacha Maldita':       { flavor: '"Tres dueños anteriores. Los tres murieron sonriendo."',               passive: 'Cada kill otorga un stack de Furia (máx 10). Se pierden al recibir daño.' },
+    'Bastón del Caos':     { flavor: '"El caos no se aprende. Se sobrevive."',                              passive: 'Las habilidades de área tienen +20% de radio. Mana cost +10%.' },
+    'Filo del Juicio':     { flavor: '"No hay sentencia. Solo hay golpe."',                                 passive: 'Ignora el 15% de la armadura del enemigo.' },
+    'Hacha del Titán':     { flavor: '"Fue forjada para un dios. El dios ya no existe."',                   passive: 'Los ataques de área knockback con 100% de efectividad.' },
+    'Puño del Dios':       { flavor: '"El sonido que hace al impactar no tiene nombre en ningún idioma."',  passive: 'Aturde al enemigo golpeado por 1.5s. CD: 8s.' },
+    'Varita del Vacío':    { flavor: '"No emite luz. Absorbe la de alrededor."',                            passive: 'Los proyectiles atraviesan enemigos y ganan daño por cada uno atravesado.' },
+    'Arco Estelar':        { flavor: '"Las flechas no caen. Orbitan."',                                     passive: '+30% velocidad de proyectil. Las flechas no pierden daño por distancia.' },
+    'Arco del Cazador':    { flavor: '"El animal no escucha el disparo. Solo el silencio después."',        passive: 'El primer disparo después de estar quieto 2s es siempre crítico.' },
+    'Ballesta Arcana':     { flavor: '"Dispara lo que la mente carga, no la mano."',                        passive: 'Los proyectiles mágicos tienen 20% de chance de split al impacto.' },
+    'Carcaj Eterno':       { flavor: '"Nunca se vacía. Nadie sabe por qué."',                               passive: 'Las flechas tienen +15% de penetración de resistencias.' },
+    'Cargador Omega':      { flavor: '"El último cargador que vas a necesitar."',                           passive: 'El último proyectil de cada secuencia hace 200% de daño.' },
+  };
+
+  if (typeof WEAPON_DATABASE === 'undefined') return null;
+  const cat = WEAPON_DATABASE[type];
+  if (!cat) return null;
+  const base = cat.baseTypes.find(w => w.name === name);
+  if (!base || !base.unique) return null;
+
+  return {
+    name:     base.name,
+    type:     type,
+    unique:   true,
+    req:      base.requirements,
+    lore:     LORE[name] || { flavor: '"Objeto de poder desconocido."', passive: 'Pasiva no documentada.' },
+    rune:     cat.runeSlotSuggestion(base.requirements),
+    handedness: cat.handedness,
+  };
+}
+
+function wmRenderLore(data) {
+  if (!data) return '';
+
+  const RUNE_COLOR = { Rojo: '#e74c3c', Verde: '#00ff41', Azul: '#00e5ff' };
+  const col = RUNE_COLOR[data.rune.color] || '#c9a84c';
+
+  const reqPills = Object.entries(data.req).map(([stat, val]) => {
+    const cls = stat === 'STR' ? 'str' : stat === 'DEX' ? 'dex' : 'int';
+    return `<span class="item-req-pill ${cls}">${stat} ${val}</span>`;
+  }).join('');
+
+  return `
+    <div class="unique-card">
+      <div class="unique-card-header">
+        <span class="unique-badge">Único</span>
+        <span class="unique-name">${data.name}</span>
+      </div>
+      <div style="font-size:10px;color:var(--dim);letter-spacing:.08em;margin-bottom:.4rem">
+        ${data.type} · ${data.handedness}
+      </div>
+      <div class="item-req">${reqPills}</div>
+      <div style="display:flex;align-items:center;gap:.4rem;margin-top:.5rem">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${col};box-shadow:0 0 5px ${col}"></span>
+        <span style="font-size:10px;color:${col}">Runa sugerida: ${data.rune.color} (${data.rune.stat})</span>
+      </div>
+      <div class="item-lore">
+        <div class="item-lore-flavor">${data.lore.flavor}</div>
+        <div class="item-lore-passive">${data.lore.passive}</div>
+      </div>
+    </div>`;
+}
+
+function wmShowLore() {
+  const lorePanel = document.getElementById('wm-lore');
+  if (!lorePanel) return;
+
+  const slots = [
+    { type: document.getElementById('wm-type1')?.value, name: document.getElementById('wm-name1')?.value },
+    { type: document.getElementById('wm-type2')?.value, name: document.getElementById('wm-name2')?.value },
+  ];
+
+  let html = '';
+  slots.forEach(s => {
+    if (s.type && s.name && s.type !== '__none__') {
+      const data = wmGetUniqueData(s.type, s.name);
+      if (data) html += wmRenderLore(data);
+    }
+  });
+
+  lorePanel.innerHTML = html;
+  lorePanel.style.display = html ? 'block' : 'none';
+}
+// ── END UNIQUE ITEM LORE ──────────────────────────────────────
+
+// ══ END WEAPON MATRIX UI ══════════════════════════════════════
+
+// ══ GEAR MATRIX UI ════════════════════════════════════════════
+
+const ARMOR_SLOTS = ['Casco','Pechera','Hombreras','Guantes','Botas'];
+const ACC_SLOTS   = ['Necklace','Cinturón','Anillo'];
+
+function compTab(pane, btn) {
+  document.querySelectorAll('.comp-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.comp-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('pane-' + pane).classList.add('active');
+  btn.classList.add('active');
+}
+
+function gearBuildSlots(slots, containerId) {
+  if (typeof GEAR_DATABASE === 'undefined') return;
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  slots.forEach(slotName => {
+    const cat = GEAR_DATABASE[slotName];
+    if (!cat) return;
+
+    const isDual = cat.dualSlot;
+    const instances = isDual ? [1, 2] : [0];
+
+    instances.forEach(idx => {
+      const uid   = isDual ? slotName + idx : slotName;
+      const label = isDual ? slotName + ' ' + idx : slotName;
+
+      const div = document.createElement('div');
+      div.className = 'gear-slot' + (isDual ? ' dual' : '');
+      div.innerHTML = `
+        <div class="gear-slot-label">${label}</div>
+        <select class="tracker-select" id="gs-${uid}" onchange="gearSelectChange('${slotName}','${uid}')">
+          <option value="">— ${slotName} —</option>
+          ${cat.baseTypes.map(b => `<option value="${b.name}">${b.name}${b.unique?' ★':''}</option>`).join('')}
+        </select>
+        <div id="gd-${uid}"></div>
+      `;
+      container.appendChild(div);
+    });
+  });
+}
+
+function gearSelectChange(slotName, uid) {
+  const sel  = document.getElementById('gs-' + uid);
+  const disp = document.getElementById('gd-' + uid);
+  if (!sel || !disp) return;
+
+  const name = sel.value;
+  if (!name) { disp.innerHTML = ''; return; }
+
+  const cat  = GEAR_DATABASE[slotName];
+  const base = cat?.baseTypes.find(b => b.name === name);
+  if (!base) { disp.innerHTML = ''; return; }
+
+  // Wardrobe toggle
+  const stored  = WARDROBE.isStored(slotName, name);
+  const togClass = stored ? 'wardrobe-toggle stored' : 'wardrobe-toggle';
+  const togLabel = stored ? '✦ Guardado en el Baúl (bufo activo)' : '○ Guardar en el Baúl';
+
+  let html = '';
+
+  // Unique lore card
+  if (base.unique) {
+    const reqPills = Object.entries(base.requirements).map(([s,v]) => {
+      const cls = s==='STR'?'str':s==='DEX'?'dex':'int';
+      return `<span class="item-req-pill ${cls}">${s} ${v}</span>`;
+    }).join('');
+
+    // Conditionals display
+    let condHtml = '';
+    base.conditionals.forEach(c => {
+      condHtml += `<div class="cond-inactive">⚡ ${c.label}</div>`;
+    });
+
+    html = `
+      <div class="unique-card" style="margin-top:.6rem">
+        <div class="unique-card-header">
+          <span class="unique-badge">Único</span>
+          <span class="unique-name">${base.name}</span>
+        </div>
+        <div class="item-req" style="margin-top:.3rem">${reqPills}</div>
+        <div class="item-lore">
+          <div class="item-lore-flavor">${base.lore.flavor}</div>
+          <div class="item-lore-passive">${base.lore.passive}</div>
+          ${condHtml}
+        </div>
+        <label class="${togClass}" id="wt-${uid}">
+          <input type="checkbox" ${stored?'checked':''} onchange="wardrobeToggle('${slotName}','${name}','${uid}')">
+          <span>${togLabel}</span>
+        </label>
+      </div>`;
+  } else {
+    html = `<label class="wardrobe-toggle" id="wt-${uid}" style="margin-top:.5rem">
+      <input type="checkbox" ${stored?'checked':''} onchange="wardrobeToggle('${slotName}','${name}','${uid}')">
+      <span>${stored?'✦ Guardado en el Baúl':'○ Guardar en el Baúl'}</span>
+    </label>`;
+  }
+
+  disp.innerHTML = html;
+  refreshWardrobeSummary();
+
+  // Validate dual rings
+  if (slotName === 'Anillo') {
+    const r1 = document.getElementById('gs-Anillo1')?.value;
+    const r2 = document.getElementById('gs-Anillo2')?.value;
+    if (r1 && r2) {
+      const errs = validateGearSlots(r1, r2);
+      errs.forEach(e => {
+        const panel = document.getElementById('wm-result');
+        const body  = document.getElementById('wm-result-body');
+        if (panel && body) {
+          body.innerHTML = `<div style="color:var(--red2);padding:.4rem 0">${e}</div>`;
+          panel.style.display = 'block';
+        }
+      });
+    }
+  }
+}
+
+function wardrobeToggle(slotName, itemName, uid) {
+  const isNowStored = WARDROBE.toggle(slotName, itemName);
+  const label = document.querySelector(`#wt-${uid} span`);
+  const wrap  = document.getElementById('wt-' + uid);
+  if (label) label.textContent = isNowStored ? '✦ Guardado en el Baúl (bufo activo)' : '○ Guardar en el Baúl';
+  if (wrap)  wrap.className    = isNowStored ? 'wardrobe-toggle stored' : 'wardrobe-toggle';
+  refreshWardrobeSummary();
+}
+
+function refreshWardrobeSummary() {
+  const buffs = WARDROBE.activeBuffs();
+
+  const armorBufTarget = document.getElementById('ws-armor-body');
+  const armorWrap      = document.getElementById('ws-armor');
+  const accBufTarget   = document.getElementById('ws-acc-body');
+  const accWrap        = document.getElementById('ws-acc');
+
+  let armorHtml = '', accHtml = '';
+
+  buffs.forEach(({ slot, name, buff }) => {
+    const isArmor = ARMOR_SLOTS.includes(slot);
+    const cond    = buff.condition ? `<span class="ws-buff-cond">(${buff.condition})</span>` : '';
+    const line    = `<div class="ws-buff">
+      <span style="color:var(--dim)">${slot}:</span>
+      <span>${name}</span>
+      <span class="ws-buff-val">${buff.value} ${buff.stat}</span>
+      ${cond}
+    </div>`;
+    if (isArmor) armorHtml += line;
+    else         accHtml   += line;
+  });
+
+  if (armorBufTarget) armorBufTarget.innerHTML = armorHtml || '<div style="color:var(--dim);font-size:10px">Sin ítems guardados.</div>';
+  if (armorWrap)      armorWrap.classList.toggle('has-items', buffs.some(b => ARMOR_SLOTS.includes(b.slot)));
+
+  if (accBufTarget)  accBufTarget.innerHTML = accHtml || '<div style="color:var(--dim);font-size:10px">Sin ítems guardados.</div>';
+  if (accWrap)       accWrap.classList.toggle('has-items', buffs.some(b => !ARMOR_SLOTS.includes(b.slot)));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof GEAR_DATABASE !== 'undefined') {
+    gearBuildSlots(ARMOR_SLOTS, 'grid-armaduras');
+    gearBuildSlots(ACC_SLOTS,   'grid-accesorios');
+  } else {
+    setTimeout(() => {
+      gearBuildSlots(ARMOR_SLOTS, 'grid-armaduras');
+      gearBuildSlots(ACC_SLOTS,   'grid-accesorios');
+    }, 400);
+  }
+
+  // Stats Tracker Live Conditionals
+  function updateConditionals() {
+    const stats = {
+      STR: parseInt(document.getElementById('stat-str')?.value || 0),
+      DEX: parseInt(document.getElementById('stat-dex')?.value || 0),
+      INT: parseInt(document.getElementById('stat-int')?.value || 0),
+      hp_full: document.getElementById('stat-hpfull')?.checked || false,
+    };
+    document.getElementById('val-str').textContent = stats.STR;
+    document.getElementById('val-dex').textContent = stats.DEX;
+    document.getElementById('val-int').textContent = stats.INT;
+    document.getElementById('val-hpfull').textContent = stats.hp_full ? 'Yes' : 'No';
+
+    // Update all equipped gear conditionals
+    document.querySelectorAll('.gear-slot select').forEach(sel => {
+      const slotName = sel.id.replace('gs-', '');
+      const name = sel.value;
+      if (!name) return;
+      const cat = GEAR_DATABASE[slotName];
+      const base = cat?.baseTypes.find(b => b.name === name);
+      if (!base || !base.conditionals?.length) return;
+
+      const disp = document.getElementById('gd-' + slotName);
+      if (!disp) return;
+
+      const activeConds = evaluateConditionals(base, stats);
+      let condHtml = '';
+      base.conditionals.forEach(c => {
+        const isActive = activeConds.some(ac => ac.then === c.then);
+        const label = c.label[lang] || c.label.es || c.label;
+        const cls = isActive ? 'cond-active' : 'cond-inactive';
+        condHtml += `<div class="${cls}">⚡ ${label}</div>`;
+      });
+
+      // Append/update cond section in gear disp
+      let existingConds = disp.querySelector('.conditionals-display');
+      if (!existingConds) {
+        existingConds = document.createElement('div');
+        existingConds.className = 'conditionals-display';
+        disp.appendChild(existingConds);
+      }
+      existingConds.innerHTML = condHtml || `<div style="color:var(--dim);font-size:9px;font-style:italic;">${T[lang]?.['no.conditionals'] || 'No conditionals'}</div>`;
+    });
+  }
+
+  // Stats events
+  ['stat-str', 'stat-dex', 'stat-int', 'stat-hpfull'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateConditionals);
+  });
+  updateConditionals(); // Initial
+});
+// ══ END GEAR MATRIX UI ════════════════════════════════════════
+
+// ══ THEME TOGGLE (BOMBILLA) ═══════════════════════════════════
+(function(){
+  const themeToggle = document.getElementById('themeToggle');
+  const tooltipBombilla = document.getElementById('tooltipBombilla');
+  const clickSound = new Audio('switch.mp3');
+
+  function setTheme(isLight) {
+    if (isLight) {
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+      if(themeToggle) themeToggle.textContent = '🌙';
+      if(tooltipBombilla) tooltipBombilla.textContent = 'Too bright? Back to the shadows';
+    } else {
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+      if(themeToggle) themeToggle.textContent = '💡';
+      if(tooltipBombilla) tooltipBombilla.textContent = 'Feeling the web is too dark? Turn the lights ON';
+    }
+  }
+
+  // Restore saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') setTheme(true);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
+      setTheme(!document.body.classList.contains('light-mode'));
+    });
+  }
+})();
+
+// ══ SHIELD LOGIC (2H DISABLES SHIELD) ════════════════════════
+(function(){
+  const TWO_HAND_TYPES = ['Hacha a dos manos','Espada a dos manos','Martillo a dos manos','Bastón','Arco'];
+
+  function actualizarEstadoEscudo() {
+    const tipoArmaSelect = document.getElementById('wm-type1');
+    const escudoSelect = document.getElementById('wm-shield');
+    const shieldMsg = document.getElementById('shield-msg');
+    if (!tipoArmaSelect || !escudoSelect) return;
+    const es2M = TWO_HAND_TYPES.some(t => tipoArmaSelect.value.includes(t));
+    escudoSelect.disabled = es2M;
+    escudoSelect.classList.toggle('shield-disabled', es2M);
+    if (shieldMsg) shieldMsg.style.display = es2M ? 'block' : 'none';
+    if (es2M) escudoSelect.value = '';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const tipoArmaSelect = document.getElementById('wm-type1');
+    if (tipoArmaSelect) {
+      tipoArmaSelect.addEventListener('change', actualizarEstadoEscudo);
+    }
+    setTimeout(actualizarEstadoEscudo, 600);
+  });
+})();
+
+// ══ FAQ ACCORDION ══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-question').forEach(b => {
+        b.classList.remove('open');
+        b.nextElementSibling.style.display = 'none';
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.style.display = 'block';
+      }
+    });
+  });
+});
+
+// ══ BUILD SAVER ════════════════════════════════════════════════
+function getBuildState() {
+  const shield = document.getElementById('wm-shield')?.value || '';
+  const stats = {
+    STR: document.getElementById('stat-str')?.value || 100,
+    DEX: document.getElementById('stat-dex')?.value || 100,
+    INT: document.getElementById('stat-int')?.value || 100,
+    hp_full: document.getElementById('stat-hpfull')?.checked || false,
+  };
+  const armor = {};
+  document.querySelectorAll('.gear-slot select').forEach(sel => {
+    const slot = sel.id.replace('gs-','');
+    armor[slot] = sel.value;
+  });
+  return {
+    mainHandType: document.getElementById('wm-type1')?.value || '',
+    mainHandName: document.getElementById('wm-name1')?.value || '',
+    offHandType:  document.getElementById('wm-type2')?.value || '',
+    offHandName:  document.getElementById('wm-name2')?.value || '',
+    shield, stats, armor,
+    wardrobe: typeof WARDROBE !== 'undefined' ? [...WARDROBE.stored] : [],
+    lang,
+  };
+}
+
+function applyBuildState(state) {
+  if (!state) return;
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val; };
+  set('wm-type1', state.mainHandType);
+  setTimeout(() => { if(typeof wmPopulateNames==='function') wmPopulateNames(1); set('wm-name1', state.mainHandName); }, 100);
+  set('wm-type2', state.offHandType);
+  setTimeout(() => { if(typeof wmPopulateNames==='function') wmPopulateNames(2); set('wm-name2', state.offHandName); }, 150);
+  set('wm-shield', state.shield || '');
+  if (state.stats) {
+    set('stat-str', state.stats.STR); set('stat-dex', state.stats.DEX); set('stat-int', state.stats.INT);
+    const hpEl = document.getElementById('stat-hpfull'); if(hpEl) hpEl.checked = state.stats.hp_full;
+    ['stat-str','stat-dex','stat-int','stat-hpfull'].forEach(id => {
+      const el = document.getElementById(id); if(el) el.dispatchEvent(new Event('input'));
+    });
+  }
+  setTimeout(() => {
+    if (state.armor) Object.entries(state.armor).forEach(([slot, val]) => set('gs-'+slot, val));
+    if (state.wardrobe && typeof WARDROBE !== 'undefined' && WARDROBE.loadFromSave) WARDROBE.loadFromSave(state.wardrobe);
+  }, 300);
+}
+
+function getBuilds() { try { return JSON.parse(localStorage.getItem('projectU_builds') || '{}'); } catch(e) { return {}; } }
+function saveBuilds(b) { localStorage.setItem('projectU_builds', JSON.stringify(b)); }
+
+function updateBuildsDropdown() {
+  const builds = getBuilds();
+  const names = Object.keys(builds);
+  [document.getElementById('builds-dropdown'), document.getElementById('delete-build-select')].forEach(sel => {
+    if (!sel) return;
+    const first = sel.options[0];
+    sel.innerHTML = '';
+    sel.appendChild(first);
+    names.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = n; sel.appendChild(o); });
+  });
+}
+
+function saveCurrentBuild(name) {
+  if (!name) name = prompt('Nombre para esta build:');
+  if (!name) return;
+  const builds = getBuilds();
+  builds[name] = getBuildState();
+  saveBuilds(builds);
+  updateBuildsDropdown();
+  showMsg('✓ Build "' + name + '" guardada');
+}
+
+function loadBuild(name) {
+  const builds = getBuilds();
+  if (!builds[name]) return;
+  applyBuildState(builds[name]);
+  showMsg('✓ Build "' + name + '" cargada');
+}
+
+function deleteBuild(name) {
+  if (!confirm('¿Eliminar build "' + name + '"?')) return;
+  const builds = getBuilds();
+  delete builds[name];
+  saveBuilds(builds);
+  updateBuildsDropdown();
+  showMsg('✓ Build "' + name + '" eliminada');
+}
+
+function exportBuildToText() {
+  const state = getBuildState();
+  const date = new Date().toLocaleString();
+  const text = [
+    '╔══════════════════════════════════════╗',
+    '║  🏹 PROJECT U · BUILD EXPORT          ║',
+    '╠══════════════════════════════════════╣',
+    '║  Arma Principal: ' + (state.mainHandName||'—').padEnd(21) + '║',
+    '║  Mano Secundaria: ' + (state.offHandName||'—').padEnd(20) + '║',
+    '║  Escudo: ' + (state.shield||'—').padEnd(29) + '║',
+    '║  STR:' + String(state.stats.STR).padEnd(6) + 'DEX:' + String(state.stats.DEX).padEnd(6) + 'INT:' + String(state.stats.INT).padEnd(11) + '║',
+    '║  Baúl: ' + (state.wardrobe?.length||0) + ' ítem(s) guardado(s)'.padEnd(27) + '║',
+    '║  Exportado: ' + date.padEnd(26) + '║',
+    '╚══════════════════════════════════════╝',
+  ].join('\n');
+  navigator.clipboard.writeText(text).then(() => showMsg('📋 Build copiada al portapapeles!')).catch(() => { alert(text); });
+}
+
+function resetAllSelections() {
+  if (!confirm('⚠️ ¿Resetear TODOS los selects y stats?')) return;
+  document.querySelectorAll('select').forEach(sel => { sel.value=''; });
+  document.querySelectorAll('input[type="checkbox"]').forEach(chk => { chk.checked=false; });
+  ['stat-str','stat-dex','stat-int'].forEach(id => { const el=document.getElementById(id); if(el){el.value=100;el.dispatchEvent(new Event('input'));} });
+  showMsg('✓ Todo reseteado');
+}
+
+function showMsg(txt) {
+  const msg = document.createElement('div');
+  msg.textContent = txt;
+  msg.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);color:var(--gold);border:1px solid var(--gold);padding:.5rem 1.2rem;border-radius:2px;font-size:11px;z-index:30000;font-family:Share Tech Mono,monospace';
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 2000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateBuildsDropdown();
+  const saveBtn = document.getElementById('save-build-btn');
+  const loadBtn = document.getElementById('load-build-btn');
+  const deleteBtn = document.getElementById('delete-build-btn');
+  const exportBtn = document.getElementById('export-build-btn');
+  const resetBtn = document.getElementById('reset-all-btn');
+  if (saveBtn) saveBtn.addEventListener('click', () => saveCurrentBuild());
+  if (loadBtn) loadBtn.addEventListener('click', () => {
+    const v = document.getElementById('builds-dropdown')?.value;
+    if (v) loadBuild(v); else alert('Seleccioná una build para cargar.');
+  });
+  if (deleteBtn) deleteBtn.addEventListener('click', () => {
+    const v = document.getElementById('delete-build-select')?.value;
+    if (v) deleteBuild(v); else alert('Seleccioná una build para eliminar.');
+  });
+  if (exportBtn) exportBtn.addEventListener('click', exportBuildToText);
+  if (resetBtn) resetBtn.addEventListener('click', resetAllSelections);
+});
+// ══ END NEW FEATURES ══════════════════════════════════════════
+
+</script>
+<script src="weapon_matrix.js"></script>
+<script src="Gear_matrix.js"></script>
+</body>
+</html>
