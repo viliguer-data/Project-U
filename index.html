@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project U · Beta 2.0 — Undecember Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=JetBrains+Mono&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Floating Neon Warrior Images -->
+  <img src="warrior_left.webp" alt="Golden Champion" class="neon-warrior-left">
+  <img src="warrior_right.webp" alt="Mystic Warrior" class="neon-warrior-right">
+
+  <!-- Bombilla Theme Toggle -->
+  <div class="theme-toggle" id="themeToggle" title="Toggle theme">💡</div>
+  <div class="tooltip-bombilla" id="tooltipBombilla">Feeling the web is too dark? Turn the lights ON</div>
+  
+  <header class="top-brand">
+    <a href="#" class="top-brand-link">Undecember Tool</a>
+  </header>
+<div class="wrap">
+
+  <div class="hero">
+<div class="lang-toggle">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="fr">FR</button>
+      <button type="button" class="lang-btn" data-lang="ko">KO</button>
+      <button type="button" class="lang-btn" data-lang="zh">ZH</button>
+      <button type="button" class="lang-btn" data-lang="ru">RU</button>
+      <button type="button" class="lang-btn" data-lang="pt">PT</button>
+      <button type="button" class="lang-btn active" data-lang="es">ES</button>
+    </div>
+    <div class="hero-badge">Project U · Beta 2.0</div>
+    <h1>Undecember<br><span>Baby Steps</span></h1>
+    <div class="hero-sub">Guide to Progress</div>
+    
+        
+    <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--dim);letter-spacing:.08em;margin-bottom:2rem;font-style:italic">
+      "Enjoy the ride. It won't bite."
+    </div>
+    <div class="frases">
+      <div class="frase"><span>"</span><span data-i18n="frase1">I don't own the Truth — but <span>Knowledge + Organization = Power.</span></span><span>"</span></div>
+      <div class="frase red"><span>"</span><span data-i18n="frase2">Don't fear the RNG. It's not your friend, nor your enemy... <span>it only throws suggestions.</span></span><span>"</span></div>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+      <button type="button" id="prev-track" class="lang-btn" style="min-width:40px;" title="Previous Track">◀</button>
+      <button type="button" id="music-btn" class="lang-btn" style="min-width:150px;">▶ PLAY_AMBIENT.sh</button>
+      <button type="button" id="next-track" class="lang-btn" style="min-width:40px;" title="Next Track">▶</button>
+      <div style="display:flex;align-items:center;gap:.4rem;border:1px solid var(--dim);border-radius:2px;padding:.15rem .4rem;font-family:'Share Tech Mono',monospace;font-size:11px;">
+        <button type="button" id="vol-down" style="background:transparent;border:none;color:var(--cyan);cursor:pointer;font-size:14px;padding:0 .3rem;line-height:1;" title="Volume down">−</button>
+        <span id="vol-display" style="color:var(--cyan);min-width:36px;text-align:center;letter-spacing:.05em;">30%</span>
+        <button type="button" id="vol-up" style="background:transparent;border:none;color:var(--cyan);cursor:pointer;font-size:14px;padding:0 .3rem;line-height:1;" title="Volume up">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="tracker.title">// tracker · ¿dónde estás ahora?</div>
+    <div class="tracker-box">
+      <div class="tracker-row">
+        <div class="tracker-group">
+          <label data-i18n="lbl.act">Act actual</label>
+          <select class="tracker-select" id="sel-acto">
+            <option value="" data-i18n-opt="sel">— Seleccioná —</option>
+            <optgroup id="og1" data-i18n-optgroup="og1" label="Episodio 1 — Tutorial (Act 1–5)">
+              <option value="1" data-i18n-opt="act.1">Act 1</option><option value="2" data-i18n-opt="act.2">Act 2</option><option value="3" data-i18n-opt="act.3">Act 3</option><option value="4" data-i18n-opt="act.4">Act 4</option><option value="5" data-i18n-opt="act.5">Act 5</option>
+            </optgroup>
+            <optgroup id="og2" data-i18n-optgroup="og2" label="Episodio 2 — El juego empieza (Act 6–10)">
+              <option value="6" data-i18n-opt="act.6">Act 6</option><option value="7" data-i18n-opt="act.7">Act 7</option><option value="8" data-i18n-opt="act.8">Act 8</option><option value="9" data-i18n-opt="act.9">Act 9</option><option value="10" data-i18n-opt="act.10">Act 10</option>
+            </optgroup>
+            <optgroup id="og3" data-i18n-optgroup="og3" label="Episodio 3 — Endgame (Act 11–13)">
+              <option value="11" data-i18n-opt="act.11">Act 11</option><option value="12" data-i18n-opt="act.12">Act 12</option><option value="13" data-i18n-opt="act.13">Act 13</option>
+            </optgroup>
+            <optgroup id="og4" data-i18n-optgroup="og4" label="Epílogo — Todo desbloqueado">
+              <option value="epilogo" data-i18n-opt="epilogo">Epílogo</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="tracker-group">
+          <label data-i18n="lbl.build">Tipo de build</label>
+          <select class="tracker-select" id="sel-build">
+            <option value="" data-i18n-opt="sel">— Seleccioná —</option>
+            <option value="fisico" data-i18n-opt="b.fisico">Físico (Guerrero)</option>
+            <option value="veneno" data-i18n-opt="b.veneno">Veneno (Poison)</option>
+            <option value="elemental" data-i18n-opt="b.elemental">Daño Elemental</option>
+            <option value="crit" data-i18n-opt="b.crit">Crítico</option>
+            <option value="invocador" data-i18n-opt="b.inv">Invocador</option>
+            <option value="nolosé" data-i18n-opt="b.noidea">No sé todavía</option>
+          </select>
+        </div>
+        <div class="tracker-group">
+          <label data-i18n="lbl.rng">Tu situación con el RNG</label>
+          <select class="tracker-select" id="sel-rng">
+            <option value="" data-i18n-opt="sel">— Seleccioná —</option>
+            <option value="bien" data-i18n-opt="r.bien">Me está yendo bien</option>
+            <option value="mal" data-i18n-opt="r.mal">Me cae lo que no necesito</option>
+            <option value="confundido" data-i18n-opt="r.conf">No sé qué hacer con lo que tengo</option>
+          </select>
+        </div>
+        <div class="tracker-group">
+          <label data-i18n="lbl.sit">Problema actual</label>
+          <select class="tracker-select" id="sel-situacion">
+            <option value="" data-i18n-opt="sit.none">— Sin problema —</option>
+            <option value="low_dmg" data-i18n-opt="sit.dmg">Bajo daño</option>
+            <option value="glass" data-i18n-opt="sit.glass">Muero rápido</option>
+            <option value="stuck" data-i18n-opt="sit.stuck">Progreso lento</option>
+            <option value="lucky" data-i18n-opt="sit.lucky">Muchos drops buenos</option>
+          </select>
+        </div>
+      </div>
+      <button type="button" id="btn-analizar" class="btn-analizar" data-i18n="btn.analyze">⟶ Analizar situación</button>
+      <div class="resultado" id="resultado"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="philo.title">// filosofía · el manual de adaptabilidad</div>
+    <div class="philo-grid">
+      <div class="philo-card"><div class="icon">⚔️</div><h3 data-i18n="p1.h">Conocimiento es poder</h3><p data-i18n="p1.p">Entender cómo funciona el sistema de runas, las resistencias y el scaling de daño te da <em>ventaja real</em>. No necesitás un build copiado si entendés los fundamentos.</p></div>
+      <div class="philo-card"><div class="icon">🎲</div><h3 data-i18n="p2.h">El RNG es neutral</h3><p data-i18n="p2.p">No te persigue ni te favorece. Te da opciones y <em>vos decidís qué hacer con ellas</em>. El jugador adaptable siempre tiene más caminos que el que fuerza.</p></div>
+      <div class="philo-card"><div class="icon">🗃️</div><h3 data-i18n="p3.h">El Baúl es tu aliado</h3><p data-i18n="p3.p">Lo que hoy no te sirve, <em>es el poder del mañana</em>. Guardá todo. Otro personaje, otro momento, otra build — todo tiene su momento.</p></div>
+      <div class="philo-card"><div class="icon">🔄</div><h3 data-i18n="p4.h">Adaptate, no fuerces</h3><p data-i18n="p4.p">Si el loot te empuja hacia otra dirección, <em>escuchalo</em>. Pivotar no es rendirse — es inteligencia táctica. El RNG muchas veces muestra un camino mejor.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="kl.title">// knowledge.learned — lo que nadie te cuenta</div>
+    <div class="philo-grid">
+      <div class="philo-card"><div class="icon">🌐</div><h3 data-i18n="k1.h">El juego no está vacío</h3><p data-i18n="k1.p"><em>"Don't be afraid if you don't see many players around. The game may feel empty at first — but its true nature lives in the endgame. That's where everyone is."</em></p></div>
+      <div class="philo-card"><div class="icon">🔁</div><h3 data-i18n="k2.h">Tu primer personaje es tu maestro</h3><p data-i18n="k2.p">No es tu main — es tu escuela. Cada error, cada pivot de build, cada ítem guardado en el baúl es una lección. <em>La satisfacción de llegar al endgame es real.</em></p></div>
+      <div class="philo-card"><div class="icon">🗺️</div><h3 data-i18n="k3.h">Las transiciones son el juego</h3><p data-i18n="k3.p">Whirlwind → Toxic Flame → Icy Arrow. Cada build fue una respuesta a lo que el juego ofrecía. <em>Adaptarse no es rendirse — es jugar bien.</em></p></div>
+      <div class="philo-card"><div class="icon">💡</div><h3 data-i18n="k4.h">El drop malo no existe</h3><p data-i18n="k4.p">Lo que hoy no usás, <em>es el poder de otro personaje mañana.</em> El baúl no es desorden — es planificación a largo plazo.</p></div>
+      <div class="philo-card"><div class="icon">🏆</div><h3 data-i18n="k5.h">El completionista es recompensado</h3><p data-i18n="k5.p">Explorar cada rincón, completar cada mapa al 100% y cumplir misiones secundarias <em>no es tiempo perdido</em> — el juego lo premia con logros, recursos y contenido exclusivo del Epílogo.</p></div>
+      <div class="philo-card"><div class="icon">📦</div><h3 data-i18n="k6.h">Hasta las cajas importan</h3><p data-i18n="k6.p">Romper barriles, cajas y objetos del escenario parece insignificante — pero <em>cuenta para logros reales.</em> En Undecember cada acción tiene peso. Nunca ignorés el entorno.</p></div>
+      <div class="philo-card"><div class="icon">🧩</div><h3 data-i18n="k7.h">No necesitás un alt enseguida</h3><p data-i18n="k7.p">El juego <em>se adapta solo al progreso</em>. Las Jewells aparecen en el Act 6, las cartas del Caos recién al final del Act 13. No hay necesidad de crear una mula desde el inicio — aprendé primero qué guardar, qué vender y qué romper.</p></div>
+      <div class="philo-card"><div class="icon">💰</div><h3 data-i18n="k8.h">¿Es P2W? La respuesta honesta</h3><p data-i18n="k8.p">En mi experiencia: <em>no</em>. Pero la organización sí importa. Saber gestionar el espacio del banco, decidir qué pasarle a otros personajes y qué descartar <em>vale más que cualquier item comprado</em>.</p></div>
+      <div class="philo-card"><div class="icon">📉</div><h3 data-i18n="k9.h">Las resistencias se diluyen al avanzar</h3><p data-i18n="k9.p">El 75% que tenías en el Act 3 <em>puede no alcanzar en el Act 7</em>. A medida que avanzás de episodio, los enemigos escalan y las resistencias se "caen" relativamente. Revisalas cada vez que cambiás de episodio — no son "set and forget".</p></div>
+      <div class="philo-card"><div class="icon">🔑</div><h3 data-i18n="k10.h">Algunos items son Game Changers</h3><p data-i18n="k10.p">No todos los items son una mejora incremental. Algunos cambian el rumbo completo — <em>un antes y un después</em>. No siempre los reconocés al equiparlos, pero lo notás cuando el juego empieza a fluir diferente. Guardá todo hasta estar seguro.</p></div>
+      <div class="philo-card"><div class="icon">⚔️</div><h3 data-i18n="k11.h">Los bosses como test de build</h3><p data-i18n="k11.p">Hay bosses que actúan como un checkpoint natural — sin spoilear cuáles. Si no podés con uno, el juego no te está castigando: <em>te está mostrando algo sobre tu build</em>. No es necesariamente que estés mal, sino que hay algo por ajustar antes de seguir.</p></div>
+      <div class="philo-card"><div class="icon">🔄</div><h3 data-i18n="k12.h">Cambio forzado vs. Ganancias</h3><p data-i18n="k12.p">A veces el juego te obliga a perder algo — puntos del Zodiaco, stats, runas o equipo — para desbloquear un progreso mayor. <em>No es un castigo, es el sistema adaptándose.</em> Aceptar ese cambio forzado es lo que separa al jugador que avanza del que se queda trabado.</p></div>
+    </div>
+  </div>
+ <section class="card" style="margin-top: 40px; border-left: 2px solid var(--gold); padding: 25px;">
+<h2 class="cinzel" style="font-size: 1.1rem; margin-bottom: 25px; color: var(--gold); letter-spacing: 2px;">
+  <span data-i18n="path.title">// MI CAMINO: EVOLUCIÓN POST-64</span>
+</h2>
+
+<div class="timeline">
+  <div class="timeline-item" style="margin-bottom: 30px; padding-left: 20px; border-left: 1px solid var(--dim);">
+    <div style="color: var(--cyan); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Cinzel';">
+      PHASE 01: WHIRLWIND
+    </div>
+    <p style="line-height: 1.6; font-size: 0.9rem; opacity: 0.8;">
+      <span data-i18n="path.p1">Buscaba críticos amarillos entre los blancos. Muy satisfactorio, pero las resistencias me frenaron en el Act 6. <span style="color:var(--cyan)">Primera lección: el juego te avisa cuando un build llegó a su techo.</span></span>
+    </p>
+  </div>
+
+  <div class="timeline-item" style="margin-bottom: 30px; padding-left: 20px; border-left: 1px solid var(--red);">
+    <div style="color: var(--red2); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Cinzel';">
+      PHASE 02: TOXIC FLAME
+    </div>
+    <p style="line-height: 1.6; font-size: 0.9rem; opacity: 0.8;">
+      <span data-i18n="path.p2">Transición al daño fijo (<span style="color:var(--red2)">Max-Min DMG</span>). Estabilidad pura para superar el pico de dificultad. Cada cambio de build significó guardar items distintos — el baúl empezó a crecer con propósito.</span>
+    </p>
+  </div>
+
+  <div class="timeline-item" style="margin-bottom: 30px; padding-left: 20px; border-left: 1px solid var(--gold);">
+    <div style="color: var(--gold); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Cinzel';">
+      PHASE 03: ICY ARROW
+    </div>
+    <p style="line-height: 1.6; font-size: 0.9rem; opacity: 0.8;">
+      <span data-i18n="path.p3">La meta: <span style="color:var(--gold2); font-weight:bold; font-size:1.1rem; text-shadow: 0 0 8px rgba(201,168,76,0.5);">AMARILLOS ENORMES</span>. Velocidad y críticos masivos. Recompensa a la organización.</span>
+    </p>
+  </div>
+
+<div class="timeline-item" style="padding-left: 20px; border-left: 1px solid var(--cyan); background: rgba(0,229,255,.03); padding: 15px 20px; border-radius: 2px;">
+  <div style="color: var(--cyan); font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Cinzel';">
+    <span data-i18n="path.zodiac.title">// ZODIAC RESET · FREE WINDOW</span>
+  </div>
+  <p style="line-height: 1.7; font-size: 0.85rem; opacity: 0.9;">
+    <span data-i18n="path.zodiac.p">
+      El juego permite resetear el Zodiaco <span style="color:var(--cyan)">Gratis hasta antes de matar el jefe final del Act 10</span>. 
+      Esto no es solo una ventaja — es una invitación a probar builds diferentes sin miedo. 
+      <span style="color:var(--gold)">Experimentar antes del Act 10 no es tiempo perdido — es inversión en el inventario.</span>
+    </span>
+  </p>
+</div>
+
+<div style="grid-column:1/-1;padding:1rem 1.2rem;font-size:11px;font-style:italic;" data-i18n="endgame.secret" class="endgame-secret">  <span class="lang-es">El endgame tiene sus propios secretos — esos los descubrís vos.</span>
+  <span class="lang-en">The endgame has its own secrets — those are yours to discover.</span>
+  <span class="lang-fr">L'endgame a ses propres secrets — c'est à vous de les découvrir.</span>
+  <span class="lang-ko">엔드게임에는 자신만의 비밀이 있습니다 — 그것은 당신이 발견해야 할 것입니다.</span>
+  <span class="lang-zh">终局有自己的秘密 — 等待你去发现。</span>
+  <span class="lang-ru">У эндгейма есть свои секреты — их вам предстоит открыть самим.</span>
+  <span class="lang-pt">O endgame tem seus próprios segredos — cabe a você descobri-los.</span>
+</div>
+</section>
+
+  <!-- EARLY GAME TIPS -->
+  <div class="section">
+    <div class="sec-title" data-i18n="early.title">// early.game.tips — cada acción suma</div>
+    <div style="font-size:11px;margin-bottom:1.2rem;font-style:italic" data-i18n="early.intro">
+      "No es un juego difícil, pero hay mucho por hacer. Cada acción pequeña construye un personaje enorme."
+    </div>
+    <div class="philo-grid">
+
+      <div class="philo-card">
+        <div class="icon">📖</div>
+        <h3 data-i18n="early.comp.h">El Compendio trabaja para vos</h3>
+        <p data-i18n="early.comp.p">Una vez desbloqueado (Act 1 o 2), prestá atención a las runas que elegís. <em>Evitá repetirlas al principio</em> — concentrate en conseguir runas nuevas para sumar puntos y obtener mejoras permanentes. ¡Cada punto suma! Lo mismo aplica para los items Únicos: guardalos para el buff pasivo.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">⚗️</div>
+        <h3 data-i18n="early.alch.h">La mesa de alquimia nunca descansa</h3>
+        <p data-i18n="early.alch.p">Empezá a craftear temprano. No dejes la mesa de alquimia quieta — subir el nivel de Maestría es la <em>única forma</em> de desbloquear Pociones Únicas y crafteo avanzado más adelante. La eficiencia es la clave.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">💛</div>
+        <h3 data-i18n="early.mys.h">Gastá el oro en Misteriosos</h3>
+        <p data-i18n="early.mys.p">Entre el Mid y Late Game, mientras el crafteo avanzado todavía no es del todo viable, gastar el oro ahorrado en <em>Objetos Misteriosos</em> es una gran opción. Es la mejor forma de buscar bases de alto nivel o equipo decente.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">🏆</div>
+        <h3 data-i18n="early.ach.h">Todo cuenta como logro</h3>
+        <p data-i18n="early.ach.p">Agregar amigos, unirse a una guild, completar tareas diarias — <em>cada acción suma puntos de progreso invisible</em>. Los buffs diarios y recompensas de guild son victorias pasivas que muchos ignoran.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">🌀</div>
+        <h3 data-i18n="early.season.h">Temporada > Estándar (mi opinión)</h3>
+        <p data-i18n="early.season.p">Si venís de juegos como PoE, ya sabés cómo funciona: el personaje de Temporada termina en Estándar al final del ciclo. Pero mientras dura, tiene <em>mayor drop de oro, más esencias de alquimia y mejores chances de Únicos</em>. Mi recomendación personal: arrancá en Temporada.</p>
+      </div>
+
+      <div class="philo-card">
+        <div class="icon">💀</div>
+        <h3 data-i18n="early.hard.h">Hardcore vs Normal — no es lo mismo</h3>
+        <p data-i18n="early.hard.p">En Hardcore, si tu personaje muere <em>demasiadas veces sin ser cuidadoso</em>, las consecuencias son permanentes. Normal te da margen para aprender sin ese peso. Para un jugador nuevo: <em>empezá en Normal</em>, aprendé el juego, y cuando te sientas seguro considerá el desafío Hardcore.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <section id="about" class="about">
+    <div class="about-title" data-i18n="about.title">About</div>
+    <p class="about-text" data-i18n="about.text">
+      This web-app has part of my thoughts, moving into a global vision. I'm not telling how to play; instead of it, I'm telling my story or my way through the game.
+    </p>
+  </section>
+
+
+  <!-- COMPENDIUM MATRIX -->
+  <div class="section" style="margin-top:3rem">
+    <div class="sec-title">// compendium.matrix · build & wardrobe</div>
+    <div class="tracker-box">
+
+      <!-- TABS -->
+      <div class="comp-tabs">
+        <button class="comp-tab active"    onclick="compTab('armas',this)">⚔ Armas</button>
+        <button class="comp-tab tab-armor" onclick="compTab('armaduras',this)">🛡 Armaduras</button>
+        <button class="comp-tab tab-acc"   onclick="compTab('accesorios',this)">💍 Accesorios</button>
+        <button class="comp-tab tab-runes" onclick="compTab('runas',this)">🔗 Link Runes</button>
+      </div>
+
+      <!-- TAB: ARMAS -->
+      <div class="comp-pane active" id="pane-armas">
+        <div class="tracker-row">
+          <div class="tracker-group">
+            <label data-i18n="weapon.main.type" style="font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase">Mano Principal · Tipo</label>
+            <select class="tracker-select" id="wm-type1" onchange="wmPopulateNames(1)">
+              <option value="" data-i18n="weapon.type.placeholder">— Tipo de arma —</option>
+            </select>
+          </div>
+          <div class="tracker-group">
+            <label data-i18n="weapon.main.name" style="font-size:10px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase">Mano Principal · Nombre</label>
+            <select class="tracker-select" id="wm-name1">
+              <option value="" data-i18n="weapon.name.placeholder">— Seleccioná tipo primero —</option>
+            </select>
+          </div>
+          <div class="tracker-group">
+            <label data-i18n="weapon.off.type" style="font-size:10px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase">Mano Secundaria · Tipo</label>
+            <select class="tracker-select" id="wm-type2" onchange="wmPopulateNames(2)" style="border-color:rgba(0,229,255,.25)">
+              <option value="" data-i18n="weapon.type.placeholder">— Tipo de arma —</option>
+              <option value="__none__" data-i18n="weapon.off.none">Sin mano secundaria</option>
+            </select>
+          </div>
+          <div class="tracker-group">
+            <label data-i18n="weapon.off.name" style="font-size:10px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase">Mano Secundaria · Nombre</label>
+            <select class="tracker-select" id="wm-name2" style="border-color:rgba(0,229,255,.25)">
+              <option value="" data-i18n="weapon.name.placeholder">— Seleccioná tipo primero —</option>
+            </select>
+          </div>
+          <div class="tracker-group" id="shield-group">
+            <label data-i18n="shield.label" style="font-size:10px;letter-spacing:.15em;color:var(--red2);text-transform:uppercase">🛡️ Escudo</label>
+            <select class="tracker-select" id="wm-shield" onchange="wmValidate()">
+              <option value="" data-i18n="shield.none">— Ninguno —</option>
+              <option value="Escudo Ligero" data-i18n="shield.light">Escudo Ligero</option>
+              <option value="Escudo Pesado" data-i18n="shield.heavy">Escudo Pesado</option>
+              <option value="Escudo de Torres" data-i18n="shield.tower">Escudo de Torres</option>
+            </select>
+            <div class="shield-msg" id="shield-msg" data-i18n="shield.warning">⚠ No compatible con armas de dos manos</div>
+          </div>
+        </div>
+        <button type="button" class="btn-analizar" data-i18n="btn.validate" onclick="wmValidate()" style="margin-top:.5rem">
+          ⟶ Validar Combinacion
+        </button>
+        <div id="wm-lore" style="display:none;margin-top:1rem"></div>
+      </div>
+
+      <!-- TAB: ARMADURAS -->
+      <div class="comp-pane" id="pane-armaduras">
+        <div class="gear-grid" id="grid-armaduras"></div>
+        
+        <!-- Stats Tracker for Conditionals -->
+        <div class="tracker-row" id="stats-tracker" style="margin-top:1rem; padding:1rem; background:var(--bg2); border:1px solid var(--border); border-radius:2px;">
+          <div class="tracker-group">
+            <label data-i18n="stats.str" style="font-size:9px; letter-spacing:.15em; color:var(--red2);">STR</label>
+            <input type="range" id="stat-str" min="0" max="500" value="100" style="width:100%;">
+            <span id="val-str" style="font-size:11px; color:var(--red2);">100</span>
+          </div>
+          <div class="tracker-group">
+            <label data-i18n="stats.dex" style="font-size:9px; letter-spacing:.15em; color:var(--cyan);">DEX</label>
+            <input type="range" id="stat-dex" min="0" max="500" value="100" style="width:100%;">
+            <span id="val-dex" style="font-size:11px; color:var(--cyan);">100</span>
+          </div>
+          <div class="tracker-group">
+            <label data-i18n="stats.int" style="font-size:9px; letter-spacing:.15em; color:var(--gold);">INT</label>
+            <input type="range" id="stat-int" min="0" max="500" value="100" style="width:100%;">
+            <span id="val-int" style="font-size:11px; color:var(--gold);">100</span>
+          </div>
+          <div class="tracker-group">
+            <label data-i18n="stats.hpfull" style="font-size:9px; letter-spacing:.15em;">HP Full</label>
+            <input type="checkbox" id="stat-hpfull">
+            <span id="val-hpfull" style="font-size:11px">No</span>
+          </div>
+        </div>
+        
+        <div class="wardrobe-summary" id="ws-armor">
+          <div class="ws-title" data-i18n="wardrobe.active">// bufos de armario activos</div>
+          <div id="ws-armor-body"></div>
+        </div>
+      </div>
+
+      <!-- TAB: ACCESORIOS -->
+      <div class="comp-pane" id="pane-accesorios">
+        <div class="gear-grid" id="grid-accesorios"></div>
+        <div class="wardrobe-summary" id="ws-acc">
+          <div class="ws-title" data-i18n="wardrobe.active">// bufos de armario activos</div>
+          <div id="ws-acc-body"></div>
+        </div>
+      </div>
+        
+        <!-- Stats Tracker for Conditionals (shared) - already in armaduras, hide duplicate -->
+        <div id="stats-tracker-acc" style="display:none;"></div>
+        
+        <div class="wardrobe-summary" id="ws-acc">
+          <div class="ws-title">// bufos de armario activos</div>
+          <div id="ws-acc-body"></div>
+        </div>
+      </div>
+
+      <!-- TAB: LINK RUNES -->
+      <div class="comp-pane" id="pane-runas">
+        <!-- Color legend -->
+        <div class="rune-color-legend">
+          <div class="rune-color-badge"><div class="rune-dot red"></div><span style="color:#e74c3c">🔴 <span data-i18n="runes.red.label">Rojo (STR)</span></span></div>
+          <div class="rune-color-badge"><div class="rune-dot green"></div><span style="color:#2ecc71">🟢 <span data-i18n="runes.green.label">Verde (AGI)</span></span></div>
+          <div class="rune-color-badge"><div class="rune-dot blue"></div><span style="color:#3498db">🔵 <span data-i18n="runes.blue.label">Azul (INT)</span></span></div>
+          <div class="rune-color-badge"><div class="rune-dot white"></div><span style="color:var(--light)">⚪ <span data-i18n="runes.white.label">Blanco (Universal)</span></span></div>
+        </div>
+
+        <!-- Color table -->
+        <table class="rune-color-table">
+          <thead>
+            <tr>
+              <th data-i18n="runes.table.color">Color</th>
+              <th data-i18n="runes.table.attr">Atributo</th>
+              <th data-i18n="runes.table.focus">Enfoque</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>🔴 <span data-i18n="runes.red.name">Rojo</span></td><td data-i18n="runes.red.attr">Fuerza (STR)</td><td data-i18n="runes.red.focus">Supervivencia · Físico</td></tr>
+            <tr><td>🟢 <span data-i18n="runes.green.name">Verde</span></td><td data-i18n="runes.green.attr">Agilidad (AGI)</td><td data-i18n="runes.green.focus">Velocidad · Destreza</td></tr>
+            <tr><td>🔵 <span data-i18n="runes.blue.name">Azul</span></td><td data-i18n="runes.blue.attr">Inteligencia (INT)</td><td data-i18n="runes.blue.focus">Magia · Utilidad</td></tr>
+            <tr><td>⚪ <span data-i18n="runes.white.name">Blanco</span></td><td data-i18n="runes.white.attr">Universal</td><td data-i18n="runes.white.focus">Enlace Libre</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Skill Runes -->
+        <div class="sec-title" style="margin-bottom:1rem;margin-top:.5rem" data-i18n="runes.skill.title">// skill runes · build actual</div>
+        <div id="skill-runes-container"></div>
+
+        <!-- Link Runes -->
+        <div class="sec-title" style="margin-bottom:.8rem;margin-top:1.5rem" data-i18n="runes.link.title">// link runes · modificadores equipados</div>
+        <div class="link-rune-grid" id="link-runes-container"></div>
+
+        <!-- Reference link -->
+        <div class="runes-ref-link">
+          <span data-i18n="runes.ref.text">¿Dudas? Consultá la librería completa →</span>
+          <a href="https://undecember.thein.ru/en/runes/" target="_blank" rel="noopener">undecember.thein.ru/en/runes/</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WM RESULT PANEL -->
+  <div id="wm-result" style="display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);width:min(680px,92vw);background:rgba(8,8,15,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.4rem;z-index:9000;font-size:11px;box-shadow:0 0 40px rgba(0,0,0,.7);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem;border-bottom:1px solid var(--border);padding-bottom:.6rem">
+      <span style="font-family:Cinzel,serif;font-size:11px;letter-spacing:.18em;color:var(--gold);">// WEAPON MATRIX · RESULTADO</span>
+      <button onclick="document.getElementById('wm-result').style.display='none'" style="background:transparent;border:none;cursor:pointer;font-size:18px;line-height:1;padding:0 .3rem">✕</button>
+    </div>
+    <div id="wm-result-body"></div>
+  </div>
+
+  <!-- BUILD TOOLBAR -->
+  <div class="build-toolbar">
+    <button type="button" class="lang-btn" id="save-build-btn" style="background:var(--gold);color:var(--bg);border-color:var(--gold);"><span data-i18n="toolbar.save">💾 Guardar build</span></button>
+    <select id="builds-dropdown" class="tracker-select" style="min-width:160px;"><option value="" data-i18n-opt="toolbar.load.ph">— Cargar build —</option></select>
+    <button type="button" class="lang-btn" id="load-build-btn"><span data-i18n="toolbar.load">📂 Cargar</span></button>
+    <select id="delete-build-select" class="tracker-select" style="min-width:160px;"><option value="" data-i18n-opt="toolbar.del.ph">— Eliminar build —</option></select>
+    <button type="button" class="lang-btn" id="delete-build-btn" style="border-color:var(--red2);color:var(--red2);"><span data-i18n="toolbar.del">🗑️ Eliminar</span></button>
+    <button type="button" class="lang-btn" id="export-build-btn" style="border-color:var(--cyan);color:var(--cyan);"><span data-i18n="toolbar.export">📋 Exportar</span></button>
+    <button type="button" class="lang-btn" id="reset-all-btn" style="border-color:var(--red);color:var(--red);"><span data-i18n="toolbar.reset">⟳ Resetear</span></button>
+  </div>
+
+  <!-- FAQ SECTION -->
+  <div class="section">
+    <div class="sec-title" data-i18n="faq.title">// faq · preguntas frecuentes</div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q1">¿Por qué mis bufos cambian según mis stats base?</button>
+        <div class="faq-answer" data-i18n="faq.a1">Project U no es una base de datos estática. Usa <strong>Condicionales de Atributo Comparado</strong>. Si tu Energía supera a tu Fuerza, tu Barrera escala un 10% extra. Las stats no existen en el vacío — el portal refleja la realidad del juego.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q2">¿Por qué no veo ítems comunes o raros?</button>
+        <div class="faq-answer" data-i18n="faq.a2">Project U está diseñado para el <strong>Theorycrafting de alto nivel</strong>. Los ítems <em>Únicos</em> son los que definen una build. Los ítems genéricos se agregarán en futuras actualizaciones del Compendio.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q3">¿El bufo del Baúl se suma al del ítem equipado?</button>
+        <div class="faq-answer" data-i18n="faq.a3">Sí. El sistema detecta si el ítem está <strong>Guardado en el Baúl (✦)</strong> y activa el beneficio pasivo de colección, independientemente de lo que tengas equipado en el slot activo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q4">¿Puedo guardar más de un ejemplar del mismo ítem Único?</button>
+        <div class="faq-answer" data-i18n="faq.a4">No. Project U sigue la regla de <strong>Ejemplar Único</strong>. El Compendio registra la obtención del objeto una sola vez. Una vez que un ítem está en Gris, su beneficio de colección queda permanente en tu Wardrobe.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q5">¿Por qué el Escudo no está en la pestaña de Armaduras?</button>
+        <div class="faq-answer" data-i18n="faq.a5">En Project U seguimos la lógica de combate real: el <strong>Escudo es una pieza de mano secundaria</strong>. Esto permite validar correctamente si tu build es compatible con armas de dos manos o si preferís la defensa adicional del escudo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q6">¿Cómo me ayuda Project U a decidir entre dos ítems únicos?</button>
+        <div class="faq-answer" data-i18n="faq.a6">Gracias al sistema de <strong>Condicionales de Atributo Comparado</strong>, no solo verás números. El portal te advertirá si un cambio de equipo rompe una sinergia de stats. La decisión final es tuya, pero los datos estarán de tu lado.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q7">¿Por qué usamos Seal of Chaos Resist en lugar de Cold Armor?</button>
+        <div class="faq-answer" data-i18n="faq.a7">Aunque somos una build de Agilidad (Verde), el Seal of Chaos Resist (Azul) es innegociable. <strong>La armadura física no sirve contra el daño de Caos.</strong> Sacrificamos defensa física plana por supervivencia pura — el daño de Caos es el que suele one-shotear a los arqueros en mapas altos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q8">¿Cómo se logra la "Metralleta de Movilidad"?</button>
+        <div class="faq-answer" data-i18n="faq.a8">El secreto es <strong>Roll + Use Count</strong>. Al equipar Use Count, el contador de cargas sube a 3. Podés reposicionarte tres veces seguidas antes del cooldown global. En peleas de jefes con áreas grandes, esto es lo que te mantiene vivo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q9">¿Cuál es la importancia del estado de Overheat?</button>
+        <div class="faq-answer" data-i18n="faq.a9">La Icy Arrow genera Overheat, y lo aprovechamos con <strong>Heat Cycle</strong>. Cuando llegamos a High Temperature (&gt;40% de Overheat), recibimos <em>+126.9% de Critical Rate</em>. No disparamos por disparar — mantenemos el ritmo para estar siempre en el pico de críticos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-i18n="faq.q10">¿Por qué invertir tanto en la Frost Sentry?</button>
+        <div class="faq-answer" data-i18n="faq.a10">La torreta no es solo daño extra — es escalado, control y distracción. Con <strong>Life Imbued</strong> la vida de la torreta se convierte en daño (+1% por cada 2500 HP). Con <strong>Precise Sentry</strong> congela enemigos para que los remateemos con Icy Arrow. <em>A ninguna runa la veo como secundaria — todas cumplen un rol.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Project U</span> · Beta Build 2.0 · Undecember Companion<br>
+    <span>Created by Glitch Prophet</span><br><br>
+
+    <span style="color:var(--gold);">⚠️ DISCLAIMER ⚠️</span><br>
+    <span style="font-size:9px;line-height:1.6;">
+      This is an unofficial fan website. Project U is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by LINE GAMES Corporation.<br>
+      All game content, trademarks, logos, and materials related to Undecember are property of LINE GAMES Corporation.<br>
+      This site is for informational and entertainment purposes only. No copyright infringement intended.
+    </span><br><br>
+
+    <span style="font-size:9px;">
+      "Play what you get, master what you play"
+    </span>
+  </div>
+
+</div>
+
+<!-- 1. Datos (no dependen de nadie) -->
+<script src="matrix_assets.js"></script>
+<script src="matrix_runes.js"></script>
+<script src="weapon_matrix.js"></script>
+<script src="gear_matrix.js"></script>   <!-- Define GEAR_DATABASE -->
+
+<!-- 2. Traducciones (NO debe tener consejos) -->
+<script src="lang.js"></script>
+
+<!-- 3. Lógica principal (define consejos y analizar) -->
+<script src="tracker.js"></script>
+
+<!-- 4. UI de gear (depende de GEAR_DATABASE) -->
+<script src="gear-ui.js"></script>        <!-- Llama a gearBuildSlots -->
+
+<!-- 5. Features -->
+<script src="build-saver.js"></script>
+<script src="rune-builder.js"></script>
+<script src="faq.js"></script>
+<script src="theme.js"></script>
+<script src="shield.js"></script>
+
+<!-- 6. Audio -->
+<script src="audio.js"></script>
+
+<!-- 7. Inicialización -->
+<script src="main.js"></script>
+
+</body>
+</html>
