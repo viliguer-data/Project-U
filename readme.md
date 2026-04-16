@@ -48,6 +48,10 @@ El proyecto está **modulado en 14+ archivos JavaScript** para mantener la cordu
 
 No vengo a decirte cómo jugar. Vengo a contarte **mi camino**, con los errores, los pivotes de build, y el RNG que a veces es amigo y a veces no.
 
+No es un juego difícil, pero hay mucho por hacer. Cada acción pequeña construye un personaje enorme.
+
+Y también, te forma.
+
 **El baúl es tu aliado. El RNG es neutral. Adaptarse no es rendirse.**
 
 ---
